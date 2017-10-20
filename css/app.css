@@ -1,0 +1,74 @@
+/*-----------------------------*/
+/* Game Cirle Styles */
+/*-----------------------------*/
+.game-circle {
+    border: 20px solid #000080;
+    border-radius: 100px;
+    height:100px;
+    width:100px;
+}
+
+/* End game circle styles */
+
+/*-----------------------------*/
+/* Light Switch Styles */
+/*-----------------------------*/
+.game-lights__switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.game-lights__switch input {
+    display: none;
+}
+
+.game-lights__switch-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.game-lights__switch-slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .game-lights__switch-slider {
+  background-color: #86d993;
+}
+
+input:focus + .game-lights__switch-slider {
+  box-shadow: 0 0 1px #86d993;
+}
+
+input:checked + .game-lights__switch-slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded game-lights__switch-sliders */
+.game-lights__switch-slider.round {
+  border-radius: 34px;
+}
+
+.game-lights__switch-slider.round:before {
+  border-radius: 50%;
+}
+
+/* End light switch styles */
