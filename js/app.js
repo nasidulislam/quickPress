@@ -1,6 +1,11 @@
-var lightSwitch;
+var lightSwitch, settings;
 
-lightSwitch = document.querySelector('.game-lights__switch-slider');
+settings = {
+    lightsSliderClass: '.game-lights__switch-slider'
+}
+
+// buttons
+lightSwitch = document.querySelector(settings.lightsSliderClass);
 
 /* Begin Function Declarations */
 
