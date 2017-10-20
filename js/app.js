@@ -5,6 +5,7 @@ settings = {
     gameControlsContainerClass: '.game-controls__container',
     lightsSliderClass: '.game-lights__switch-slider',
     circlePoint: '.point',
+    scoreCardClass: '.game-circle__scorecard',
     builtTimingArray: []
 }
 
@@ -15,16 +16,26 @@ $gameButton = document.querySelector(settings.gameButtonClass);
 // Elements
 $gameControls = document.querySelector(settings.gameControlsContainerClass);
 $point = document.querySelector(settings.circlePoint);
+$scoreCard = document.querySelector(settings.scoreCardClass);
 
 /* Begin Function Declarations */
 
 function theGame(event) {
     $gameControls.classList.add('game-start');
     handleLoopDecrement();
+    handleScoring();
 }
 
 function handleLoopDecrement() {
     $point.style.cssText = 'animation-duration: ' + settings.builtTimingArray.pop() + 's';
+}
+
+function handleScoring() {
+
+}
+
+function handleReset() {
+    $scoreCard.innerHTML = '0';
 }
 
 function buildTimingArray() {
@@ -42,6 +53,11 @@ function buildTimingArray() {
     settings.builtTimingArray = animationTiming.reverse();
 }
 
+function handleReload() {
+    buildTimingArray();
+    handleReset();
+}
+
 function toggleLight(event) {
     console.log('toggle light');
 }
@@ -50,7 +66,7 @@ function toggleLight(event) {
 
 /* Begin Event Listeners */
 
-document.addEventListener('DOMContentLoaded', buildTimingArray);
+document.addEventListener('DOMContentLoaded', handleReload);
 $lightSwitch.addEventListener('click', toggleLight);
 $gameButton.addEventListener('click', theGame);
 
