@@ -2,13 +2,13 @@ body {
     font-family: 'Josefin Sans', sans-serif;
 }
 
-@keyframes rot {
-	from {
+@keyframes follow {
+	0% {
 		transform: rotate(0deg)
 		           translate(-110px)
 		           rotate(0deg);
 	}
-	to {
+	100% {
 		transform: rotate(360deg)
 		           translate(-110px)
 		           rotate(-360deg);
@@ -52,18 +52,30 @@ body {
     font-size: 70px;
 }
 
-.game-circle__point {
-    animation: rot 5s infinite linear;
+.game-circle__follow {
+    animation-name: follow;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+
+    height: 11px;
+    left: 52%;
+    margin: -20px;
+    position: absolute;
+    width: 11px;
+    top: 330px;
+}
+
+.point {
     background-color: yellow;
     border: 5px solid yellow;
     border-radius: 11px;
-    display: block;
-    height: 11px;
-    left: 52%;
-	margin: -20px;
-    position: absolute;
-    width: 11px;
-	top: 330px;
+    animation-duration: 5s;
+}
+
+.punt {
+    background-color: orange;
+    border: 5px solid orange;
+    animation-duration: 10s;
 }
 
 .game-lights {
