@@ -83,7 +83,7 @@ body {
     animation-play-state: running;
 }
 
-.game-lights {
+.game-buttons {
     margin-top: 50px;
 }
 
@@ -120,18 +120,19 @@ body {
 /*-----------------------------*/
 /* Light Switch Styles */
 /*-----------------------------*/
-.game-lights__switch {
+.game-buttons__lights {
   position: relative;
   display: inline-block;
+  float: left;
   width: 60px;
   height: 34px;
 }
 
-.game-lights__switch input {
+.game-buttons__lights input {
     display: none;
 }
 
-.game-lights__switch-slider {
+.game-buttons__lights-slider {
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -143,7 +144,7 @@ body {
   transition: .4s;
 }
 
-.game-lights__switch-slider:before {
+.game-buttons__lights-slider:before {
   position: absolute;
   content: "";
   height: 26px;
@@ -155,29 +156,32 @@ body {
   transition: .4s;
 }
 
-input:checked + .game-lights__switch-slider {
+input:checked + .game-buttons__lights-slider {
   background-color: #86d993;
 }
 
-input:focus + .game-lights__switch-slider {
+input:focus + .game-buttons__lights-slider {
   box-shadow: 0 0 1px #86d993;
 }
 
-input:checked + .game-lights__switch-slider:before {
+input:checked + .game-buttons__lights-slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
 }
 
-/* Rounded game-lights__switch-sliders */
-.game-lights__switch-slider.round {
+/* Rounded game-buttons__lights-sliders */
+.game-buttons__lights-slider.round {
   border-radius: 34px;
 }
 
-.game-lights__switch-slider.round:before {
+.game-buttons__lights-slider.round:before {
   border-radius: 50%;
 }
 
+.game-buttons__reset {
+    float: right;
+}
 /* End light switch styles */
 
 @media screen and (min-width: 980px) {

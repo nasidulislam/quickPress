@@ -3,7 +3,7 @@ var $lightSwitch, settings, $gameButton, $gameControls;
 settings = {
     gameButtonClass: '.game-circle',
     gameControlsContainerClass: '.game-controls__container',
-    lightsSliderClass: '.game-lights__switch-slider',
+    lightsSliderClass: '.game-buttons__lights-slider',
     circlePoint: '.point',
     scoreCardClass: '.game-circle__scorecard',
     builtTimingArray: []
