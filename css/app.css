@@ -15,7 +15,7 @@
 /*-----------------------------*/
 .primary-content {
     margin-bottom: 50px;
-    margin-top: 50px;
+    margin-top: 100px;
 }
 
 .game-circle {
@@ -27,6 +27,7 @@
 }
 
 .game-lights {
+    margin-top: 50px;
     text-align: center;
 }
 
@@ -94,3 +95,7 @@ input:checked + .game-lights__switch-slider:before {
 }
 
 /* End light switch styles */
+
+@media screen and (min-width: 980px) {
+  // /* TODO:  */
+}
