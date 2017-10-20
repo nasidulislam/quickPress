@@ -1,4 +1,15 @@
 /*-----------------------------*/
+/* Game Header Styles */
+/*-----------------------------*/
+.game-header {
+    font-size: 30px;
+    font-family: 'Josefin Sans', sans-serif;
+    text-align: center;
+}
+
+/* End game header styles */
+
+/*-----------------------------*/
 /* Game Cirle Styles */
 /*-----------------------------*/
 .game-circle {
