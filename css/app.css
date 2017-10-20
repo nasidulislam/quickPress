@@ -4,22 +4,33 @@
 .game-header {
     font-size: 30px;
     font-family: 'Josefin Sans', sans-serif;
+    margin-top: 70px;
     text-align: center;
 }
 
 /* End game header styles */
 
 /*-----------------------------*/
-/* Game Cirle Styles */
+/* Primary Content Styles */
 /*-----------------------------*/
-.game-circle {
-    border: 20px solid #000080;
-    border-radius: 100px;
-    height:100px;
-    width:100px;
+.primary-content {
+    margin-bottom: 50px;
+    margin-top: 50px;
 }
 
-/* End game circle styles */
+.game-circle {
+    border: 20px solid #000080;
+    border-radius: 200px;
+    height: 200px;
+    margin: 0 auto;
+    width: 200px;
+}
+
+.game-lights {
+    text-align: center;
+}
+
+/* End primary content styles */
 
 /*-----------------------------*/
 /* Light Switch Styles */
