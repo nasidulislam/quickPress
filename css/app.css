@@ -45,6 +45,7 @@ body {
 }
 
 .game-leaderboards__table {
+    border-collapse: collapse;
     width: 100%;
 }
 
@@ -54,6 +55,14 @@ body {
 
 .game-leaderboards .game-leaderboards__table td:last-child {
     float: right;
+}
+
+.game-leaderboards .game-leaderboards__table td {
+    text-align: center;
+}
+
+.game-leaderboards .game-leaderboards__table tr {
+    height: 40px;
 }
 
 /* End primary content styles */
