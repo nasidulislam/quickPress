@@ -69,13 +69,18 @@ body {
     background-color: yellow;
     border: 5px solid yellow;
     border-radius: 11px;
-    animation-duration: 5s;
+    animation-duration: 10s;
+    animation-play-state: paused;
 }
 
 .punt {
+    display: none;
     background-color: orange;
     border: 5px solid orange;
-    animation-duration: 10s;
+}
+
+.game-start .point {
+    animation-play-state: running;
 }
 
 .game-lights {
