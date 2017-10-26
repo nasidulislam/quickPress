@@ -7,8 +7,7 @@ settings = {
     circlePoint: '.point',
     scoreCardClass: '.game-circle__scorecard',
     builtTimingArray: [],
-    resetButtonClass: '.game-buttons__reset',
-    currentScore: 0
+    resetButtonClass: '.game-buttons__reset'
 }
 
 // buttons
@@ -34,17 +33,15 @@ function handleLoopDecrement() {
 }
 
 function handleScoring() {
-    var score;
+    var currentScore, newScore;
 
-    score = settings.currentScore;
-    score = score + 1;
-    score = settings.currentScore;
-    $scoreCard.innerHTML = score;;
-    console.log('scoring');
+    currentScore = getCurrentScore();
+    newScore = currentScore + 1;
+    setScore(newScore);
 }
 
 function handleReset() {
-    $scoreCard.innerHTML = 0;
+    setScore(0);
     console.log('reset');
 }
 
@@ -69,6 +66,18 @@ function handleReload() {
 
 function toggleLight(event) {
     console.log('toggle light');
+}
+
+function getCurrentScore() {
+    var currentScore;
+
+    currentScore = parseInt($scoreCard.innerHTML);
+    settings.currentScore = currentScore;
+    return currentScore;
+}
+
+function setScore(score) {
+    $scoreCard.innerHTML = score;
 }
 
 /* End Function Declarations */
