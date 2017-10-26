@@ -123,7 +123,6 @@ body {
 .game-buttons__lights {
   position: relative;
   display: inline-block;
-  float: left;
   width: 60px;
   height: 34px;
 }
@@ -179,10 +178,21 @@ input:checked + .game-buttons__lights-slider:before {
   border-radius: 50%;
 }
 
-.game-buttons__reset {
-    float: right;
-}
 /* End light switch styles */
+
+/*-----------------------------*/
+/* Reset Button Styles */
+/*-----------------------------*/
+.game-buttons__reset {
+    background: #c90835;
+    border-radius: 28px;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 15px;
+    padding: 5px 10px 5px 10px;
+    text-decoration: none;
+}
+/* End reset button styles */
 
 @media screen and (min-width: 980px) {
   // /* TODO:  */
