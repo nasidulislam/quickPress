@@ -42,6 +42,7 @@ function handleScoring() {
 
 function handleReset() {
     setScore(0);
+    $gameControls.classList.remove('game-start');
     console.log('reset');
 }
 
