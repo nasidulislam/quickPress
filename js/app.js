@@ -8,7 +8,7 @@ settings = {
     scoreCardClass: '.game-circle__scorecard',
     builtTimingArray: [],
     resetButtonClass: '.game-buttons__reset'
-}
+};
 
 // buttons
 $lightSwitch = document.querySelector(settings.lightsSliderClass);
@@ -22,7 +22,7 @@ $scoreCard = document.querySelector(settings.scoreCardClass);
 
 /* Begin Function Declarations */
 
-function theGame(event) {
+function theGame() {
     $gameControls.classList.add('game-start');
     handleLoopDecrement();
     handleScoring();
@@ -47,10 +47,9 @@ function handleReset() {
 }
 
 function buildTimingArray() {
-    var animationTiming, initial, i, builtArray;
+    var animationTiming, initial, i;
 
     animationTiming = [5, 4.5, 4, 3.5, 3, 2.5, 2];
-    builtArray = [];
 
     for(i = 0; i < 50; i++) {
         initial = animationTiming[animationTiming.length - 1];
@@ -65,7 +64,7 @@ function handleReload() {
     handleReset();
 }
 
-function toggleLight(event) {
+function toggleLight() {
     console.log('toggle light');
 }
 
