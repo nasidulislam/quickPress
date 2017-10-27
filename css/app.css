@@ -213,6 +213,15 @@ input:checked + .game-buttons__lights-slider:before {
 
 /* End lights off styles */
 
+/*-----------------------------*/
+/* Game Start Styles */
+/*-----------------------------*/
+.game-start .punt {
+	animation-duration: 0.0000000000000001s;
+	display: block;
+}}
+/* End game start styles */
+
 @media screen and (min-width: 980px) {
 	/* TODO:  */
 }
