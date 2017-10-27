@@ -15,6 +15,7 @@ body {
 /* Game Header Styles */
 /*-----------------------------*/
 .game-header {
+	color: #000080;
 	font-size: 30px;
 	margin-top: 70px;
 	text-align: center;
@@ -190,6 +191,27 @@ input:checked + .game-buttons__lights-slider:before {
 }
 
 /* End reset button styles */
+
+/*-----------------------------*/
+/* Lights Off Styles */
+/*-----------------------------*/
+.body-class.toggle-lights {
+	background-color: #001f3f;
+}
+
+.toggle-lights .game-header {
+	color: #EDCDC2;
+}
+
+.toggle-lights .game-circle {
+	border-color: #5A7247;
+}
+
+.toggle-lights .game-leaderboards {
+	color: #EDCDC2;
+}
+
+/* End lights off styles */
 
 @media screen and (min-width: 980px) {
 	/* TODO:  */
