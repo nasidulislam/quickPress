@@ -1,6 +1,7 @@
 var $lightSwitch, settings, $gameButton, $gameControls;
 
 settings = {
+	// selectors
 	gameButtonClass: '.game-circle',
 	gameControlsContainerClass: '.game-controls__container',
 	lightsSliderClass: '.game-buttons__lights-slider',
@@ -9,8 +10,12 @@ settings = {
 	builtTimingArray: [],
 	resetButtonClass: '.game-buttons__reset',
 	primaryContentClass: '.primary-content',
+	bodyClass: '.body-class',
+
+	// classes
 	gameStart: 'game-start',
 	lightsToggle: 'toggle-lights'
+
 };
 
 // buttons
@@ -23,6 +28,7 @@ $gameControls = document.querySelector(settings.gameControlsContainerClass);
 $point = document.querySelector(settings.circlePoint);
 $scoreCard = document.querySelector(settings.scoreCardClass);
 $primaryContent = document.querySelector(settings.primaryContentClass);
+$body = document.querySelector(settings.bodyClass);
 
 /* Begin Function Declarations */
 
@@ -69,7 +75,7 @@ function handleReload() {
 }
 
 function toggleLight() {
-	$primaryContent.classList.toggle(settings.lightsToggle);
+	$body.classList.toggle(settings.lightsToggle);
 }
 
 function getCurrentScore() {
