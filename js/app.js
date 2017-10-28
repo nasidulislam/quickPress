@@ -5,17 +5,22 @@ settings = {
 	gameButtonClass: '.game-circle',
 	gameControlsContainerClass: '.game-controls__container',
 	lightsSliderClass: '.game-buttons__lights-slider',
-	circlePoint: '.point',
 	scoreCardClass: '.game-circle__scorecard',
-	builtTimingArray: [],
+	circlePoint: '.point',
+	circlePunt: '.punt',
+
+	// buttons
 	resetButtonClass: '.game-buttons__reset',
 	primaryContentClass: '.primary-content',
 	bodyClass: '.body-class',
 
 	// classes
 	gameStart: 'game-start',
-	lightsToggle: 'toggle-lights'
+	lightsToggle: 'toggle-lights',
+	animatePunt: 'animate-punt',
 
+	// others
+	builtTimingArray: []
 };
 
 // buttons
@@ -26,23 +31,25 @@ $resetButton = document.querySelector(settings.resetButtonClass);
 // Elements
 $gameControls = document.querySelector(settings.gameControlsContainerClass);
 $point = document.querySelector(settings.circlePoint);
+$punt = document.querySelector(settings.circlePunt);
 $scoreCard = document.querySelector(settings.scoreCardClass);
 $primaryContent = document.querySelector(settings.primaryContentClass);
 $body = document.querySelector(settings.bodyClass);
 
 /* Begin Function Declarations */
 
-function theGame() {
+function theGame () {
 	$gameControls.classList.add(settings.gameStart);
 	handleLoopDecrement();
 	handleScoring();
+	handlePuntPlacement();
 }
 
-function handleLoopDecrement() {
+function handleLoopDecrement () {
 	$point.style.cssText = 'animation-duration: ' + settings.builtTimingArray.pop() + 's';
 }
 
-function handleScoring() {
+function handleScoring () {
 	var currentScore, newScore;
 
 	currentScore = getCurrentScore();
@@ -50,13 +57,13 @@ function handleScoring() {
 	setScore(newScore);
 }
 
-function handleReset() {
+function handleReset () {
 	setScore(0);
 	buildTimingArray();
 	$gameControls.classList.remove(settings.gameStart);
 }
 
-function buildTimingArray() {
+function buildTimingArray () {
 	var animationTiming, initial, i;
 
 	animationTiming = [5, 4.5, 4, 3.5, 3, 2.5, 2];
@@ -74,11 +81,11 @@ function handleReload() {
 	handleReset();
 }
 
-function toggleLight() {
+function toggleLight () {
 	$body.classList.toggle(settings.lightsToggle);
 }
 
-function getCurrentScore() {
+function getCurrentScore () {
 	var currentScore;
 
 	currentScore = parseInt($scoreCard.innerHTML);
@@ -86,10 +93,25 @@ function getCurrentScore() {
 	return currentScore;
 }
 
-function setScore(score) {
+function setScore (score) {
 	$scoreCard.innerHTML = score;
 }
 
+function handlePuntPlacement () {
+	$punt.style.cssText = 'animation-play-state: running';
+	setTimeout(function() {
+		$punt.style.cssText = 'animation-play-state: paused';
+	}, 25);
+	getCurrentAngle();
+}
+
+function getCurrentAngle () {
+	var style, transformMatrix;
+
+	style = window.getComputedStyle($point, null);
+	transformMatrix = style.getPropertyValue('transform');
+	console.log(transformMatrix);
+}
 /* End Function Declarations */
 
 /* Begin Event Listeners */
