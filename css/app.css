@@ -1,5 +1,4 @@
 .body-class {
-	background-color: #fafafa;
 	font-family: 'Josefin Sans', sans-serif;
 }
 
@@ -100,13 +99,13 @@
 	width: 100%;
 }
 
-.game-leaderboards .game-leaderboards__table {
-	border: 1px solid #167F92;
-}
-
 .game-leaderboards .game-leaderboards__table tr {
 	height: 55px;
 	text-align: left;
+}
+
+.game-leaderboards .game-leaderboards__table tr:nth-child(odd) {
+	background-color: #EAF3F3;
 }
 
 .game-leaderboards .game-leaderboards__table th,
@@ -120,6 +119,9 @@
 	font-size: 20px;
 }
 
+.game-leaderboards__header {
+	color: #167F92;
+}
 
 /* End game leaderboards styles */
 
@@ -210,7 +212,7 @@ input:checked + .game-buttons__lights-slider:before {
 /* Lights Off Styles */
 /*-----------------------------*/
 .body-class.toggle-lights {
-	background-color: #001f3f;
+	background-color: #1F2739;
 }
 
 .toggle-lights .game-header {
@@ -222,7 +224,12 @@ input:checked + .game-buttons__lights-slider:before {
 }
 
 .toggle-lights .game-leaderboards {
-	color: #EDCDC2;
+	color: #FB667A;
+}
+
+.toggle-lights .game-leaderboards .game-leaderboards__table th,
+.toggle-lights .game-leaderboards .game-leaderboards__table tr:nth-child(odd) {
+	background-color: #1F2739;
 }
 
 /* End lights off styles */
