@@ -1,4 +1,5 @@
-body {
+.body-class {
+	background-color: #fafafa;
 	font-family: 'Josefin Sans', sans-serif;
 }
 
@@ -15,7 +16,7 @@ body {
 /* Game Header Styles */
 /*-----------------------------*/
 .game-header {
-	color: #000080;
+	color: #167F92;
 	font-size: 30px;
 	margin-top: 70px;
 	text-align: center;
@@ -37,7 +38,7 @@ body {
 }
 
 .game-circle {
-	border: 20px solid #000080;
+	border: 20px solid #167F92;
 	border-radius: 200px;
 	height: 200px;
 	margin: 0 auto;
@@ -91,7 +92,7 @@ body {
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 100px;
-	width: 50%;
+	width: 60%;
 }
 
 .game-leaderboards__table {
@@ -99,21 +100,26 @@ body {
 	width: 100%;
 }
 
-.game-leaderboards .game-leaderboards__table td:first-child {
-	float: left;
-}
-
-.game-leaderboards .game-leaderboards__table td:last-child {
-	float: right;
-}
-
-.game-leaderboards .game-leaderboards__table td {
-	text-align: center;
+.game-leaderboards .game-leaderboards__table {
+	border: 1px solid #167F92;
 }
 
 .game-leaderboards .game-leaderboards__table tr {
-	height: 40px;
+	height: 55px;
+	text-align: left;
 }
+
+.game-leaderboards .game-leaderboards__table th,
+.game-leaderboards .game-leaderboards__table td {
+	padding-left: 20px;
+}
+
+.game-leaderboards .game-leaderboards__table th {
+	background-color: #167F92;
+	color: #fff;
+	font-size: 20px;
+}
+
 
 /* End game leaderboards styles */
 
