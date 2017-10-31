@@ -45,8 +45,8 @@ body {
 }
 
 .game-circle__scorecard {
-	line-height: 200px;
 	font-size: 70px;
+	line-height: 200px;
 }
 
 .game-circle__follow {
@@ -63,11 +63,11 @@ body {
 }
 
 .point {
+	animation-duration: 10s;
+	animation-play-state: paused;
 	background-color: yellow;
 	border: 5px solid yellow;
 	border-radius: 11px;
-	animation-duration: 10s;
-	animation-play-state: paused;
 }
 
 .punt {
@@ -84,6 +84,9 @@ body {
 	margin-top: 50px;
 }
 
+/*-----------------------------*/
+/* Game Leaderboards Styles */
+/*-----------------------------*/
 .game-leaderboards {
 	margin-left: auto;
 	margin-right: auto;
@@ -112,6 +115,8 @@ body {
 	height: 40px;
 }
 
+/* End game leaderboards styles */
+
 /* End primary content styles */
 
 /*-----------------------------*/
@@ -120,8 +125,10 @@ body {
 .game-buttons__lights {
 	position: relative;
 	display: inline-block;
+	margin-right: 15px;
 	width: 60px;
 	height: 34px;
+	top: 12px;
 }
 
 .game-buttons__lights input {
@@ -186,7 +193,8 @@ input:checked + .game-buttons__lights-slider:before {
 	color: #ffffff;
 	font-family: Arial;
 	font-size: 15px;
-	padding: 5px 10px 5px 10px;
+	margin-left: 15px;
+	padding: 7px 15px 7px 15px;
 	text-decoration: none;
 }
 
@@ -219,7 +227,7 @@ input:checked + .game-buttons__lights-slider:before {
 .game-start .punt {
 	animation-duration: 0.0000000000000001s;
 	display: block;
-}}
+}
 /* End game start styles */
 
 @media screen and (min-width: 980px) {
