@@ -1,4 +1,4 @@
-body {
+.body-class {
 	font-family: 'Josefin Sans', sans-serif;
 }
 
@@ -15,7 +15,7 @@ body {
 /* Game Header Styles */
 /*-----------------------------*/
 .game-header {
-	color: #000080;
+	color: #167F92;
 	font-size: 30px;
 	margin-top: 70px;
 	text-align: center;
@@ -37,7 +37,7 @@ body {
 }
 
 .game-circle {
-	border: 20px solid #000080;
+	border: 20px solid #167F92;
 	border-radius: 200px;
 	height: 200px;
 	margin: 0 auto;
@@ -45,8 +45,8 @@ body {
 }
 
 .game-circle__scorecard {
-	line-height: 200px;
 	font-size: 70px;
+	line-height: 200px;
 }
 
 .game-circle__follow {
@@ -63,11 +63,11 @@ body {
 }
 
 .point {
+	animation-duration: 10s;
+	animation-play-state: paused;
 	background-color: yellow;
 	border: 5px solid yellow;
 	border-radius: 11px;
-	animation-duration: 10s;
-	animation-play-state: paused;
 }
 
 .punt {
@@ -84,11 +84,14 @@ body {
 	margin-top: 50px;
 }
 
+/*-----------------------------*/
+/* Game Leaderboards Styles */
+/*-----------------------------*/
 .game-leaderboards {
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 100px;
-	width: 50%;
+	width: 60%;
 }
 
 .game-leaderboards__table {
@@ -96,21 +99,31 @@ body {
 	width: 100%;
 }
 
-.game-leaderboards .game-leaderboards__table td:first-child {
-	float: left;
-}
-
-.game-leaderboards .game-leaderboards__table td:last-child {
-	float: right;
-}
-
-.game-leaderboards .game-leaderboards__table td {
-	text-align: center;
-}
-
 .game-leaderboards .game-leaderboards__table tr {
-	height: 40px;
+	height: 55px;
+	text-align: left;
 }
+
+.game-leaderboards .game-leaderboards__table tr:nth-child(odd) {
+	background-color: #EAF3F3;
+}
+
+.game-leaderboards .game-leaderboards__table th,
+.game-leaderboards .game-leaderboards__table td {
+	padding-left: 20px;
+}
+
+.game-leaderboards .game-leaderboards__table th {
+	background-color: #167F92;
+	color: #fff;
+	font-size: 20px;
+}
+
+.game-leaderboards__header {
+	color: #167F92;
+}
+
+/* End game leaderboards styles */
 
 /* End primary content styles */
 
@@ -120,8 +133,10 @@ body {
 .game-buttons__lights {
 	position: relative;
 	display: inline-block;
+	margin-right: 15px;
 	width: 60px;
 	height: 34px;
+	top: 12px;
 }
 
 .game-buttons__lights input {
@@ -186,7 +201,8 @@ input:checked + .game-buttons__lights-slider:before {
 	color: #ffffff;
 	font-family: Arial;
 	font-size: 15px;
-	padding: 5px 10px 5px 10px;
+	margin-left: 15px;
+	padding: 7px 15px 7px 15px;
 	text-decoration: none;
 }
 
@@ -196,7 +212,7 @@ input:checked + .game-buttons__lights-slider:before {
 /* Lights Off Styles */
 /*-----------------------------*/
 .body-class.toggle-lights {
-	background-color: #001f3f;
+	background-color: #1F2739;
 }
 
 .toggle-lights .game-header {
@@ -208,6 +224,18 @@ input:checked + .game-buttons__lights-slider:before {
 }
 
 .toggle-lights .game-leaderboards {
+	color: #FB667A;
+}
+
+.toggle-lights .game-leaderboards .game-leaderboards__table tr:nth-child(odd) {
+	background-color: #1F2739;
+}
+
+.toggle-lights .game-leaderboards .game-leaderboards__table th {
+	background-color: #2c2c2c;
+}
+
+.toggle-lights .game-leaderboards__header {
 	color: #EDCDC2;
 }
 
@@ -219,7 +247,7 @@ input:checked + .game-buttons__lights-slider:before {
 .game-start .punt {
 	animation-duration: 0.0000000000000001s;
 	display: block;
-}}
+}
 /* End game start styles */
 
 @media screen and (min-width: 980px) {
