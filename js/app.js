@@ -1,4 +1,7 @@
-var $lightSwitch, settings, $gameControls, $svgCircle;
+var settings,
+	$resetButton, $lightSwitch,
+	$gameControls, $svgCircle, $scoreCard, $primaryContent, $body,
+	$point;
 
 settings = {
 	// selectors
@@ -6,6 +9,7 @@ settings = {
 	lightsSliderClass: '.game-buttons__lights-slider',
 	scoreCardClass: '.game-circle__scorecard',
 	svgCircleClass: '.game-circle',
+	circlePoint: '.point',
 
 	// buttons
 	resetButtonClass: '.game-buttons__reset',
@@ -30,6 +34,7 @@ $scoreCard = document.querySelector(settings.scoreCardClass);
 $primaryContent = document.querySelector(settings.primaryContentClass);
 $body = document.querySelector(settings.bodyClass);
 $svgCircle = document.querySelector(settings.svgCircleClass);
+$point = document.querySelector(settings.circlePoint);
 
 /* Begin Function Declarations */
 
