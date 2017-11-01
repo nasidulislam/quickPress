@@ -10,6 +10,7 @@ settings = {
 	scoreCardClass: '.game-circle__scorecard',
 	svgCircleClass: '.game-circle',
 	circlePoint: '.point',
+	circlePunt: '.punt',
 
 	// buttons
 	resetButtonClass: '.game-buttons__reset',

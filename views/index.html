@@ -28,9 +28,16 @@
 
             <text x="138" y="115" font-family="Verdana" font-size="40" fill="blue" class='game-circle__scorecard'></text>
 
-            <!-- Circle which will be moved along the motion path. -->
+            <!-- Point which will be moved along the motion path. -->
             <circle cx="" cy="" r="5" fill="#212121">
                 <animateMotion dur="" repeatCount="indefinite" class='point'>
+                    <mpath xlink:href="#theMotionPath"/>
+                </animateMotion>
+            </circle>
+
+            <!-- Punt which will be moved along the motion path for scoring. -->
+            <circle cx="" cy="" r="10" fill="#987654">
+                <animateMotion dur="" repeatCount="indefinite" class='punt'>
                     <mpath xlink:href="#theMotionPath"/>
                 </animateMotion>
             </circle>
