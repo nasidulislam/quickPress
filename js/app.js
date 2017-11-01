@@ -46,12 +46,20 @@ function theGame () {
 function handleScoring () {
 	var currentScore, newScore, currentDuration;
 
+	// increment score
 	currentScore = getCurrentScore();
 	newScore = currentScore + 1;
 	setScore(newScore);
 
+	// increment frequency
 	currentDuration = getRotationFrequency();
-	setRotationFrequency(1);
+
+	// bypass initial large number set to simulate stationary point
+	if(currentDuration === 10000000) {
+		currentDuration = 8
+	}
+
+	setRotationFrequency(currentDuration / 2);
 }
 
 function handleReset () {
@@ -81,12 +89,13 @@ function setScore (score) {
 }
 
 function getRotationFrequency() {
-	var attrs, freq;
+	var attrs, freq, freqNumber;
 
 	attrs = $point.attributes;
 	freq = attrs.dur.value;
+	freqNumber = parseFloat(freq.substr(0, freq.length - 1));
 
-	return freq;
+	return freqNumber;
 }
 
 
