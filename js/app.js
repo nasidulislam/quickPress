@@ -1,10 +1,11 @@
-var $lightSwitch, settings, $gameButton, $gameControls;
+var $lightSwitch, settings, $gameControls, $svgCircle;
 
 settings = {
 	// selectors
 	gameControlsContainerClass: '.game-controls__container',
 	lightsSliderClass: '.game-buttons__lights-slider',
 	scoreCardClass: '.game-circle__scorecard',
+	svgCircleClass: '.game-circle',
 
 	// buttons
 	resetButtonClass: '.game-buttons__reset',
@@ -28,12 +29,12 @@ $gameControls = document.querySelector(settings.gameControlsContainerClass);
 $scoreCard = document.querySelector(settings.scoreCardClass);
 $primaryContent = document.querySelector(settings.primaryContentClass);
 $body = document.querySelector(settings.bodyClass);
+$svgCircle = document.querySelector(settings.svgCircleClass);
 
 /* Begin Function Declarations */
 
 function theGame () {
 	$gameControls.classList.add(settings.gameStart);
-	handleLoopDecrement();
 	handleScoring();
 }
 
@@ -77,5 +78,6 @@ function setScore (score) {
 document.addEventListener('DOMContentLoaded', handleReload);
 $lightSwitch.addEventListener('click', toggleLight);
 $resetButton.addEventListener('click', handleReset);
+$svgCircle.addEventListener('click', theGame);
 
 /* End Event Listeners */
