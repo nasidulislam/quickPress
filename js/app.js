@@ -44,16 +44,20 @@ function theGame () {
 }
 
 function handleScoring () {
-	var currentScore, newScore;
+	var currentScore, newScore, currentDuration;
 
 	currentScore = getCurrentScore();
 	newScore = currentScore + 1;
 	setScore(newScore);
+
+	currentDuration = getRotationFrequency();
+	setRotationFrequency(1);
 }
 
 function handleReset () {
 	setScore(0);
 	$gameControls.classList.remove(settings.gameStart);
+	setRotationFrequency(10000000);
 }
 
 function handleReload() {
@@ -74,6 +78,23 @@ function getCurrentScore () {
 
 function setScore (score) {
 	$scoreCard.innerHTML = score;
+}
+
+function getRotationFrequency() {
+	var attrs, freq;
+
+	attrs = $point.attributes;
+	freq = attrs.dur.value;
+
+	return freq;
+}
+
+
+function setRotationFrequency(freq) {
+	var attrs;
+
+	attrs = $point.attributes;
+	attrs.dur.value = freq + 's';
 }
 
 /* End Function Declarations */
