@@ -16,7 +16,7 @@
 /*-----------------------------*/
 .game-header {
 	color: #167F92;
-	font-size: 30px;
+	font-size: 25px;
 	margin-top: 70px;
 	text-align: center;
 }
@@ -28,60 +28,12 @@
 /*-----------------------------*/
 .primary-content {
 	margin-bottom: 50px;
-	margin-top: 100px;
+	margin-top: 60px;
 }
 
 .game-controls__container {
 	margin: 0 auto;
 	text-align: center;
-}
-
-.game-circle {
-	border: 20px solid #167F92;
-	border-radius: 200px;
-	height: 200px;
-	margin: 0 auto;
-	width: 200px;
-}
-
-.game-circle__scorecard {
-	font-size: 70px;
-	line-height: 200px;
-}
-
-.game-circle__follow {
-	animation-name: follow;
-	animation-iteration-count: infinite;
-	animation-timing-function: linear;
-
-	height: 11px;
-	left: 52%;
-	margin: -20px;
-	position: absolute;
-	width: 11px;
-	top: 330px;
-}
-
-.point {
-	animation-duration: 10s;
-	animation-play-state: paused;
-	background-color: yellow;
-	border: 5px solid yellow;
-	border-radius: 11px;
-}
-
-.punt {
-	display: none;
-	background-color: orange;
-	border: 5px solid orange;
-}
-
-.game-start .point {
-	animation-play-state: running;
-}
-
-.game-buttons {
-	margin-top: 50px;
 }
 
 /*-----------------------------*/
@@ -116,7 +68,6 @@
 .game-leaderboards .game-leaderboards__table th {
 	background-color: #167F92;
 	color: #fff;
-	font-size: 20px;
 }
 
 .game-leaderboards__header {
@@ -199,7 +150,6 @@ input:checked + .game-buttons__lights-slider:before {
 	background: #c90835;
 	border-radius: 28px;
 	color: #ffffff;
-	font-family: Arial;
 	font-size: 15px;
 	margin-left: 15px;
 	padding: 7px 15px 7px 15px;
@@ -217,10 +167,6 @@ input:checked + .game-buttons__lights-slider:before {
 
 .toggle-lights .game-header {
 	color: #EDCDC2;
-}
-
-.toggle-lights .game-circle {
-	border-color: #5A7247;
 }
 
 .toggle-lights .game-leaderboards {
@@ -244,10 +190,8 @@ input:checked + .game-buttons__lights-slider:before {
 /*-----------------------------*/
 /* Game Start Styles */
 /*-----------------------------*/
-.game-start .punt {
-	animation-duration: 0.0000000000000001s;
-	display: block;
-}
+
+
 /* End game start styles */
 
 @media screen and (min-width: 980px) {
