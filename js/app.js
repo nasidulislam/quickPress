@@ -75,6 +75,16 @@ function handleReload() {
 
 function toggleLight () {
 	$body.classList.toggle(settings.lightsToggle);
+
+	// swap color palette for scorecard
+	switch ($scoreCard.attributes.fill.value) {
+		case 'white':
+			$scoreCard.attributes.fill.value = 'blue';
+			break;
+		case 'blue':
+			$scoreCard.attributes.fill.value = 'white';
+			break;
+	}
 }
 
 function getCurrentScore () {
