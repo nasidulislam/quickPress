@@ -11,11 +11,39 @@
 <h1 class='game-header'>Welcome to QuickPress</h1>
 <div class='primary-content'>
     <div class='game-controls__container'>
-        <div class='game-circle'>
-            <span class='game-circle__scorecard'></span>
-            <span class='game-circle__follow point'></span>
-            <span class='game-circle__follow punt'></span>
-        </div>
+
+        <?xml version="1.0"?>
+        <svg width="300" height="300"
+             xmlns="http://www.w3.org/2000/svg" version="1.1"
+             xmlns:xlink="http://www.w3.org/1999/xlink" class='game-circle'>
+            <path d="M 150,
+                    100 m -75,
+                    0 a 75,
+                    75 0 1,
+                    0 150,0 a 75,
+                    75 0 1,
+                    0 -150,
+                    0"
+              stroke="lightgrey" stroke-width="10" fill="none" id="theMotionPath"/>
+
+            <text x="138" y="115" font-family="Verdana" font-size="40" fill="blue" class='game-circle__scorecard'></text>
+
+            <!-- Point which will be moved along the motion path. -->
+            <circle cx="" cy="" r="5" fill="#212121">
+                <animateMotion dur="" repeatCount="indefinite" class='point'>
+                    <mpath xlink:href="#theMotionPath"/>
+                </animateMotion>
+            </circle>
+
+            <!-- Punt which will be moved along the motion path for scoring. -->
+            <circle cx="" cy="" r="10" fill="#987654">
+                <animateMotion dur="" repeatCount="indefinite" class='punt'>
+                    <mpath xlink:href="#theMotionPath"/>
+                </animateMotion>
+            </circle>
+
+        </svg>
+
         <div class='game-buttons'>
             <label class="game-buttons__lights">
                 <input type="checkbox">
@@ -23,7 +51,9 @@
             </label>
             <button type='button' class='game-buttons__reset'>Restart</button>
         </div>
+
     </div>
+
     <div class='game-leaderboards'>
         <h3 class='game-leaderboards__header'>Leader Boards</h3>
         <table class='game-leaderboards__table'>
