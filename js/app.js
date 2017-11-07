@@ -22,7 +22,7 @@ settings = {
 	lightsToggle: 'toggle-lights',
 
 	// others
-	builtTimingArray: []
+	stationaryFreq: 10000000
 };
 
 // buttons
@@ -36,6 +36,7 @@ $primaryContent = document.querySelector(settings.primaryContentClass);
 $body = document.querySelector(settings.bodyClass);
 $svgCircle = document.querySelector(settings.svgCircleClass);
 $point = document.querySelector(settings.circlePoint);
+$punt = document.querySelector(settings.circlePunt);
 
 /* Begin Function Declarations */
 
@@ -52,15 +53,15 @@ function handleScoring () {
 	newScore = currentScore + 1;
 	setScore(newScore);
 
-	// increment frequency
-	currentDuration = getRotationFrequency();
+	// increment frequency of point
+	currentDuration = getRotationFrequency($point);
 
 	// bypass initial large number set to simulate stationary point
-	if(currentDuration === 10000000) {
+	if(currentDuration === settings.stationaryFreq) {
 		currentDuration = 8;
 	}
 
-	setRotationFrequency(currentDuration / 2); //TODO : write a difficulty implementation function
+	setRotationFrequency($point, currentDuration / 2); //TODO : write a difficulty implementation function
 
 	handlePuntPlacement();
 }
@@ -70,7 +71,8 @@ function handleReset () {
 	$gameControls.classList.remove(settings.gameStart);
 
 	// set large rotation frequency to simluate stationary point
-	setRotationFrequency(10000000);
+	setRotationFrequency($point, settings.stationaryFreq);
+	setRotationFrequency($punt, settings.stationaryFreq);
 }
 
 function handleReload() {
@@ -103,10 +105,10 @@ function setScore (score) {
 	$scoreCard.innerHTML = score;
 }
 
-function getRotationFrequency() {
+function getRotationFrequency(el) {
 	var attrs, freq, freqNumber;
 
-	attrs = $point.attributes;
+	attrs = el.attributes;
 	freq = attrs.dur.value;
 	freqNumber = parseFloat(freq.substr(0, freq.length - 1));
 
@@ -114,10 +116,10 @@ function getRotationFrequency() {
 }
 
 
-function setRotationFrequency(freq) {
+function setRotationFrequency(el, freq) {
 	var attrs;
 
-	attrs = $point.attributes;
+	attrs = el.attributes;
 	attrs.dur.value = freq + 's';
 }
 
