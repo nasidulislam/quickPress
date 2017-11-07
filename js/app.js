@@ -57,15 +57,19 @@ function handleScoring () {
 
 	// bypass initial large number set to simulate stationary point
 	if(currentDuration === 10000000) {
-		currentDuration = 8
+		currentDuration = 8;
 	}
 
-	setRotationFrequency(currentDuration / 2);
+	setRotationFrequency(currentDuration / 2); //TODO : write a difficulty implementation function
+
+	handlePuntPlacement();
 }
 
 function handleReset () {
 	setScore(0);
 	$gameControls.classList.remove(settings.gameStart);
+
+	// set large rotation frequency to simluate stationary point
 	setRotationFrequency(10000000);
 }
 
@@ -115,6 +119,10 @@ function setRotationFrequency(freq) {
 
 	attrs = $point.attributes;
 	attrs.dur.value = freq + 's';
+}
+
+function handlePuntPlacement() {
+	console.log('punt placement');
 }
 
 /* End Function Declarations */
