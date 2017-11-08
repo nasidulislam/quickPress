@@ -1,7 +1,7 @@
 var settings,
 	$resetButton, $lightSwitch,
-	$gameControls, $svgCircle, $scoreCard, $primaryContent, $body,
-	$point;
+	$gameControls, $svgCircle, $scoreCard, $primaryContent, $body, $svgElement,
+	$point, $punt;
 
 settings = {
 	// selectors
@@ -37,6 +37,7 @@ $body = document.querySelector(settings.bodyClass);
 $svgCircle = document.querySelector(settings.svgCircleClass);
 $point = document.querySelector(settings.circlePoint);
 $punt = document.querySelector(settings.circlePunt);
+$svgElement = document.getElementsByTagName('svg')[0];
 
 /* Begin Function Declarations */
 
@@ -48,6 +49,9 @@ function theGame () {
 function handleScoring () {
 	var currentScore, newScore, currentDuration;
 
+	// unpause animation when game begins
+	$svgElement.unpauseAnimations();
+
 	// increment score
 	currentScore = getCurrentScore();
 	newScore = currentScore + 1;
@@ -57,8 +61,8 @@ function handleScoring () {
 	currentDuration = getRotationFrequency($point);
 
 	// bypass initial large number set to simulate stationary point
-	if(currentDuration === settings.stationaryFreq) {
-		currentDuration = 8;
+	if(isNaN(currentDuration)) {
+		currentDuration = 100;
 	}
 
 	setRotationFrequency($point, currentDuration / 2); //TODO : write a difficulty implementation function
@@ -67,12 +71,11 @@ function handleScoring () {
 }
 
 function handleReset () {
+	// pause all svg animation on reset
+	$svgElement.pauseAnimations();
+
 	setScore(0);
 	$gameControls.classList.remove(settings.gameStart);
-
-	// set large rotation frequency to simluate stationary point
-	setRotationFrequency($point, settings.stationaryFreq);
-	setRotationFrequency($punt, settings.stationaryFreq);
 }
 
 function handleReload() {
