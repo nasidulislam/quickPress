@@ -22,7 +22,8 @@ settings = {
 	lightsToggle: 'toggle-lights',
 
 	// others
-	stationaryFreq: 10000000
+	stationaryFreq: 10000000,
+	errorMargin: '50'
 };
 
 // buttons
@@ -46,10 +47,30 @@ $puntSvg = $svgElement.querySelectorAll('circle')[1];
 function theGame () {
 	$gameControls.classList.add(settings.gameStart);
 	handleScoring();
+	handlePointFrequency();
+	handlePuntPlacement();
+}
+
+function handlePointFrequency() {
+	var currentDuration;
+
+	currentDuration = getRotationFrequency($point);
+
+	// bypass initial duration value being set to nothing on svg element
+	if(isNaN(currentDuration)) {
+		currentDuration = 100;
+	}
+
+	setRotationFrequency($point, currentDuration / 2); //TODO : write a difficulty implementation function
+	$svgElement.unpauseAnimations();
+}
+
+function handlePuntPlacement() {
+	console.log('punt placement');
 }
 
 function handleScoring () {
-	var currentScore, newScore, currentDuration;
+	var currentScore, newScore;
 
 	// increment score if user clicked within accepted margin of error
 	if(isValidSCore()) {
@@ -57,21 +78,12 @@ function handleScoring () {
 		newScore = currentScore + 1;
 		setScore(newScore);
 	} else {
-		console.log('wrong');
+		handleInvalidScore();
 	}
+}
 
-	// increment frequency of point
-	currentDuration = getRotationFrequency($point);
-
-	// bypass initial large number set to simulate stationary point
-	if(isNaN(currentDuration)) {
-		currentDuration = 100;
-	}
-
-	setRotationFrequency($point, currentDuration / 2); //TODO : write a difficulty implementation function
-	$svgElement.unpauseAnimations();
-
-	handlePuntPlacement();
+function handleInvalidScore () {
+	console.log('wrong');
 }
 
 function handleReset () {
@@ -132,10 +144,6 @@ function setRotationFrequency(el, freq) {
 	attrs.dur.value = freq + 's';
 }
 
-function handlePuntPlacement() {
-	console.log('punt placement');
-}
-
 function isValidSCore() {
 	var currentPointLocation, currentPuntLocation, errorMargin;
 
@@ -154,7 +162,7 @@ function isValidSCore() {
 		marginY: currentPointLocation.pointY - currentPuntLocation.puntX
 	};
 
-	return (Math.abs(errorMargin.marginX) <= 100 && (Math.abs(errorMargin.marginY) <= 100));
+	return (Math.abs(errorMargin.marginX) <= settings.errorMargin && (Math.abs(errorMargin.marginY) <= settings.errorMargin));
 }
 
 /* End Function Declarations */
