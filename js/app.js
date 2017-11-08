@@ -1,7 +1,7 @@
 var settings,
 	$resetButton, $lightSwitch,
 	$gameControls, $svgCircle, $scoreCard, $primaryContent, $body, $svgElement,
-	$point, $punt;
+	$point, $punt, $pointSvg, $puntSvg;
 
 settings = {
 	// selectors
@@ -38,6 +38,8 @@ $svgCircle = document.querySelector(settings.svgCircleClass);
 $point = document.querySelector(settings.circlePoint);
 $punt = document.querySelector(settings.circlePunt);
 $svgElement = document.getElementsByTagName('svg')[0];
+$pointSvg = $svgElement.querySelectorAll('circle')[0];
+$puntSvg = $svgElement.querySelectorAll('circle')[1];
 
 /* Begin Function Declarations */
 
@@ -49,13 +51,14 @@ function theGame () {
 function handleScoring () {
 	var currentScore, newScore, currentDuration;
 
-	// unpause animation when game begins
-	$svgElement.unpauseAnimations();
-
-	// increment score
-	currentScore = getCurrentScore();
-	newScore = currentScore + 1;
-	setScore(newScore);
+	// increment score if user clicked within accepted margin of error
+	if(isValidSCore()) {
+		currentScore = getCurrentScore();
+		newScore = currentScore + 1;
+		setScore(newScore);
+	} else {
+		console.log('wrong');
+	}
 
 	// increment frequency of point
 	currentDuration = getRotationFrequency($point);
@@ -66,13 +69,16 @@ function handleScoring () {
 	}
 
 	setRotationFrequency($point, currentDuration / 2); //TODO : write a difficulty implementation function
+	$svgElement.unpauseAnimations();
 
 	handlePuntPlacement();
 }
 
 function handleReset () {
-	// pause all svg animation on reset
+	// pause all svg animation on reset and set initial position to 0
 	$svgElement.pauseAnimations();
+	$svgElement.setCurrentTime(0);
+	setRotationFrequency($point, '');
 
 	setScore(0);
 	$gameControls.classList.remove(settings.gameStart);
@@ -128,6 +134,27 @@ function setRotationFrequency(el, freq) {
 
 function handlePuntPlacement() {
 	console.log('punt placement');
+}
+
+function isValidSCore() {
+	var currentPointLocation, currentPuntLocation, errorMargin;
+
+	currentPointLocation = {
+		pointX: $pointSvg.getScreenCTM().e,
+		pointY: $pointSvg.getScreenCTM().f
+	};
+
+	currentPuntLocation = {
+		puntX: $puntSvg.getScreenCTM().e,
+		puntY: $puntSvg.getScreenCTM().f
+	};
+
+	errorMargin = {
+		marginX: currentPointLocation.pointX - currentPuntLocation.puntX,
+		marginY: currentPointLocation.pointY - currentPuntLocation.puntX
+	};
+
+	return (Math.abs(errorMargin.marginX) <= 100 && (Math.abs(errorMargin.marginY) <= 100));
 }
 
 /* End Function Declarations */
