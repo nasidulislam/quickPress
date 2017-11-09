@@ -46,9 +46,15 @@ $puntSvg = $svgElement.querySelectorAll('circle')[1];
 
 function theGame () {
 	$gameControls.classList.add(settings.gameStart);
-	handleScoring();
-	handlePointFrequency();
-	handlePuntPlacement();
+
+	// if user scores correctly, then increment score, increase point frequency and place punt somewhere
+	if(isValidSCore()) {
+		handleScoring();
+		handlePointFrequency();
+		handlePuntPlacement();
+	} else {
+		handleInvalidScore();
+	}
 }
 
 function handlePointFrequency() {
@@ -72,14 +78,9 @@ function handlePuntPlacement() {
 function handleScoring () {
 	var currentScore, newScore;
 
-	// increment score if user clicked within accepted margin of error
-	if(isValidSCore()) {
-		currentScore = getCurrentScore();
-		newScore = currentScore + 1;
-		setScore(newScore);
-	} else {
-		handleInvalidScore();
-	}
+	currentScore = getCurrentScore();
+	newScore = currentScore + 1;
+	setScore(newScore);
 }
 
 function handleInvalidScore () {
