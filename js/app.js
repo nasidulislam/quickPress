@@ -23,7 +23,7 @@ settings = {
 
 	// others
 	stationaryFreq: 10000000,
-	errorMargin: '50'
+	errorMargin: 50
 };
 
 // buttons
@@ -160,12 +160,15 @@ function isValidSCore() {
 
 	errorMargin = {
 		marginX: currentPointLocation.pointX - currentPuntLocation.puntX,
-		marginY: currentPointLocation.pointY - currentPuntLocation.puntX
+		marginY: currentPointLocation.pointY - currentPuntLocation.puntY
 	};
 
 	return (Math.abs(errorMargin.marginX) <= settings.errorMargin && (Math.abs(errorMargin.marginY) <= settings.errorMargin));
 }
 
+function getRandomFloat(min, max) {
+	return Math.random() * (max - min) + min;
+}
 /* End Function Declarations */
 
 /* Begin Event Listeners */
