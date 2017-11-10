@@ -188,11 +188,13 @@ input:checked + .game-buttons__lights-slider:before {
 /* End lights off styles */
 
 /*-----------------------------*/
-/* Game Start Styles */
+/* Remaining Tries Styles */
 /*-----------------------------*/
+.game-life {
+	margin-bottom: 30px;
+}
 
-
-/* End game start styles */
+/* End remaining tries styles */
 
 @media screen and (min-width: 980px) {
 	/* TODO:  */
