@@ -50,7 +50,7 @@ function theGame () {
 	$gameControls.classList.add(settings.gameStart);
 
 	// if user scores correctly, then increment score, increase point frequency and place punt somewhere
-	if(isValidSCore()) {
+	if(isValidScore()) {
 		$svgElement.unpauseAnimations();
 		handleScoring();
 		handlePointFrequency();
@@ -86,13 +86,13 @@ function handlePuntPlacement() {
 function handleScoring () {
 	var currentScore, newScore;
 
-	currentScore = getCurrentScore();
+	currentScore = getCurrentScore($scoreCard);
 	newScore = currentScore + 1;
-	setScore(newScore);
+	setScore($scoreCard, newScore);
 }
 
 function handleInvalidScore () {
-	console.log('wrong');
+	handleRemainingTries();
 }
 
 function handleReset () {
@@ -101,7 +101,7 @@ function handleReset () {
 	$svgElement.setCurrentTime(0);
 	setRotationFrequency($point, '');
 
-	setScore(0);
+	setScore($scoreCard, 0);
 	$gameControls.classList.remove(settings.gameStart);
 }
 
@@ -123,16 +123,15 @@ function toggleLight () {
 	}
 }
 
-function getCurrentScore () {
+function getCurrentScore (el) {
 	var currentScore;
 
-	currentScore = parseInt($scoreCard.innerHTML);
-	settings.currentScore = currentScore;
+	currentScore = parseInt(el.innerHTML);
 	return currentScore;
 }
 
-function setScore (score) {
-	$scoreCard.innerHTML = score;
+function setScore (el, score) {
+	el.innerHTML = score;
 }
 
 function getRotationFrequency(el) {
@@ -153,7 +152,7 @@ function setRotationFrequency(el, freq) {
 	attrs.dur.value = freq + 's';
 }
 
-function isValidSCore() {
+function isValidScore() {
 	var currentPointLocation, currentPuntLocation, errorMargin;
 
 	currentPointLocation = {
@@ -177,6 +176,11 @@ function isValidSCore() {
 function getRandomFloat(min, max) {
 	return Math.random() * (max - min) + min;
 }
+
+function handleRemainingTries () {
+	
+}
+
 /* End Function Declarations */
 
 /* Begin Event Listeners */
