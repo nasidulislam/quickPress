@@ -185,6 +185,10 @@ input:checked + .game-buttons__lights-slider:before {
 	color: #EDCDC2;
 }
 
+.toggle-lights .game-life {
+	color: #EDCDC2;
+}
+
 /* End lights off styles */
 
 /*-----------------------------*/
