@@ -1,7 +1,7 @@
 var settings,
 	$resetButton, $lightSwitch,
-	$gameControls, $svgCircle, $scoreCard, $primaryContent, $body,
-	$point;
+	$gameControls, $svgCircle, $scoreCard, $primaryContent, $body, $svgElement,
+	$point, $punt, $pointSvg, $puntSvg;
 
 settings = {
 	// selectors
@@ -22,7 +22,11 @@ settings = {
 	lightsToggle: 'toggle-lights',
 
 	// others
-	builtTimingArray: []
+	stationaryFreq: 10000000,
+	fastFrequency: 0.0001,
+	errorMargin: 50,
+	rangeMin: 0.000025,
+	rangeMax: 0.000075
 };
 
 // buttons
@@ -36,37 +40,71 @@ $primaryContent = document.querySelector(settings.primaryContentClass);
 $body = document.querySelector(settings.bodyClass);
 $svgCircle = document.querySelector(settings.svgCircleClass);
 $point = document.querySelector(settings.circlePoint);
+$punt = document.querySelector(settings.circlePunt);
+$svgElement = document.getElementsByTagName('svg')[0];
+$pointSvg = $svgElement.querySelectorAll('circle')[0];
+$puntSvg = $svgElement.querySelectorAll('circle')[1];
 
 /* Begin Function Declarations */
 
 function theGame () {
 	$gameControls.classList.add(settings.gameStart);
-	handleScoring();
+
+	// if user scores correctly, then increment score, increase point frequency and place punt somewhere
+	if(isValidSCore()) {
+		$svgElement.unpauseAnimations();
+		handleScoring();
+		handlePointFrequency();
+		handlePuntPlacement();
+	} else {
+		handleInvalidScore();
+	}
+}
+
+function handlePointFrequency() {
+	var currentDuration;
+
+	currentDuration = getRotationFrequency($point);
+
+	// bypass initial duration value being set to nothing on svg element
+	if(isNaN(currentDuration)) {
+		currentDuration = 20;
+	}
+
+	setRotationFrequency($point, currentDuration / 2); //TODO : write a difficulty implementation function
+}
+
+function handlePuntPlacement() {
+	var randomPlacementVariable = parseFloat((getRandomFloat(settings.rangeMin, settings.rangeMax)).toFixed(6)) * Math.pow(10, 4);
+
+	setRotationFrequency($punt, settings.fastFrequency);
+	setTimeout(function () {
+		// setRotationFrequency($punt, settings.stationaryFreq);
+		$svgElement.pauseAnimations();
+	}, randomPlacementVariable);
+	console.log(randomPlacementVariable);
 }
 
 function handleScoring () {
-	var currentScore, newScore, currentDuration;
+	var currentScore, newScore;
 
-	// increment score
 	currentScore = getCurrentScore();
 	newScore = currentScore + 1;
 	setScore(newScore);
+}
 
-	// increment frequency
-	currentDuration = getRotationFrequency();
-
-	// bypass initial large number set to simulate stationary point
-	if(currentDuration === 10000000) {
-		currentDuration = 8
-	}
-
-	setRotationFrequency(currentDuration / 2);
+function handleInvalidScore () {
+	console.log('wrong');
 }
 
 function handleReset () {
+	// pause all svg animation on reset and set initial position to 0
+	$svgElement.pauseAnimations();
+	$svgElement.setCurrentTime(0);
+	setRotationFrequency($point, '');
+
 	setScore(0);
 	$gameControls.classList.remove(settings.gameStart);
-	setRotationFrequency(10000000);
 }
 
 function handleReload() {
@@ -99,10 +137,10 @@ function setScore (score) {
 	$scoreCard.innerHTML = score;
 }
 
-function getRotationFrequency() {
+function getRotationFrequency(el) {
 	var attrs, freq, freqNumber;
 
-	attrs = $point.attributes;
+	attrs = el.attributes;
 	freq = attrs.dur.value;
 	freqNumber = parseFloat(freq.substr(0, freq.length - 1));
 
@@ -110,13 +148,37 @@ function getRotationFrequency() {
 }
 
 
-function setRotationFrequency(freq) {
+function setRotationFrequency(el, freq) {
 	var attrs;
 
-	attrs = $point.attributes;
+	attrs = el.attributes;
 	attrs.dur.value = freq + 's';
 }
 
+function isValidSCore() {
+	var currentPointLocation, currentPuntLocation, errorMargin;
+
+	currentPointLocation = {
+		pointX: $pointSvg.getScreenCTM().e,
+		pointY: $pointSvg.getScreenCTM().f
+	};
+
+	currentPuntLocation = {
+		puntX: $puntSvg.getScreenCTM().e,
+		puntY: $puntSvg.getScreenCTM().f
+	};
+
+	errorMargin = {
+		marginX: currentPointLocation.pointX - currentPuntLocation.puntX,
+		marginY: currentPointLocation.pointY - currentPuntLocation.puntY
+	};
+
+	return (Math.abs(errorMargin.marginX) <= settings.errorMargin && (Math.abs(errorMargin.marginY) <= settings.errorMargin));
+}
+
+function getRandomFloat(min, max) {
+	return Math.random() * (max - min) + min;
+}
 /* End Function Declarations */
 
 /* Begin Event Listeners */
