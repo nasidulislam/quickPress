@@ -1,6 +1,6 @@
 var settings,
 	$resetButton, $lightSwitch,
-	$gameControls, $svgCircle, $scoreCard, $primaryContent, $body, $svgElement,
+	$gameControls, $svgCircle, $scoreCard, $primaryContent, $body, $svgElement, $remainingTriesScore,
 	$point, $punt, $pointSvg, $puntSvg, $puntAnimationElement;
 
 settings = {
@@ -43,6 +43,7 @@ $svgElement = document.getElementsByTagName('svg')[0];
 $pointSvg = $svgElement.querySelectorAll('circle')[0];
 $puntSvg = $svgElement.querySelectorAll('circle')[1];
 $puntAnimationElement = $puntSvg.querySelector('animateMotion');
+$remainingTriesScore = document.querySelector('.game-life__score');
 
 /* Begin Function Declarations */
 
@@ -102,6 +103,7 @@ function handleReset () {
 	setRotationFrequency($point, '');
 
 	setScore($scoreCard, 0);
+	setScore($remainingTriesScore, 3);
 	$gameControls.classList.remove(settings.gameStart);
 }
 
@@ -178,7 +180,15 @@ function getRandomFloat(min, max) {
 }
 
 function handleRemainingTries () {
-	
+	var newRemainingTries;
+
+	newRemainingTries = getCurrentScore($remainingTriesScore) - 1;
+	setScore($remainingTriesScore, newRemainingTries);
+
+	if(getCurrentScore($remainingTriesScore) < 0) {
+		alert('game over');
+		$svgElement.pauseAnimations();
+	}
 }
 
 /* End Function Declarations */
