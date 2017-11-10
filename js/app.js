@@ -23,7 +23,10 @@ settings = {
 
 	// others
 	stationaryFreq: 10000000,
-	errorMargin: 50
+	fastFrequency: 0.0001,
+	errorMargin: 50,
+	rangeMin: 0.000025,
+	rangeMax: 0.000075
 };
 
 // buttons
@@ -49,6 +52,7 @@ function theGame () {
 
 	// if user scores correctly, then increment score, increase point frequency and place punt somewhere
 	if(isValidSCore()) {
+		$svgElement.unpauseAnimations();
 		handleScoring();
 		handlePointFrequency();
 		handlePuntPlacement();
@@ -64,15 +68,21 @@ function handlePointFrequency() {
 
 	// bypass initial duration value being set to nothing on svg element
 	if(isNaN(currentDuration)) {
-		currentDuration = 100;
+		currentDuration = 20;
 	}
 
 	setRotationFrequency($point, currentDuration / 2); //TODO : write a difficulty implementation function
-	$svgElement.unpauseAnimations();
 }
 
 function handlePuntPlacement() {
-	console.log('punt placement');
+	var randomPlacementVariable = parseFloat((getRandomFloat(settings.rangeMin, settings.rangeMax)).toFixed(6)) * Math.pow(10, 4);
+
+	setRotationFrequency($punt, settings.fastFrequency);
+	setTimeout(function () {
+		// setRotationFrequency($punt, settings.stationaryFreq);
+		$svgElement.pauseAnimations();
+	}, randomPlacementVariable);
+	console.log(randomPlacementVariable);
 }
 
 function handleScoring () {
