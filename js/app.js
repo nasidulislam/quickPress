@@ -1,7 +1,7 @@
 var settings,
 	$resetButton, $lightSwitch,
 	$gameControls, $svgCircle, $scoreCard, $primaryContent, $body, $svgElement,
-	$point, $punt, $pointSvg, $puntSvg;
+	$point, $punt, $pointSvg, $puntSvg, $puntAnimationElement;
 
 settings = {
 	// selectors
@@ -22,8 +22,6 @@ settings = {
 	lightsToggle: 'toggle-lights',
 
 	// others
-	stationaryFreq: 10000000,
-	fastFrequency: 0.0001,
 	errorMargin: 50,
 	rangeMin: 0.000025,
 	rangeMax: 0.000075
@@ -44,6 +42,7 @@ $punt = document.querySelector(settings.circlePunt);
 $svgElement = document.getElementsByTagName('svg')[0];
 $pointSvg = $svgElement.querySelectorAll('circle')[0];
 $puntSvg = $svgElement.querySelectorAll('circle')[1];
+$puntAnimationElement = $puntSvg.querySelector('animateMotion');
 
 /* Begin Function Declarations */
 
@@ -77,12 +76,11 @@ function handlePointFrequency() {
 function handlePuntPlacement() {
 	var randomPlacementVariable = parseFloat((getRandomFloat(settings.rangeMin, settings.rangeMax)).toFixed(6)) * Math.pow(10, 4);
 
-	setRotationFrequency($punt, settings.fastFrequency);
 	setTimeout(function () {
-		// setRotationFrequency($punt, settings.stationaryFreq);
-		$svgElement.pauseAnimations();
+		$puntAnimationElement.setAttribute('repeatCount', '' + randomPlacementVariable);
+		// have to reset current time to 0 every time to keep punt in place
+		$svgElement.setCurrentTime(0);
 	}, randomPlacementVariable);
-	console.log(randomPlacementVariable);
 }
 
 function handleScoring () {
