@@ -1,7 +1,8 @@
 var settings,
 	$resetButton, $lightSwitch,
 	$gameControls, $svgCircle, $scoreCard, $primaryContent, $body, $svgElement, $remainingTriesScore,
-	$point, $punt, $pointSvg, $puntSvg, $puntAnimationElement;
+	$point, $punt, $pointSvg, $puntSvg, $puntAnimationElement,
+	$finalScore;
 
 settings = {
 	// selectors
@@ -24,7 +25,8 @@ settings = {
 	// others
 	errorMargin: 50,
 	rangeMin: 0.000025,
-	rangeMax: 0.000075
+	rangeMax: 0.000075,
+	currentScore: ''
 };
 
 // buttons
@@ -43,7 +45,8 @@ $svgElement = document.getElementsByTagName('svg')[0];
 $pointSvg = $svgElement.querySelectorAll('circle')[0];
 $puntSvg = $svgElement.querySelectorAll('circle')[1];
 $puntAnimationElement = $puntSvg.querySelector('animateMotion');
-$remainingTriesScore = document.querySelector('.game-life__score');
+$remainingTriesScore = document.querySelector('.game-score__life');
+$finalScore = document.querySelector('.game-score__final');
 
 /* Begin Function Declarations */
 
@@ -89,6 +92,7 @@ function handleScoring () {
 
 	currentScore = getCurrentScore($scoreCard);
 	newScore = currentScore + 1;
+	settings.currentScore = newScore;
 	setScore($scoreCard, newScore);
 }
 
@@ -102,9 +106,13 @@ function handleReset () {
 	$svgElement.setCurrentTime(0);
 	setRotationFrequency($point, '');
 
+	// reset all scores
 	setScore($scoreCard, 0);
 	setScore($remainingTriesScore, 3);
+
+	// remove classes and html added
 	$gameControls.classList.remove(settings.gameStart);
+	$finalScore.textContent = '';
 }
 
 function handleReload() {
@@ -187,6 +195,8 @@ function handleRemainingTries () {
 
 	if(getCurrentScore($remainingTriesScore) < 0) {
 		alert('game over');
+        setScore($remainingTriesScore, 0);
+        $finalScore.innerHTML = 'Your Final Score: <span class="final-score">' + settings.currentScore + '</span>';
 		$svgElement.pauseAnimations();
 	}
 }
