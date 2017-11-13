@@ -2,16 +2,19 @@ var settings,
 	$resetButton, $lightSwitch,
 	$gameControls, $svgCircle, $scoreCard, $primaryContent, $body, $svgElement, $remainingTriesScore,
 	$point, $punt, $pointSvg, $puntSvg, $puntAnimationElement,
-	$finalScore;
+	$finalScore, $remainingTriesElement;
 
 settings = {
 	// selectors
 	gameControlsContainerClass: '.game-controls__container',
+	remainingTriesContainerClass: '.game-score__remaining-tries',
 	lightsSliderClass: '.game-buttons__lights-slider',
 	scoreCardClass: '.game-circle__scorecard',
 	svgCircleClass: '.game-circle',
 	circlePoint: '.point',
 	circlePunt: '.punt',
+	finalScoreClass: '.game-score__final',
+	remainingTriesScoreClass: '.game-score__life',
 
 	// buttons
 	resetButtonClass: '.game-buttons__reset',
@@ -47,8 +50,9 @@ $svgElement = document.getElementsByTagName('svg')[0];
 $pointSvg = $svgElement.querySelectorAll('circle')[0];
 $puntSvg = $svgElement.querySelectorAll('circle')[1];
 $puntAnimationElement = $puntSvg.querySelector('animateMotion');
-$remainingTriesScore = document.querySelector('.game-score__life');
-$finalScore = document.querySelector('.game-score__final');
+$remainingTriesScore = document.querySelector(settings.remainingTriesScoreClass);
+$finalScore = document.querySelector(settings.finalScoreClass);
+$remainingTriesElement = document.querySelector(settings.remainingTriesContainerClass);
 
 /* Begin Function Declarations */
 
@@ -124,7 +128,7 @@ function handleReset () {
 	// remove classes and html added
 	$gameControls.classList.remove(settings.gameStart);
 	$finalScore.textContent = '';
-	$remainingTriesScore.classList.remove(settings.redColorClass);
+	$remainingTriesElement.classList.remove(settings.redColorClass);
 }
 
 function handleReload() {
@@ -212,7 +216,7 @@ function handleRemainingTries () {
 
 	// make remaining tries section red when user has 0 tries left
 	if(getCurrentScore($remainingTriesScore) === 0) {
-		$remainingTriesScore.classList.add(settings.redColorClass);
+		$remainingTriesElement.classList.add(settings.redColorClass);
 	}
 
 	// handles end game functionality --> should probably make its own function
@@ -225,9 +229,9 @@ function handleRemainingTries () {
 }
 
 function handleRemainingTriesAnimation() {
-	$remainingTriesScore.classList.add('vibrate-class');
-	$remainingTriesScore.addEventListener('animationend', function () {
-		$remainingTriesScore.classList.remove(settings.vibrateClass);
+	$remainingTriesElement.classList.add(settings.vibrateClass);
+	$remainingTriesElement.addEventListener('animationend', function () {
+		$remainingTriesElement.classList.remove(settings.vibrateClass);
 	});
 }
 
