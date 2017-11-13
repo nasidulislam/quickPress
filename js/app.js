@@ -247,7 +247,7 @@ function getCurrentLocation() {
 				var response = JSON.parse(request.responseText);
 				$currentLocation.innerHTML = response.city + ' ' + response.region + ', ' + response.country;
 			} else {
-				console.log('error');
+				$currentLocation.innerHTML = 'Unable to determine current location';
 			}
 		}
 	};
