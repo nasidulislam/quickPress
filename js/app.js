@@ -20,6 +20,8 @@ settings = {
 	// classes
 	gameStart: 'game-start',
 	lightsToggle: 'toggle-lights',
+	vibrateClass: 'vibrate-class',
+	redColorClass: 'color-class-red',
 
 	// others
 	errorMargin: 50,
@@ -104,7 +106,10 @@ function handleReset () {
 
 	setScore($scoreCard, 0);
 	setScore($remainingTriesScore, 3);
+
+	// remove classes
 	$gameControls.classList.remove(settings.gameStart);
+	$remainingTriesScore.classList.remove(settings.redColorClass);
 }
 
 function handleReload() {
@@ -190,6 +195,11 @@ function handleRemainingTries () {
 	customEvent = new Event('quickPress: wrong-hit');
 	$remainingTriesScore.dispatchEvent(customEvent);
 
+	// make remaining tries section red when user has 0 tries left
+	if(getCurrentScore($remainingTriesScore) === 1) {
+		$remainingTriesScore.classList.add(settings.redColorClass);
+	}
+
 	// handles end game functionality --> should probably make its own function
 	if(getCurrentScore($remainingTriesScore) < 0) {
 		alert('game over');
@@ -200,7 +210,7 @@ function handleRemainingTries () {
 function handleRemainingTriesAnimation() {
 	$remainingTriesScore.classList.add('vibrate-class');
 	$remainingTriesScore.addEventListener('animationend', function () {
-		$remainingTriesScore.classList.remove('vibrate-class');
+		$remainingTriesScore.classList.remove(settings.vibrateClass);
 	});
 }
 

@@ -211,6 +211,10 @@ input:checked + .game-buttons__lights-slider:before {
 	animation-timing-function: linear;
 }
 
+.color-class-red {
+	color: #c90835;
+}
+
 /* End remaining tries styles */
 
 @media screen and (min-width: 980px) {
