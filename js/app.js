@@ -1,16 +1,20 @@
 var settings,
 	$resetButton, $lightSwitch,
-	$gameControls, $svgCircle, $scoreCard, $primaryContent, $body, $svgElement,
-	$point, $punt, $pointSvg, $puntSvg, $puntAnimationElement;
+	$gameControls, $svgCircle, $scoreCard, $primaryContent, $body, $svgElement, $remainingTriesScore,
+	$point, $punt, $pointSvg, $puntSvg, $puntAnimationElement,
+	$finalScore, $remainingTriesElement;
 
 settings = {
 	// selectors
 	gameControlsContainerClass: '.game-controls__container',
+	remainingTriesContainerClass: '.game-score__remaining-tries',
 	lightsSliderClass: '.game-buttons__lights-slider',
 	scoreCardClass: '.game-circle__scorecard',
 	svgCircleClass: '.game-circle',
 	circlePoint: '.point',
 	circlePunt: '.punt',
+	finalScoreClass: '.game-score__final',
+	remainingTriesScoreClass: '.game-score__life',
 
 	// buttons
 	resetButtonClass: '.game-buttons__reset',
@@ -20,11 +24,14 @@ settings = {
 	// classes
 	gameStart: 'game-start',
 	lightsToggle: 'toggle-lights',
+	vibrateClass: 'vibrate-class',
+	redColorClass: 'color-class-red',
 
 	// others
 	errorMargin: 50,
 	rangeMin: 0.000025,
-	rangeMax: 0.000075
+	rangeMax: 0.000075,
+	currentScore: ''
 };
 
 // buttons
@@ -43,6 +50,9 @@ $svgElement = document.getElementsByTagName('svg')[0];
 $pointSvg = $svgElement.querySelectorAll('circle')[0];
 $puntSvg = $svgElement.querySelectorAll('circle')[1];
 $puntAnimationElement = $puntSvg.querySelector('animateMotion');
+$remainingTriesScore = document.querySelector(settings.remainingTriesScoreClass);
+$finalScore = document.querySelector(settings.finalScoreClass);
+$remainingTriesElement = document.querySelector(settings.remainingTriesContainerClass);
 
 /* Begin Function Declarations */
 
@@ -50,7 +60,7 @@ function theGame () {
 	$gameControls.classList.add(settings.gameStart);
 
 	// if user scores correctly, then increment score, increase point frequency and place punt somewhere
-	if(isValidSCore()) {
+	if(isValidScore()) {
 		$svgElement.unpauseAnimations();
 		handleScoring();
 		handlePointFrequency();
@@ -84,15 +94,25 @@ function handlePuntPlacement() {
 }
 
 function handleScoring () {
-	var currentScore, newScore;
+	var currentScore, newScore,
+		currentRemainingTries, newRemainingTries;
 
-	currentScore = getCurrentScore();
+	currentScore = getCurrentScore($scoreCard);
 	newScore = currentScore + 1;
-	setScore(newScore);
+	settings.currentScore = newScore;
+
+	// grant the user an additional try for every 5 points scored
+	if(settings.currentScore % 5 === 0) {
+		currentRemainingTries = getCurrentScore($remainingTriesScore);
+		newRemainingTries = currentRemainingTries + 1;
+		setScore($remainingTriesScore, newRemainingTries);
+	}
+
+	setScore($scoreCard, newScore);
 }
 
 function handleInvalidScore () {
-	console.log('wrong');
+	handleRemainingTries();
 }
 
 function handleReset () {
@@ -101,8 +121,14 @@ function handleReset () {
 	$svgElement.setCurrentTime(0);
 	setRotationFrequency($point, '');
 
-	setScore(0);
+	// reset all scores
+	setScore($scoreCard, 0);
+	setScore($remainingTriesScore, 3);
+
+	// remove classes and html added
 	$gameControls.classList.remove(settings.gameStart);
+	$finalScore.textContent = '';
+	$remainingTriesElement.classList.remove(settings.redColorClass);
 }
 
 function handleReload() {
@@ -123,16 +149,15 @@ function toggleLight () {
 	}
 }
 
-function getCurrentScore () {
+function getCurrentScore (el) {
 	var currentScore;
 
-	currentScore = parseInt($scoreCard.innerHTML);
-	settings.currentScore = currentScore;
+	currentScore = parseInt(el.innerHTML);
 	return currentScore;
 }
 
-function setScore (score) {
-	$scoreCard.innerHTML = score;
+function setScore (el, score) {
+	el.innerHTML = score;
 }
 
 function getRotationFrequency(el) {
@@ -153,7 +178,7 @@ function setRotationFrequency(el, freq) {
 	attrs.dur.value = freq + 's';
 }
 
-function isValidSCore() {
+function isValidScore() {
 	var currentPointLocation, currentPuntLocation, errorMargin;
 
 	currentPointLocation = {
@@ -177,6 +202,39 @@ function isValidSCore() {
 function getRandomFloat(min, max) {
 	return Math.random() * (max - min) + min;
 }
+
+function handleRemainingTries () {
+	var newRemainingTries, customEvent;
+
+	// decrease score
+	newRemainingTries = getCurrentScore($remainingTriesScore) - 1;
+	setScore($remainingTriesScore, newRemainingTries);
+
+	// dispatch custom event that handles animation on wrong hits
+	customEvent = new Event('quickPress: wrong-hit');
+	$remainingTriesScore.dispatchEvent(customEvent);
+
+	// make remaining tries section red when user has 0 tries left
+	if(getCurrentScore($remainingTriesScore) === 0) {
+		$remainingTriesElement.classList.add(settings.redColorClass);
+	}
+
+	// handles end game functionality --> should probably make its own function
+	if(getCurrentScore($remainingTriesScore) < 0) {
+		alert('game over');
+        setScore($remainingTriesScore, 0);
+        $finalScore.innerHTML = 'Your Final Score: <span class="final-score">' + settings.currentScore + '</span>';
+		$svgElement.pauseAnimations();
+	}
+}
+
+function handleRemainingTriesAnimation() {
+	$remainingTriesElement.classList.add(settings.vibrateClass);
+	$remainingTriesElement.addEventListener('animationend', function () {
+		$remainingTriesElement.classList.remove(settings.vibrateClass);
+	});
+}
+
 /* End Function Declarations */
 
 /* Begin Event Listeners */
@@ -185,5 +243,6 @@ document.addEventListener('DOMContentLoaded', handleReload);
 $lightSwitch.addEventListener('click', toggleLight);
 $resetButton.addEventListener('click', handleReset);
 $svgCircle.addEventListener('click', theGame);
+$remainingTriesScore.addEventListener('quickPress: wrong-hit', handleRemainingTriesAnimation);
 
 /* End Event Listeners */

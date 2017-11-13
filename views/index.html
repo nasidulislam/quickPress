@@ -13,7 +13,7 @@
     <div class='game-controls__container'>
 
         <?xml version="1.0"?>
-        <svg width="300" height="300"
+        <svg width="300" height="250"
              xmlns="http://www.w3.org/2000/svg" version="1.1"
              xmlns:xlink="http://www.w3.org/1999/xlink" class='game-circle'>
             <path d="M 150,
@@ -43,6 +43,15 @@
             </circle>
 
         </svg>
+
+        <div class="game-score">
+            <div class="game-score__remaining-tries">Remaining tries: <span class="game-score__life">3</span>
+                <div class="tooltip">
+                    <p>You will get an additional try for every 5 points scored !!</p>
+                </div>
+            </div>
+            <div class="game-score__final"></div>
+        </div>
 
         <div class='game-buttons'>
             <label class="game-buttons__lights">

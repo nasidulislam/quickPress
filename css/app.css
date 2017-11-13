@@ -185,14 +185,93 @@ input:checked + .game-buttons__lights-slider:before {
 	color: #EDCDC2;
 }
 
+.toggle-lights .game-score {
+	color: #EDCDC2;
+}
+
 /* End lights off styles */
 
 /*-----------------------------*/
-/* Game Start Styles */
+/* Game Score Styles */
 /*-----------------------------*/
+@keyframes vibrate {
+	0% { transform: scale(1); }
+	50% { transform: scale(1.2); }
+	100% { transform: scale(1); }
+}
 
+.game-score {
+	font-size: 20px;
+	margin-bottom: 30px;
+	min-height: 85px;
+}
 
-/* End game start styles */
+.game-score__life, .final-score {
+	font-size: 30px;
+}
+
+.game-score__final {
+	margin-top: 20px;
+}
+
+.game-score__life {
+	display: inline-block;
+}
+
+.game-score .tooltip {
+	background-color: #167F92 ;
+	border-radius: 50%;
+	display: inline-block;
+	line-height: 27px;
+	font-size: 14px;
+	margin-left: 15px;
+	position: absolute;
+	width: 24px;
+	height: 24px;
+}
+
+.game-score .tooltip:after {
+	content:'?';
+	font-weight: bold;
+	color: #fff;
+}
+
+.tooltip:hover p {
+	display:block;
+	transform-origin: 100% 0;
+
+	-webkit-animation: fadeIn 0.3s ease-in-out;
+	animation: fadeIn 0.3s ease-in-out;
+
+}
+
+.tooltip p {
+	background-color: #1E2021;
+	border-radius: 3px;
+	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+	color: #FFF;
+	display: none;
+	font-size: 13px;
+	line-height: 1.4;
+	padding: 10px;
+	position: absolute;
+	right: -40px;
+	text-align: center;
+	width: 300px;
+}
+
+.vibrate-class {
+	animation-name: vibrate;
+	animation-duration: 1000ms;
+	animation-iteration-count: 1;
+	animation-timing-function: linear;
+}
+
+.color-class-red {
+	color: #c90835;
+}
+
+/* End game score styles */
 
 @media screen and (min-width: 980px) {
 	/* TODO:  */
