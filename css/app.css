@@ -190,8 +190,25 @@ input:checked + .game-buttons__lights-slider:before {
 /*-----------------------------*/
 /* Remaining Tries Styles */
 /*-----------------------------*/
+@keyframes vibrate {
+	0% { transform: scale(1); }
+	50% { transform: scale(1.5); }
+	100% { transform: scale(1); }
+}
+
 .game-life {
 	margin-bottom: 30px;
+}
+
+.game-life__score {
+	display: inline-block;
+}
+
+.vibrate-class {
+	animation-name: vibrate;
+	animation-duration: 1000ms;
+	animation-iteration-count: 1;
+	animation-timing-function: linear;
 }
 
 /* End remaining tries styles */

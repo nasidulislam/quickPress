@@ -180,15 +180,22 @@ function getRandomFloat(min, max) {
 }
 
 function handleRemainingTries () {
-	var newRemainingTries;
+	var newRemainingTries, customEvent;
 
 	newRemainingTries = getCurrentScore($remainingTriesScore) - 1;
 	setScore($remainingTriesScore, newRemainingTries);
+
+	customEvent = new Event('quickPress: wrong-hit');
+	$remainingTriesScore.dispatchEvent(customEvent);
 
 	if(getCurrentScore($remainingTriesScore) < 0) {
 		alert('game over');
 		$svgElement.pauseAnimations();
 	}
+}
+
+function handleRemainingTriesAnimation() {
+	$remainingTriesScore.classList.add('vibrate-class');
 }
 
 /* End Function Declarations */
@@ -199,5 +206,6 @@ document.addEventListener('DOMContentLoaded', handleReload);
 $lightSwitch.addEventListener('click', toggleLight);
 $resetButton.addEventListener('click', handleReset);
 $svgCircle.addEventListener('click', theGame);
+$remainingTriesScore.addEventListener('quickPress: wrong-hit', handleRemainingTriesAnimation);
 
 /* End Event Listeners */
