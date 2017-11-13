@@ -21,6 +21,8 @@ settings = {
 	// classes
 	gameStart: 'game-start',
 	lightsToggle: 'toggle-lights',
+	vibrateClass: 'vibrate-class',
+	redColorClass: 'color-class-red',
 
 	// others
 	errorMargin: 50,
@@ -113,6 +115,7 @@ function handleReset () {
 	// remove classes and html added
 	$gameControls.classList.remove(settings.gameStart);
 	$finalScore.textContent = '';
+	$remainingTriesScore.classList.remove(settings.redColorClass);
 }
 
 function handleReload() {
@@ -188,17 +191,35 @@ function getRandomFloat(min, max) {
 }
 
 function handleRemainingTries () {
-	var newRemainingTries;
+	var newRemainingTries, customEvent;
 
+	// decrease score
 	newRemainingTries = getCurrentScore($remainingTriesScore) - 1;
 	setScore($remainingTriesScore, newRemainingTries);
 
+	// dispatch custom event that handles animation on wrong hits
+	customEvent = new Event('quickPress: wrong-hit');
+	$remainingTriesScore.dispatchEvent(customEvent);
+
+	// make remaining tries section red when user has 0 tries left
+	if(getCurrentScore($remainingTriesScore) === 0) {
+		$remainingTriesScore.classList.add(settings.redColorClass);
+	}
+
+	// handles end game functionality --> should probably make its own function
 	if(getCurrentScore($remainingTriesScore) < 0) {
 		alert('game over');
         setScore($remainingTriesScore, 0);
         $finalScore.innerHTML = 'Your Final Score: <span class="final-score">' + settings.currentScore + '</span>';
 		$svgElement.pauseAnimations();
 	}
+}
+
+function handleRemainingTriesAnimation() {
+	$remainingTriesScore.classList.add('vibrate-class');
+	$remainingTriesScore.addEventListener('animationend', function () {
+		$remainingTriesScore.classList.remove(settings.vibrateClass);
+	});
 }
 
 /* End Function Declarations */
@@ -209,5 +230,6 @@ document.addEventListener('DOMContentLoaded', handleReload);
 $lightSwitch.addEventListener('click', toggleLight);
 $resetButton.addEventListener('click', handleReset);
 $svgCircle.addEventListener('click', theGame);
+$remainingTriesScore.addEventListener('quickPress: wrong-hit', handleRemainingTriesAnimation);
 
 /* End Event Listeners */
