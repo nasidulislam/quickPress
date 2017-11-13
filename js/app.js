@@ -182,12 +182,15 @@ function getRandomFloat(min, max) {
 function handleRemainingTries () {
 	var newRemainingTries, customEvent;
 
+	// decrease score
 	newRemainingTries = getCurrentScore($remainingTriesScore) - 1;
 	setScore($remainingTriesScore, newRemainingTries);
 
+	// dispatch custom event that handles animation on wrong hits
 	customEvent = new Event('quickPress: wrong-hit');
 	$remainingTriesScore.dispatchEvent(customEvent);
 
+	// handles end game functionality --> should probably make its own function
 	if(getCurrentScore($remainingTriesScore) < 0) {
 		alert('game over');
 		$svgElement.pauseAnimations();
@@ -196,6 +199,9 @@ function handleRemainingTries () {
 
 function handleRemainingTriesAnimation() {
 	$remainingTriesScore.classList.add('vibrate-class');
+	$remainingTriesScore.addEventListener('animationend', function () {
+		$remainingTriesScore.classList.remove('vibrate-class');
+	});
 }
 
 /* End Function Declarations */
