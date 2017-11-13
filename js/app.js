@@ -90,11 +90,20 @@ function handlePuntPlacement() {
 }
 
 function handleScoring () {
-	var currentScore, newScore;
+	var currentScore, newScore,
+		currentRemainingTries, newRemainingTries;
 
 	currentScore = getCurrentScore($scoreCard);
 	newScore = currentScore + 1;
 	settings.currentScore = newScore;
+
+	// grant the user an additional try for every 5 points scored
+	if(settings.currentScore % 5 === 0) {
+		currentRemainingTries = getCurrentScore($remainingTriesScore);
+		newRemainingTries = currentRemainingTries + 1;
+		setScore($remainingTriesScore, newRemainingTries);
+	}
+
 	setScore($scoreCard, newScore);
 }
 
