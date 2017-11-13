@@ -74,6 +74,10 @@
 	color: #167F92;
 }
 
+.game-leaderboards__current-location {
+	margin-bottom: 15px;
+}
+
 /* End game leaderboards styles */
 
 /* End primary content styles */

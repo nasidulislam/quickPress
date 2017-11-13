@@ -1,7 +1,7 @@
 var settings,
 	$resetButton, $lightSwitch,
 	$gameControls, $svgCircle, $scoreCard, $primaryContent, $body, $svgElement, $remainingTriesScore,
-	$point, $punt, $pointSvg, $puntSvg, $puntAnimationElement,
+	$point, $punt, $pointSvg, $puntSvg, $puntAnimationElement, $currentLocation,
 	$finalScore, $remainingTriesElement;
 
 settings = {
@@ -15,6 +15,7 @@ settings = {
 	circlePunt: '.punt',
 	finalScoreClass: '.game-score__final',
 	remainingTriesScoreClass: '.game-score__life',
+	currentLocation: '.current-location',
 
 	// buttons
 	resetButtonClass: '.game-buttons__reset',
@@ -53,6 +54,7 @@ $puntAnimationElement = $puntSvg.querySelector('animateMotion');
 $remainingTriesScore = document.querySelector(settings.remainingTriesScoreClass);
 $finalScore = document.querySelector(settings.finalScoreClass);
 $remainingTriesElement = document.querySelector(settings.remainingTriesContainerClass);
+$currentLocation = document.querySelector(settings.currentLocation);
 
 /* Begin Function Declarations */
 
@@ -133,6 +135,7 @@ function handleReset () {
 
 function handleReload() {
 	handleReset();
+	getCurrentLocation();
 }
 
 function toggleLight () {
@@ -233,6 +236,24 @@ function handleRemainingTriesAnimation() {
 	$remainingTriesElement.addEventListener('animationend', function () {
 		$remainingTriesElement.classList.remove(settings.vibrateClass);
 	});
+}
+
+function getCurrentLocation() {
+	var request = new XMLHttpRequest();
+
+	request.onreadystatechange = function () {
+		if(request.readyState === 4) {
+			if(request.status === 200) {
+				var response = JSON.parse(request.responseText);
+				$currentLocation.innerHTML = response.city + ' ' + response.region + ', ' + response.country;
+			} else {
+				$currentLocation.innerHTML = 'Unable to determine current location';
+			}
+		}
+	};
+
+	request.open('Get', 'http://ipinfo.io/json');
+	request.send();
 }
 
 /* End Function Declarations */
