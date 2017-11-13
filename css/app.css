@@ -197,6 +197,7 @@ input:checked + .game-buttons__lights-slider:before {
 .game-score {
 	font-size: 20px;
 	margin-bottom: 30px;
+	min-height: 85px;
 }
 
 .game-score__life, .final-score {
