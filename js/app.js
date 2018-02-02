@@ -2,7 +2,7 @@ define(function(require) {
 	var settings,
 	$resetButton, $lightSwitch,
 	$gameControls, $svgCircle, $scoreCard, $primaryContent, $body, $svgElement, $remainingTriesScore,
-	$point, $punt, $pointSvg, $puntSvg, $puntAnimationElement, $currentLocation,
+	$point, $pointSvg, $puntSvg, $currentLocation,
 	$finalScore, $remainingTriesElement;
 
 	settings = {
@@ -31,8 +31,6 @@ define(function(require) {
 
 	// others
 	errorMargin: 50,
-	rangeMin: 0.000025,
-	rangeMax: 0.000075,
 	currentScore: ''
 };
 
@@ -47,15 +45,17 @@ define(function(require) {
 	$body = document.querySelector(settings.bodyClass);
 	$svgCircle = document.querySelector(settings.svgCircleClass);
 	$point = document.querySelector(settings.circlePoint);
-	$punt = document.querySelector(settings.circlePunt);
 	$svgElement = document.getElementsByTagName('svg')[0];
 	$pointSvg = $svgElement.querySelectorAll('circle')[0];
 	$puntSvg = $svgElement.querySelectorAll('circle')[1];
-	$puntAnimationElement = $puntSvg.querySelector('animateMotion');
 	$remainingTriesScore = document.querySelector(settings.remainingTriesScoreClass);
 	$finalScore = document.querySelector(settings.finalScoreClass);
 	$remainingTriesElement = document.querySelector(settings.remainingTriesContainerClass);
 	$currentLocation = document.querySelector(settings.currentLocation);
+
+	// modules
+	var placement = require('modules/placement');
+	var frequency = require('modules/frequency');
 
 	/* Begin Function Declarations */
 
@@ -66,34 +66,11 @@ define(function(require) {
 		if(isValidScore()) {
 			$svgElement.unpauseAnimations();
 			handleScoring();
-			handlePointFrequency();
-			handlePuntPlacement();
+			placement.handlePointFrequency($point);
+			placement.handlePuntPlacement();
 		} else {
 			handleInvalidScore();
 		}
-	}
-
-	function handlePointFrequency() {
-		var currentDuration;
-
-		currentDuration = getRotationFrequency($point);
-
-		// bypass initial duration value being set to nothing on svg element
-		if(isNaN(currentDuration)) {
-			currentDuration = 20;
-		}
-
-		setRotationFrequency($point, currentDuration / 2); //TODO : write a difficulty implementation function
-	}
-
-	function handlePuntPlacement() {
-		var randomPlacementVariable = parseFloat((getRandomFloat(settings.rangeMin, settings.rangeMax)).toFixed(6)) * Math.pow(10, 4);
-
-		setTimeout(function () {
-			$puntAnimationElement.setAttribute('repeatCount', '' + randomPlacementVariable);
-			// have to reset current time to 0 every time to keep punt in place
-			$svgElement.setCurrentTime(0);
-		}, randomPlacementVariable);
 	}
 
 	function handleScoring () {
@@ -122,7 +99,7 @@ define(function(require) {
 		// pause all svg animation on reset and set initial position to 0
 		$svgElement.pauseAnimations();
 		$svgElement.setCurrentTime(0);
-		setRotationFrequency($point, '');
+		frequency.setRotationFrequency($point, '');
 
 		// reset all scores
 		setScore($scoreCard, 0);
@@ -164,24 +141,6 @@ define(function(require) {
 		el.innerHTML = score;
 	}
 
-	function getRotationFrequency(el) {
-		var attrs, freq, freqNumber;
-
-		attrs = el.attributes;
-		freq = attrs.dur.value;
-		freqNumber = parseFloat(freq.substr(0, freq.length - 1));
-
-		return freqNumber;
-	}
-
-
-	function setRotationFrequency(el, freq) {
-		var attrs;
-
-		attrs = el.attributes;
-		attrs.dur.value = freq + 's';
-	}
-
 	function isValidScore() {
 		var currentPointLocation, currentPuntLocation, errorMargin;
 
@@ -201,10 +160,6 @@ define(function(require) {
 		};
 
 		return (Math.abs(errorMargin.marginX) <= settings.errorMargin && (Math.abs(errorMargin.marginY) <= settings.errorMargin));
-	}
-
-	function getRandomFloat(min, max) {
-		return Math.random() * (max - min) + min;
 	}
 
 	function handleRemainingTries () {
