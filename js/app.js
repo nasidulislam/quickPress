@@ -30,8 +30,7 @@ define(function(require) {
 	redColorClass: 'color-class-red',
 
 	// others
-	errorMargin: 50,
-	currentScore: ''
+	errorMargin: 50
 };
 
 	// buttons
@@ -56,6 +55,7 @@ define(function(require) {
 	// modules
 	var placement = require('modules/placement');
 	var frequency = require('modules/frequency');
+	var score = require('modules/score');
 
 	/* Begin Function Declarations */
 
@@ -65,30 +65,12 @@ define(function(require) {
 		// if user scores correctly, then increment score, increase point frequency and place punt somewhere
 		if(isValidScore()) {
 			$svgElement.unpauseAnimations();
-			handleScoring();
+			score.handleScoring();
 			placement.handlePointFrequency($point);
 			placement.handlePuntPlacement();
 		} else {
 			handleInvalidScore();
 		}
-	}
-
-	function handleScoring () {
-		var currentScore, newScore,
-			currentRemainingTries, newRemainingTries;
-
-		currentScore = getCurrentScore($scoreCard);
-		newScore = currentScore + 1;
-		settings.currentScore = newScore;
-
-		// grant the user an additional try for every 5 points scored
-		if(settings.currentScore % 5 === 0) {
-			currentRemainingTries = getCurrentScore($remainingTriesScore);
-			newRemainingTries = currentRemainingTries + 1;
-			setScore($remainingTriesScore, newRemainingTries);
-		}
-
-		setScore($scoreCard, newScore);
 	}
 
 	function handleInvalidScore () {
@@ -102,8 +84,8 @@ define(function(require) {
 		frequency.setRotationFrequency($point, '');
 
 		// reset all scores
-		setScore($scoreCard, 0);
-		setScore($remainingTriesScore, 3);
+		score.setScore($scoreCard, 0);
+		score.setScore($remainingTriesScore, 3);
 
 		// remove classes and html added
 		$gameControls.classList.remove(settings.gameStart);
@@ -128,17 +110,6 @@ define(function(require) {
 				$scoreCard.attributes.fill.value = 'white';
 				break;
 		}
-	}
-
-	function getCurrentScore (el) {
-		var currentScore;
-
-		currentScore = parseInt(el.innerHTML);
-		return currentScore;
-	}
-
-	function setScore (el, score) {
-		el.innerHTML = score;
 	}
 
 	function isValidScore() {
@@ -166,23 +137,23 @@ define(function(require) {
 		var newRemainingTries, customEvent;
 
 		// decrease score
-		newRemainingTries = getCurrentScore($remainingTriesScore) - 1;
-		setScore($remainingTriesScore, newRemainingTries);
+		newRemainingTries = score.getCurrentScore($remainingTriesScore) - 1;
+		score.setScore($remainingTriesScore, newRemainingTries);
 
 		// dispatch custom event that handles animation on wrong hits
 		customEvent = new Event('quickPress: wrong-hit');
 		$remainingTriesScore.dispatchEvent(customEvent);
 
 		// make remaining tries section red when user has 0 tries left
-		if(getCurrentScore($remainingTriesScore) === 0) {
+		if(score.getCurrentScore($remainingTriesScore) === 0) {
 			$remainingTriesElement.classList.add(settings.redColorClass);
 		}
 
 		// handles end game functionality --> should probably make its own function
-		if(getCurrentScore($remainingTriesScore) < 0) {
+		if(score.getCurrentScore($remainingTriesScore) < 0) {
 			alert('game over');
-	        setScore($remainingTriesScore, 0);
-	        $finalScore.innerHTML = 'Your Final Score: <span class="final-score">' + settings.currentScore + '</span>';
+	        score.setScore($remainingTriesScore, 0);
+	        $finalScore.innerHTML = 'Your Final Score: <span class="final-score">' + score.getCurrentScore($scoreCard) + '</span>';
 			$svgElement.pauseAnimations();
 		}
 	}
