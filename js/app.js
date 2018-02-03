@@ -1,7 +1,7 @@
 define(function(require) {
 	var settings,
 	$resetButton, $lightSwitch,
-	$gameControls, $svgCircle, $scoreCard, $primaryContent, $body, $svgElement, $remainingTriesScore,
+	$gameControls, $svgCircle, $scoreCard, $svgElement, $remainingTriesScore,
 	$point, $pointSvg, $puntSvg, $currentLocation,
 	$finalScore, $remainingTriesElement;
 
@@ -21,7 +21,6 @@ define(function(require) {
 	// buttons
 	resetButtonClass: '.game-buttons__reset',
 	primaryContentClass: '.primary-content',
-	bodyClass: '.body-class',
 
 	// classes
 	gameStart: 'game-start',
@@ -40,8 +39,6 @@ define(function(require) {
 	// Elements
 	$gameControls = document.querySelector(settings.gameControlsContainerClass);
 	$scoreCard = document.querySelector(settings.scoreCardClass);
-	$primaryContent = document.querySelector(settings.primaryContentClass);
-	$body = document.querySelector(settings.bodyClass);
 	$svgCircle = document.querySelector(settings.svgCircleClass);
 	$point = document.querySelector(settings.circlePoint);
 	$svgElement = document.getElementsByTagName('svg')[0];
@@ -56,6 +53,7 @@ define(function(require) {
 	var placement = require('modules/placement');
 	var frequency = require('modules/frequency');
 	var score = require('modules/score');
+	var toggleLight = require('modules/toggleLight');
 
 	/* Begin Function Declarations */
 
@@ -96,20 +94,6 @@ define(function(require) {
 	function handleReload() {
 		handleReset();
 		getCurrentLocation();
-	}
-
-	function toggleLight () {
-		$body.classList.toggle(settings.lightsToggle);
-
-		// swap color palette for scorecard
-		switch ($scoreCard.attributes.fill.value) {
-			case 'white':
-				$scoreCard.attributes.fill.value = 'blue';
-				break;
-			case 'blue':
-				$scoreCard.attributes.fill.value = 'white';
-				break;
-		}
 	}
 
 	function isValidScore() {
@@ -188,7 +172,7 @@ define(function(require) {
 	/* Begin Event Listeners */
 
 	handleReload();
-	$lightSwitch.addEventListener('click', toggleLight);
+	$lightSwitch.addEventListener('click', toggleLight.toggleLight);
 	$resetButton.addEventListener('click', handleReset);
 	$svgCircle.addEventListener('click', theGame);
 	$remainingTriesScore.addEventListener('quickPress: wrong-hit', handleRemainingTriesAnimation);
