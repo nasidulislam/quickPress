@@ -4,33 +4,31 @@ define(function (require) {
     var frequency = require('modules/frequency');
     var score = require('modules/score');
 
-    var privateMembers = {
-            settings: {
-                // selectors
-                bodyClass: '.body-class',
-                scoreCardClass: '.game-circle__scorecard',
-                remainingTriesScoreClass: '.game-score__life',
-                gameControlsContainerClass: '.game-controls__container',
-                finalScoreClass: '.game-score__final',
-                remainingTriesContainerClass: '.game-score__remaining-tries',
-                circlePoint: '.point',
-                currentLocation: '.current-location',
+    var settings = {
+            // selectors
+            bodyClass: '.body-class',
+            scoreCardClass: '.game-circle__scorecard',
+            remainingTriesScoreClass: '.game-score__life',
+            gameControlsContainerClass: '.game-controls__container',
+            finalScoreClass: '.game-score__final',
+            remainingTriesContainerClass: '.game-score__remaining-tries',
+            circlePoint: '.point',
+            currentLocation: '.current-location',
 
-                // classes
-                lightsToggle: 'toggle-lights',
-                redColorClass: 'color-class-red'
-            }
+            // classes
+            lightsToggle: 'toggle-lights',
+            redColorClass: 'color-class-red'
         },
 
         publicMembers = {
             handleReset: function () {
                 var $svgElement = document.getElementsByTagName('svg')[0];
-                var $scoreCard = document.querySelector(privateMembers.settings.scoreCardClass);
-                var $remainingTriesScore = document.querySelector(privateMembers.settings.remainingTriesScoreClass);
-                var $gameControls = document.querySelector(privateMembers.settings.gameControlsContainerClass);
-                var $finalScore = document.querySelector(privateMembers.settings.finalScoreClass);
-                var $point = document.querySelector(privateMembers.settings.circlePoint);
-                var $remainingTriesElement = document.querySelector(privateMembers.settings.remainingTriesContainerClass);
+                var $scoreCard = document.querySelector(settings.scoreCardClass);
+                var $remainingTriesScore = document.querySelector(settings.remainingTriesScoreClass);
+                var $gameControls = document.querySelector(settings.gameControlsContainerClass);
+                var $finalScore = document.querySelector(settings.finalScoreClass);
+                var $point = document.querySelector(settings.circlePoint);
+                var $remainingTriesElement = document.querySelector(settings.remainingTriesContainerClass);
 
                 // pause all svg animation on reset and set initial position to 0
                 $svgElement.pauseAnimations();
@@ -42,16 +40,16 @@ define(function (require) {
                 score.setScore($remainingTriesScore, 3);
 
                 // remove classes and html added
-                $gameControls.classList.remove(privateMembers.settings.gameStart);
+                $gameControls.classList.remove(settings.gameStart);
                 $finalScore.textContent = '';
-                $remainingTriesElement.classList.remove(privateMembers.settings.redColorClass);
+                $remainingTriesElement.classList.remove(settings.redColorClass);
             },
 
             toggleLight: function () {
-                var $body = document.querySelector(privateMembers.settings.bodyClass);
-                var $scoreCard = document.querySelector(privateMembers.settings.scoreCardClass);
+                var $body = document.querySelector(settings.bodyClass);
+                var $scoreCard = document.querySelector(settings.scoreCardClass);
 
-                $body.classList.toggle(privateMembers.settings.lightsToggle);
+                $body.classList.toggle(settings.lightsToggle);
 
                 // swap color palette for scorecard
                 switch ($scoreCard.attributes.fill.value) {
@@ -66,7 +64,7 @@ define(function (require) {
 
             getCurrentLocation: function () {
                 var request = new XMLHttpRequest();
-                var $currentLocation = document.querySelector(privateMembers.settings.currentLocation);
+                var $currentLocation = document.querySelector(settings.currentLocation);
 
                 request.onreadystatechange = function () {
                     if (request.readyState === 4) {

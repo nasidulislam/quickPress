@@ -1,11 +1,9 @@
 define(function () {
-    var privateMembers = {
-            settings: {
-                scoreCardClass: '.game-circle__scorecard',
-                remainingTriesScoreClass: '.game-score__life',
-                currentScore: '',
-                errorMarginDefault: 50
-            }
+    var settings = {
+            scoreCardClass: '.game-circle__scorecard',
+            remainingTriesScoreClass: '.game-score__life',
+            currentScore: '',
+            errorMarginDefault: 50
         },
 
         publicMembers = {
@@ -13,14 +11,14 @@ define(function () {
                 var currentScore, newScore, $remainingTriesScore,
                     currentRemainingTries, newRemainingTries, $scoreCard;
 
-                $scoreCard = document.querySelector(privateMembers.settings.scoreCardClass);
-                $remainingTriesScore = document.querySelector(privateMembers.settings.remainingTriesScoreClass);
+                $scoreCard = document.querySelector(settings.scoreCardClass);
+                $remainingTriesScore = document.querySelector(settings.remainingTriesScoreClass);
                 currentScore = publicMembers.getCurrentScore($scoreCard);
                 newScore = currentScore + 1;
-                privateMembers.settings.currentScore = newScore;
+                settings.currentScore = newScore;
 
                 // grant the user an additional try for every 5 points scored
-                if (privateMembers.settings.currentScore % 5 === 0) {
+                if (settings.currentScore % 5 === 0) {
                     currentRemainingTries = publicMembers.getCurrentScore($remainingTriesScore);
                     newRemainingTries = currentRemainingTries + 1;
                     publicMembers.setScore($remainingTriesScore, newRemainingTries);
@@ -36,7 +34,7 @@ define(function () {
                 $svgElement = document.getElementsByTagName('svg')[0];
                 $pointSvg = $svgElement.querySelectorAll('circle')[0];
                 $puntSvg = $svgElement.querySelectorAll('circle')[1];
-                errorMarginDefault = privateMembers.settings.errorMarginDefault;
+                errorMarginDefault = settings.errorMarginDefault;
 
                 currentPointLocation = {
                     pointX: $pointSvg.getScreenCTM().e,
