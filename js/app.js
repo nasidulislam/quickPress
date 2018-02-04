@@ -2,7 +2,7 @@ define(function(require) {
 	var settings,
 	$resetButton, $lightSwitch,
 	$gameControls, $svgCircle, $scoreCard, $svgElement, $remainingTriesScore,
-	$point, $pointSvg, $puntSvg, $currentLocation,
+	$point, $pointSvg, $puntSvg,
 	$finalScore, $remainingTriesElement;
 
 	settings = {
@@ -16,7 +16,6 @@ define(function(require) {
 	circlePunt: '.punt',
 	finalScoreClass: '.game-score__final',
 	remainingTriesScoreClass: '.game-score__life',
-	currentLocation: '.current-location',
 
 	// buttons
 	resetButtonClass: '.game-buttons__reset',
@@ -47,13 +46,13 @@ define(function(require) {
 	$remainingTriesScore = document.querySelector(settings.remainingTriesScoreClass);
 	$finalScore = document.querySelector(settings.finalScoreClass);
 	$remainingTriesElement = document.querySelector(settings.remainingTriesContainerClass);
-	$currentLocation = document.querySelector(settings.currentLocation);
 
 	// modules
 	var placement = require('modules/placement');
 	var frequency = require('modules/frequency');
 	var score = require('modules/score');
 	var toggleLight = require('modules/toggleLight');
+	var location = require('modules/location');
 
 	/* Begin Function Declarations */
 
@@ -93,7 +92,7 @@ define(function(require) {
 
 	function handleReload() {
 		handleReset();
-		getCurrentLocation();
+		location.getCurrentLocation();
 	}
 
 	function isValidScore() {
@@ -147,24 +146,6 @@ define(function(require) {
 		$remainingTriesElement.addEventListener('animationend', function () {
 			$remainingTriesElement.classList.remove(settings.vibrateClass);
 		});
-	}
-
-	function getCurrentLocation() {
-		var request = new XMLHttpRequest();
-
-		request.onreadystatechange = function () {
-			if(request.readyState === 4) {
-				if(request.status === 200) {
-					var response = JSON.parse(request.responseText);
-					$currentLocation.innerHTML = response.city + ' ' + response.region + ', ' + response.country;
-				} else {
-					$currentLocation.innerHTML = 'Unable to determine current location';
-				}
-			}
-		};
-
-		request.open('Get', 'http://ipinfo.io/json');
-		request.send();
 	}
 
 	/* End Function Declarations */
