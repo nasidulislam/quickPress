@@ -43,10 +43,8 @@ define(function(require) {
 
 	// modules
 	var placement = require('modules/placement');
-	var frequency = require('modules/frequency');
 	var score = require('modules/score');
-	var toggleLight = require('modules/toggleLight');
-	var location = require('modules/location');
+	var util = require('modules/util');
 
 	/* Begin Function Declarations */
 
@@ -68,25 +66,9 @@ define(function(require) {
 		handleRemainingTries();
 	}
 
-	function handleReset () {
-		// pause all svg animation on reset and set initial position to 0
-		$svgElement.pauseAnimations();
-		$svgElement.setCurrentTime(0);
-		frequency.setRotationFrequency($point, '');
-
-		// reset all scores
-		score.setScore($scoreCard, 0);
-		score.setScore($remainingTriesScore, 3);
-
-		// remove classes and html added
-		$gameControls.classList.remove(settings.gameStart);
-		$finalScore.textContent = '';
-		$remainingTriesElement.classList.remove(settings.redColorClass);
-	}
-
 	function handleReload() {
-		handleReset();
-		location.getCurrentLocation();
+		util.handleReset();
+		util.getCurrentLocation();
 	}
 
 	function handleRemainingTries () {
@@ -126,8 +108,8 @@ define(function(require) {
 	/* Begin Event Listeners */
 
 	handleReload();
-	$lightSwitch.addEventListener('click', toggleLight.toggleLight);
-	$resetButton.addEventListener('click', handleReset);
+	$lightSwitch.addEventListener('click', util.toggleLight);
+	$resetButton.addEventListener('click', util.handleReset);
 	$svgCircle.addEventListener('click', theGame);
 	$remainingTriesScore.addEventListener('quickPress: wrong-hit', handleRemainingTriesAnimation);
 
