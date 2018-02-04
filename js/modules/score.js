@@ -1,72 +1,72 @@
 define(function () {
     var privateMembers = {
-        settings: {
-            scoreCardClass: '.game-circle__scorecard',
-            remainingTriesScoreClass: '.game-score__life',
-            currentScore: '',
-            errorMarginDefault: 50
-        }
-    },
-
-    publicMembers = {
-        handleScoring: function () {
-            var currentScore, newScore, $remainingTriesScore,
-			currentRemainingTries, newRemainingTries, $scoreCard;
-
-            $scoreCard = document.querySelector(privateMembers.settings.scoreCardClass);
-            $remainingTriesScore = document.querySelector(privateMembers.settings.remainingTriesScoreClass);
-            currentScore = publicMembers.getCurrentScore($scoreCard);
-            newScore = currentScore + 1;
-            privateMembers.settings.currentScore = newScore;
-
-            // grant the user an additional try for every 5 points scored
-            if(privateMembers.settings.currentScore % 5 === 0) {
-                currentRemainingTries = publicMembers.getCurrentScore($remainingTriesScore);
-                newRemainingTries = currentRemainingTries + 1;
-                publicMembers.setScore($remainingTriesScore, newRemainingTries);
+            settings: {
+                scoreCardClass: '.game-circle__scorecard',
+                remainingTriesScoreClass: '.game-score__life',
+                currentScore: '',
+                errorMarginDefault: 50
             }
-
-            publicMembers.setScore($scoreCard, newScore);
         },
 
-        isValidScore: function () {
-            var currentPointLocation, currentPuntLocation, userError, errorMarginDefault,
-                $svgElement, $pointSvg, $puntSvg;
+        publicMembers = {
+            handleScoring: function () {
+                var currentScore, newScore, $remainingTriesScore,
+                    currentRemainingTries, newRemainingTries, $scoreCard;
 
-            $svgElement = document.getElementsByTagName('svg')[0];
-            $pointSvg = $svgElement.querySelectorAll('circle')[0];
-            $puntSvg = $svgElement.querySelectorAll('circle')[1];
-            errorMarginDefault = privateMembers.settings.errorMarginDefault;
+                $scoreCard = document.querySelector(privateMembers.settings.scoreCardClass);
+                $remainingTriesScore = document.querySelector(privateMembers.settings.remainingTriesScoreClass);
+                currentScore = publicMembers.getCurrentScore($scoreCard);
+                newScore = currentScore + 1;
+                privateMembers.settings.currentScore = newScore;
 
-            currentPointLocation = {
-                pointX: $pointSvg.getScreenCTM().e,
-                pointY: $pointSvg.getScreenCTM().f
-            };
+                // grant the user an additional try for every 5 points scored
+                if (privateMembers.settings.currentScore % 5 === 0) {
+                    currentRemainingTries = publicMembers.getCurrentScore($remainingTriesScore);
+                    newRemainingTries = currentRemainingTries + 1;
+                    publicMembers.setScore($remainingTriesScore, newRemainingTries);
+                }
 
-            currentPuntLocation = {
-                puntX: $puntSvg.getScreenCTM().e,
-                puntY: $puntSvg.getScreenCTM().f
-            };
+                publicMembers.setScore($scoreCard, newScore);
+            },
 
-            userError = {
-                marginX: currentPointLocation.pointX - currentPuntLocation.puntX,
-                marginY: currentPointLocation.pointY - currentPuntLocation.puntY
-            };
+            isValidScore: function () {
+                var currentPointLocation, currentPuntLocation, userError, errorMarginDefault,
+                    $svgElement, $pointSvg, $puntSvg;
 
-            return (Math.abs(userError.marginX) <= errorMarginDefault && (Math.abs(userError.marginY) <= errorMarginDefault));
-        },
+                $svgElement = document.getElementsByTagName('svg')[0];
+                $pointSvg = $svgElement.querySelectorAll('circle')[0];
+                $puntSvg = $svgElement.querySelectorAll('circle')[1];
+                errorMarginDefault = privateMembers.settings.errorMarginDefault;
 
-        getCurrentScore: function (el) {
-            var currentScore;
+                currentPointLocation = {
+                    pointX: $pointSvg.getScreenCTM().e,
+                    pointY: $pointSvg.getScreenCTM().f
+                };
 
-            currentScore = parseInt(el.innerHTML);
-            return currentScore;
-        },
+                currentPuntLocation = {
+                    puntX: $puntSvg.getScreenCTM().e,
+                    puntY: $puntSvg.getScreenCTM().f
+                };
 
-        setScore: function (el, score) {
-            el.innerHTML = score;
-        }
-    };
+                userError = {
+                    marginX: currentPointLocation.pointX - currentPuntLocation.puntX,
+                    marginY: currentPointLocation.pointY - currentPuntLocation.puntY
+                };
+
+                return (Math.abs(userError.marginX) <= errorMarginDefault && (Math.abs(userError.marginY) <= errorMarginDefault));
+            },
+
+            getCurrentScore: function (el) {
+                var currentScore;
+
+                currentScore = parseInt(el.innerHTML);
+                return currentScore;
+            },
+
+            setScore: function (el, score) {
+                el.innerHTML = score;
+            }
+        };
 
     return publicMembers;
 });

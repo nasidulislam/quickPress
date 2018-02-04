@@ -1,4 +1,4 @@
-define(function() {
+define(function () {
     var publicMembers = {
         getRotationFrequency: function (el) {
             var attrs, freq, freqNumber;
