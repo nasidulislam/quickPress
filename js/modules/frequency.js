@@ -1,5 +1,17 @@
 define(function () {
     var publicMembers = {
+        handlePointFrequency: function (el) {
+            var currentDuration;
+
+            currentDuration = publicMembers.getRotationFrequency(el);
+
+            // bypass initial duration value being set to nothing on svg element
+            if (isNaN(currentDuration)) {
+                currentDuration = 20;
+            }
+
+            publicMembers.setRotationFrequency(el, currentDuration / 2); //TODO : write a difficulty implementation function
+        },
         getRotationFrequency: function (el) {
             var attrs, freq, freqNumber;
 

@@ -36,6 +36,8 @@ define(function () {
                 $puntSvg = $svgElement.querySelectorAll('circle')[1];
                 errorMarginDefault = settings.errorMarginDefault;
 
+                // if user scores correctly, then increment score, increase point frequency and place punt somewhere
+                $svgElement.unpauseAnimations();
                 currentPointLocation = {
                     pointX: $pointSvg.getScreenCTM().e,
                     pointY: $pointSvg.getScreenCTM().f

@@ -1,7 +1,6 @@
 define(function (require) {
     var settings,
-        $resetButton, $lightSwitch,
-        $gameControls, $svgCircle, $scoreCard, $svgElement, $remainingTriesScore,
+        $resetButton, $lightSwitch, $gameControls, $svgCircle, $scoreCard, $svgElement, $remainingTriesScore,
         $point, $finalScore, $remainingTriesElement;
 
     settings = {
@@ -43,6 +42,7 @@ define(function (require) {
 
     // modules
     var placement = require('modules/placement');
+    var frequency = require('modules/frequency');
     var score = require('modules/score');
     var util = require('modules/util');
 
@@ -51,11 +51,9 @@ define(function (require) {
     function theGame() {
         $gameControls.classList.add(settings.gameStart);
 
-        // if user scores correctly, then increment score, increase point frequency and place punt somewhere
         if (score.isValidScore()) {
-            $svgElement.unpauseAnimations();
             score.handleScoring();
-            placement.handlePointFrequency($point);
+            frequency.handlePointFrequency($point);
             placement.handlePuntPlacement();
         } else {
             handleInvalidScore();

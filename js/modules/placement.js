@@ -1,7 +1,4 @@
-define(function (require) {
-    // modules
-    var frequency = require('modules/frequency');
-
+define(function () {
     var privateMembers = {
             settings: {
                 // selectors
@@ -19,19 +16,6 @@ define(function (require) {
         },
 
         publicMembers = {
-            handlePointFrequency: function (el) {
-                var currentDuration;
-
-                currentDuration = frequency.getRotationFrequency(el);
-
-                // bypass initial duration value being set to nothing on svg element
-                if (isNaN(currentDuration)) {
-                    currentDuration = 20;
-                }
-
-                frequency.setRotationFrequency(el, currentDuration / 2); //TODO : write a difficulty implementation function
-            },
-
             handlePuntPlacement: function () {
                 var rangeMin = privateMembers.settings.rangeMin;
                 var rangeMax = privateMembers.settings.rangeMax;
