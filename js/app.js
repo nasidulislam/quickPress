@@ -2,8 +2,7 @@ define(function(require) {
 	var settings,
 	$resetButton, $lightSwitch,
 	$gameControls, $svgCircle, $scoreCard, $svgElement, $remainingTriesScore,
-	$point, $pointSvg, $puntSvg,
-	$finalScore, $remainingTriesElement;
+	$point, $finalScore, $remainingTriesElement;
 
 	settings = {
 	// selectors
@@ -25,10 +24,7 @@ define(function(require) {
 	gameStart: 'game-start',
 	lightsToggle: 'toggle-lights',
 	vibrateClass: 'vibrate-class',
-	redColorClass: 'color-class-red',
-
-	// others
-	errorMargin: 50
+	redColorClass: 'color-class-red'
 };
 
 	// buttons
@@ -41,8 +37,6 @@ define(function(require) {
 	$svgCircle = document.querySelector(settings.svgCircleClass);
 	$point = document.querySelector(settings.circlePoint);
 	$svgElement = document.getElementsByTagName('svg')[0];
-	$pointSvg = $svgElement.querySelectorAll('circle')[0];
-	$puntSvg = $svgElement.querySelectorAll('circle')[1];
 	$remainingTriesScore = document.querySelector(settings.remainingTriesScoreClass);
 	$finalScore = document.querySelector(settings.finalScoreClass);
 	$remainingTriesElement = document.querySelector(settings.remainingTriesContainerClass);
@@ -60,7 +54,7 @@ define(function(require) {
 		$gameControls.classList.add(settings.gameStart);
 
 		// if user scores correctly, then increment score, increase point frequency and place punt somewhere
-		if(isValidScore()) {
+		if(score.isValidScore()) {
 			$svgElement.unpauseAnimations();
 			score.handleScoring();
 			placement.handlePointFrequency($point);
@@ -93,27 +87,6 @@ define(function(require) {
 	function handleReload() {
 		handleReset();
 		location.getCurrentLocation();
-	}
-
-	function isValidScore() {
-		var currentPointLocation, currentPuntLocation, errorMargin;
-
-		currentPointLocation = {
-			pointX: $pointSvg.getScreenCTM().e,
-			pointY: $pointSvg.getScreenCTM().f
-		};
-
-		currentPuntLocation = {
-			puntX: $puntSvg.getScreenCTM().e,
-			puntY: $puntSvg.getScreenCTM().f
-		};
-
-		errorMargin = {
-			marginX: currentPointLocation.pointX - currentPuntLocation.puntX,
-			marginY: currentPointLocation.pointY - currentPuntLocation.puntY
-		};
-
-		return (Math.abs(errorMargin.marginX) <= settings.errorMargin && (Math.abs(errorMargin.marginY) <= settings.errorMargin));
 	}
 
 	function handleRemainingTries () {

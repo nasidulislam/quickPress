@@ -3,13 +3,14 @@ define(function () {
         settings: {
             scoreCardClass: '.game-circle__scorecard',
             remainingTriesScoreClass: '.game-score__life',
-            currentScore: ''
+            currentScore: '',
+            errorMarginDefault: 50
         }
     },
 
     publicMembers = {
         handleScoring: function () {
-            var currentScore, newScore,
+            var currentScore, newScore, $remainingTriesScore,
 			currentRemainingTries, newRemainingTries, $scoreCard;
 
             $scoreCard = document.querySelector(privateMembers.settings.scoreCardClass);
@@ -22,10 +23,37 @@ define(function () {
             if(privateMembers.settings.currentScore % 5 === 0) {
                 currentRemainingTries = publicMembers.getCurrentScore($remainingTriesScore);
                 newRemainingTries = currentRemainingTries + 1;
-                setScore($remainingTriesScore, newRemainingTries);
+                publicMembers.setScore($remainingTriesScore, newRemainingTries);
             }
 
             publicMembers.setScore($scoreCard, newScore);
+        },
+
+        isValidScore: function () {
+            var currentPointLocation, currentPuntLocation, userError, errorMarginDefault,
+                $svgElement, $pointSvg, $puntSvg;
+
+            $svgElement = document.getElementsByTagName('svg')[0];
+            $pointSvg = $svgElement.querySelectorAll('circle')[0];
+            $puntSvg = $svgElement.querySelectorAll('circle')[1];
+            errorMarginDefault = privateMembers.settings.errorMarginDefault;
+
+            currentPointLocation = {
+                pointX: $pointSvg.getScreenCTM().e,
+                pointY: $pointSvg.getScreenCTM().f
+            };
+
+            currentPuntLocation = {
+                puntX: $puntSvg.getScreenCTM().e,
+                puntY: $puntSvg.getScreenCTM().f
+            };
+
+            userError = {
+                marginX: currentPointLocation.pointX - currentPuntLocation.puntX,
+                marginY: currentPointLocation.pointY - currentPuntLocation.puntY
+            };
+
+            return (Math.abs(userError.marginX) <= errorMarginDefault && (Math.abs(userError.marginY) <= errorMarginDefault));
         },
 
         getCurrentScore: function (el) {

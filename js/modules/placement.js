@@ -10,7 +10,7 @@ define(function(require) {
 
             //others
             rangeMin: 0.000025,
-            rangeMax: 0.000075,
+            rangeMax: 0.000075
         },
 
         getRandomFloat: function (min, max) {
@@ -35,7 +35,6 @@ define(function(require) {
         handlePuntPlacement: function () {
             var rangeMin = privateMembers.settings.rangeMin;
             var rangeMax = privateMembers.settings.rangeMax;
-            var $punt = document.querySelector(privateMembers.settings.circlePunt);
             var $svgElement = document.getElementsByTagName('svg')[0];
             var $puntSvg = $svgElement.querySelectorAll('circle')[1];
             var $puntAnimationElement = $puntSvg.querySelector('animateMotion');
