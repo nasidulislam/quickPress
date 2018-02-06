@@ -16,8 +16,8 @@ define(function (require) {
 
 		publicMembers = {
 			handleRemainingTries: function () {
-				var newRemainingTries, customEvent,
-					$remainingTriesScore, $remainingTriesElement, $finalScore, $scoreCard, $svgElement;
+				var newRemainingTries, $remainingTriesScore, $remainingTriesElement,
+					$finalScore, $scoreCard, $svgElement;
 
 				$remainingTriesScore = document.querySelector(settings.remainingTriesScoreClass);
 				$remainingTriesElement = document.querySelector(settings.remainingTriesContainerClass);
@@ -29,9 +29,8 @@ define(function (require) {
 				newRemainingTries = score.getCurrentScore($remainingTriesScore) - 1;
 				score.setScore($remainingTriesScore, newRemainingTries);
 
-				// dispatch custom event that handles animation on wrong hits
-				customEvent = new Event('quickPress: wrong-hit');
-				$remainingTriesScore.dispatchEvent(customEvent);
+				// animate to visually indicate change in remaining tries left
+				publicMembers.handleRemainingTriesAnimation();
 
 				// make remaining tries section red when user has 0 tries left
 				if (score.getCurrentScore($remainingTriesScore) === 0) {

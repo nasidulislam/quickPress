@@ -7,7 +7,6 @@ define(function (require) {
 		gameControlsContainerClass: '.game-controls__container',
 		lightsSliderClass: '.game-buttons__lights-slider',
 		svgCircleClass: '.game-circle',
-		remainingTriesScoreClass: '.game-score__life',
 
 		// buttons
 		resetButtonClass: '.game-buttons__reset',
@@ -25,7 +24,6 @@ define(function (require) {
 	// Elements
 	$gameControls = document.querySelector(settings.gameControlsContainerClass);
 	$svgCircle = document.querySelector(settings.svgCircleClass);
-	$remainingTriesScore = document.querySelector(settings.remainingTriesScoreClass);
 
 	// modules
 	var placement = require('modules/placement');
@@ -65,7 +63,6 @@ define(function (require) {
 	$lightSwitch.addEventListener('click', util.toggleLight);
 	$resetButton.addEventListener('click', util.handleReset);
 	$svgCircle.addEventListener('click', theGame);
-	$remainingTriesScore.addEventListener('quickPress: wrong-hit', remainingTries.handleRemainingTriesAnimation);
 
 	/* End Event Listeners */
 
