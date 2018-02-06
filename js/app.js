@@ -1,6 +1,6 @@
 define(function (require) {
 	var settings,
-		$resetButton, $lightSwitch, $gameControls, $svgCircle, $remainingTriesScore;
+		$resetButton, $lightSwitch, $gameControls, $svgCircle;
 
 	settings = {
 		// selectors
@@ -41,13 +41,10 @@ define(function (require) {
 			score.handleScoring();
 			frequency.handlePointFrequency();
 			placement.handlePuntPlacement();
+			remainingTries.remainingTriesController('valid');
 		} else {
-			handleInvalidScore();
+			remainingTries.remainingTriesController('invalid');
 		}
-	}
-
-	function handleInvalidScore() {
-		remainingTries.handleRemainingTries();
 	}
 
 	function handleReload() {

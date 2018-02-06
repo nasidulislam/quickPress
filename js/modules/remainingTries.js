@@ -15,7 +15,13 @@ define(function (require) {
 		},
 
 		publicMembers = {
-			handleRemainingTries: function () {
+			remainingTriesController: function (param) {
+				if(param === 'invalid') {
+					publicMembers.remainingTriesOnIncorrectHits();
+				}
+			},
+
+			remainingTriesOnIncorrectHits: function () {
 				var newRemainingTries, $remainingTriesScore, $remainingTriesElement,
 					$finalScore, $scoreCard, $svgElement;
 
