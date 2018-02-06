@@ -199,9 +199,15 @@ input:checked + .game-buttons__lights-slider:before {
 /* Game Score Styles */
 /*-----------------------------*/
 @keyframes vibrate {
-	0% { transform: scale(1); }
-	50% { transform: scale(1.2); }
-	100% { transform: scale(1); }
+	0% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.2);
+	}
+	100% {
+		transform: scale(1);
+	}
 }
 
 .game-score {
@@ -223,7 +229,7 @@ input:checked + .game-buttons__lights-slider:before {
 }
 
 .game-score .tooltip {
-	background-color: #167F92 ;
+	background-color: #167F92;
 	border-radius: 50%;
 	display: inline-block;
 	line-height: 27px;
@@ -235,13 +241,13 @@ input:checked + .game-buttons__lights-slider:before {
 }
 
 .game-score .tooltip:after {
-	content:'?';
+	content: '?';
 	font-weight: bold;
 	color: #fff;
 }
 
 .tooltip:hover p {
-	display:block;
+	display: block;
 	transform-origin: 100% 0;
 
 	-webkit-animation: fadeIn 0.3s ease-in-out;
