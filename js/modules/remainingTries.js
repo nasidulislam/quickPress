@@ -68,8 +68,11 @@ define(function (require) {
 
 			removeHighlight: function () {
 				var $remainingTriesElement = document.querySelector(settings.remainingTriesContainerClass);
+				var $remainingTriesScore = document.querySelector(settings.remainingTriesScoreClass);
 
-				$remainingTriesElement.classList.remove(settings.redColorClass);
+                if (score.getCurrentScore($remainingTriesScore) > 0) {
+                    $remainingTriesElement.classList.remove(settings.redColorClass);
+                }
 			}
 		};
 
