@@ -18,27 +18,24 @@ define(function (require) {
 		privateMembers = {
 			decreaseScore: function () {
 				var $remainingTriesScore = document.querySelector(settings.remainingTriesScoreClass);
-
 				var newRemainingTries = score.getCurrentScore($remainingTriesScore) - 1;
+
 				score.setScore($remainingTriesScore, newRemainingTries);
 			},
 
 			increaseScore: function () {
-				var currentRemainingTries, newRemainingTries, $remainingTriesScore;
+				var $remainingTriesScore = document.querySelector(settings.remainingTriesScoreClass);
+                var currentRemainingTries = score.getCurrentScore($remainingTriesScore);
+                var newRemainingTries = currentRemainingTries + 1;
 
-                $remainingTriesScore = document.querySelector(settings.remainingTriesScoreClass);
-                currentRemainingTries = score.getCurrentScore($remainingTriesScore);
-                newRemainingTries = currentRemainingTries + 1;
                 score.setScore($remainingTriesScore, newRemainingTries);
             },
 
 			endGame: function () {
-				var $remainingTriesScore, $finalScore, $scoreCard, $svgElement;
-
-				$remainingTriesScore = document.querySelector(settings.remainingTriesScoreClass);
-				$finalScore = document.querySelector(settings.finalScoreClass);
-				$scoreCard = document.querySelector(settings.scoreCardClass);
-				$svgElement = document.getElementsByTagName('svg')[0];
+				var $remainingTriesScore = document.querySelector(settings.remainingTriesScoreClass);
+				var $finalScore = document.querySelector(settings.finalScoreClass);
+				var $scoreCard = document.querySelector(settings.scoreCardClass);
+				var $svgElement = document.getElementsByTagName('svg')[0];
 
 				alert('game over');
 				score.setScore($remainingTriesScore, 0);

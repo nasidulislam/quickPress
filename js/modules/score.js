@@ -6,42 +6,37 @@ define(function () {
 
 		publicMembers = {
 			handleScoring: function () {
-				var currentScore, newScore, customEvent, $scoreCard;
-
-				$scoreCard = document.querySelector(settings.scoreCardClass);
-				currentScore = publicMembers.getCurrentScore($scoreCard);
-				newScore = currentScore + 1;
+				var $scoreCard = document.querySelector(settings.scoreCardClass);
+				var currentScore = publicMembers.getCurrentScore($scoreCard);
+				var newScore = currentScore + 1;
                 publicMembers.setScore($scoreCard, newScore);
 
 				// grant the user an additional try for every 5 points scored
 				if (newScore % 5 === 0) {
-                    customEvent = new Event('quickPress: increase-animate');
+                    var customEvent = new Event('quickPress: increase-animate');
                     document.body.dispatchEvent(customEvent);
 				}
 			},
 
 			isValidScore: function () {
-				var currentPointLocation, currentPuntLocation, userError, errorMarginDefault,
-					$svgElement, $pointSvg, $puntSvg;
-
-				$svgElement = document.getElementsByTagName('svg')[0];
-				$pointSvg = $svgElement.querySelectorAll('circle')[0];
-				$puntSvg = $svgElement.querySelectorAll('circle')[1];
-				errorMarginDefault = settings.errorMarginDefault;
+				var $svgElement = document.getElementsByTagName('svg')[0];
+				var $pointSvg = $svgElement.querySelectorAll('circle')[0];
+				var $puntSvg = $svgElement.querySelectorAll('circle')[1];
+				var errorMarginDefault = settings.errorMarginDefault;
 
 				// if user scores correctly, then increment score, increase point frequency and place punt somewhere
 				$svgElement.unpauseAnimations();
-				currentPointLocation = {
+				var currentPointLocation = {
 					pointX: $pointSvg.getScreenCTM().e,
 					pointY: $pointSvg.getScreenCTM().f
 				};
 
-				currentPuntLocation = {
+				var currentPuntLocation = {
 					puntX: $puntSvg.getScreenCTM().e,
 					puntY: $puntSvg.getScreenCTM().f
 				};
 
-				userError = {
+				var userError = {
 					marginX: currentPointLocation.pointX - currentPuntLocation.puntX,
 					marginY: currentPointLocation.pointY - currentPuntLocation.puntY
 				};
@@ -50,10 +45,7 @@ define(function () {
 			},
 
 			getCurrentScore: function (el) {
-				var currentScore;
-
-				currentScore = parseInt(el.innerHTML);
-				return currentScore;
+				return parseInt(el.innerHTML)
 			},
 
 			setScore: function (el, score) {

@@ -5,34 +5,28 @@ define(function () {
 
 		publicMembers = {
 			handlePointFrequency: function () {
-				var currentFreq, $point, newFreq;
-
-				$point = document.querySelector(settings.circlePoint);
-				currentFreq = publicMembers.getRotationFrequency($point);
+				var $point = document.querySelector(settings.circlePoint);
+				var currentFreq = publicMembers.getRotationFrequency($point);
 
 				// bypass initial duration value being set to nothing on svg element
 				if (isNaN(currentFreq)) {
 					currentFreq = 20;
 				}
 
-				newFreq = publicMembers.generateNewFrequency(currentFreq);
+				var newFreq = publicMembers.generateNewFrequency(currentFreq);
 				publicMembers.setRotationFrequency($point, newFreq);
 			},
 
 			getRotationFrequency: function (el) {
-				var attrs, freq, freqNumber;
-
-				attrs = el.attributes;
-				freq = attrs.dur.value;
-				freqNumber = parseFloat(freq.substr(0, freq.length - 1));
+				var attrs = el.attributes;
+				var freq = attrs.dur.value;
+				var freqNumber = parseFloat(freq.substr(0, freq.length - 1));
 
 				return freqNumber;
 			},
 
 			setRotationFrequency: function (el, freq) {
-				var attrs;
-
-				attrs = el.attributes;
+				var attrs = el.attributes;
 				attrs.dur.value = freq + 's';
 			},
 
