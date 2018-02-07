@@ -24,7 +24,12 @@ define(function (require) {
 			},
 
 			increaseScore: function () {
+				var currentRemainingTries, newRemainingTries, $remainingTriesScore;
 
+                $remainingTriesScore = document.querySelector(settings.remainingTriesScoreClass);
+                currentRemainingTries = score.getCurrentScore($remainingTriesScore);
+                newRemainingTries = currentRemainingTries + 1;
+                score.setScore($remainingTriesScore, newRemainingTries);
             },
 
 			endGame: function () {
@@ -90,7 +95,8 @@ define(function (require) {
 			},
 
 			increaseScoreAndAnimate: function () {
-				console.log('blah');
+				privateMembers.increaseScore();
+                privateMembers.animate();
             }
 		};
 

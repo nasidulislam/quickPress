@@ -1,30 +1,23 @@
 define(function () {
 	var settings = {
 			scoreCardClass: '.game-circle__scorecard',
-			remainingTriesScoreClass: '.game-score__life',
-			currentScore: '',
 			errorMarginDefault: 50
 		},
 
 		publicMembers = {
 			handleScoring: function () {
-				var currentScore, newScore, $remainingTriesScore,
-					currentRemainingTries, newRemainingTries, $scoreCard;
+				var currentScore, newScore, customEvent, $scoreCard;
 
 				$scoreCard = document.querySelector(settings.scoreCardClass);
-				$remainingTriesScore = document.querySelector(settings.remainingTriesScoreClass);
 				currentScore = publicMembers.getCurrentScore($scoreCard);
 				newScore = currentScore + 1;
-				settings.currentScore = newScore;
+                publicMembers.setScore($scoreCard, newScore);
 
 				// grant the user an additional try for every 5 points scored
-				if (settings.currentScore % 5 === 0) {
-					currentRemainingTries = publicMembers.getCurrentScore($remainingTriesScore);
-					newRemainingTries = currentRemainingTries + 1;
-					publicMembers.setScore($remainingTriesScore, newRemainingTries);
+				if (newScore % 5 === 0) {
+                    customEvent = new Event('quickPress: increase-animate');
+                    document.body.dispatchEvent(customEvent);
 				}
-
-				publicMembers.setScore($scoreCard, newScore);
 			},
 
 			isValidScore: function () {
