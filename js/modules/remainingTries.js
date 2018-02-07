@@ -1,61 +1,101 @@
 define(function (require) {
-    // modules
-    var score = require('modules/score');
+	// modules
+	var score = require('modules/score');
 
-    var settings = {
-            // selectors
-            remainingTriesScoreClass: '.game-score__life',
-            remainingTriesContainerClass: '.game-score__remaining-tries',
-            finalScoreClass: '.game-score__final',
-            scoreCardClass: '.game-circle__scorecard',
+	var settings = {
+			// selectors
+			remainingTriesScoreClass: '.game-score__life',
+			remainingTriesContainerClass: '.game-score__remaining-tries',
+			finalScoreClass: '.game-score__final',
+			scoreCardClass: '.game-circle__scorecard',
 
-            // classes
-            redColorClass: 'color-class-red',
-            vibrateClass: 'vibrate-class'
-        },
+			// classes
+			redColorClass: 'color-class-red',
+			vibrateClassDecrease: 'vibrate-class-decrease',
+			vibrateClassIncrease: 'vibrate-class-increase'
+		},
 
-        publicMembers = {
-            handleRemainingTries: function () {
-                var newRemainingTries, customEvent,
-                    $remainingTriesScore, $remainingTriesElement, $finalScore, $scoreCard, $svgElement;
+		privateMembers = {
+			decreaseScore: function () {
+				var $remainingTriesScore = document.querySelector(settings.remainingTriesScoreClass);
+				var newRemainingTries = score.getCurrentScore($remainingTriesScore) - 1;
 
-                $remainingTriesScore = document.querySelector(settings.remainingTriesScoreClass);
-                $remainingTriesElement = document.querySelector(settings.remainingTriesContainerClass);
-                $finalScore = document.querySelector(settings.finalScoreClass);
-                $scoreCard = document.querySelector(settings.scoreCardClass);
-                $svgElement = document.getElementsByTagName('svg')[0];
+				score.setScore($remainingTriesScore, newRemainingTries);
+			},
 
-                // decrease score
-                newRemainingTries = score.getCurrentScore($remainingTriesScore) - 1;
+			increaseScore: function () {
+				var $remainingTriesScore = document.querySelector(settings.remainingTriesScoreClass);
+                var currentRemainingTries = score.getCurrentScore($remainingTriesScore);
+                var newRemainingTries = currentRemainingTries + 1;
+
                 score.setScore($remainingTriesScore, newRemainingTries);
-
-                // dispatch custom event that handles animation on wrong hits
-                customEvent = new Event('quickPress: wrong-hit');
-                $remainingTriesScore.dispatchEvent(customEvent);
-
-                // make remaining tries section red when user has 0 tries left
-                if (score.getCurrentScore($remainingTriesScore) === 0) {
-                    $remainingTriesElement.classList.add(settings.redColorClass);
-                }
-
-                // handles end game functionality --> should probably make its own function
-                if (score.getCurrentScore($remainingTriesScore) < 0) {
-                    alert('game over');
-                    score.setScore($remainingTriesScore, 0);
-                    $finalScore.innerHTML = 'Your Final Score: <span class="final-score">' + score.getCurrentScore($scoreCard) + '</span>';
-                    $svgElement.pauseAnimations();
-                }
             },
 
-            handleRemainingTriesAnimation: function () {
+			endGame: function () {
+				var $remainingTriesScore = document.querySelector(settings.remainingTriesScoreClass);
+				var $finalScore = document.querySelector(settings.finalScoreClass);
+				var $scoreCard = document.querySelector(settings.scoreCardClass);
+				var $svgElement = document.getElementsByTagName('svg')[0];
+
+				alert('game over');
+				score.setScore($remainingTriesScore, 0);
+				$finalScore.innerHTML = 'Your Final Score: <span class="final-score">' + score.getCurrentScore($scoreCard) + '</span>';
+				$svgElement.pauseAnimations();
+			},
+
+            animate: function (param) {
                 var $remainingTriesElement = document.querySelector(settings.remainingTriesContainerClass);
 
-                $remainingTriesElement.classList.add(settings.vibrateClass);
-                $remainingTriesElement.addEventListener('animationend', function () {
-                    $remainingTriesElement.classList.remove(settings.vibrateClass);
-                });
-            }
-        };
+                if(param === 'invalid') {
+                    $remainingTriesElement.classList.add(settings.vibrateClassDecrease);
+                    $remainingTriesElement.addEventListener('animationend', function () {
+                        $remainingTriesElement.classList.remove(settings.vibrateClassDecrease);
+                    });
+				} else {
+                    $remainingTriesElement.classList.add(settings.vibrateClassIncrease);
+                    $remainingTriesElement.addEventListener('animationend', function () {
+                        $remainingTriesElement.classList.remove(settings.vibrateClassIncrease);
+                    });
+				}
+            },
 
-    return publicMembers;
+			toggleHighlight: function () {
+                var $remainingTriesElement = document.querySelector(settings.remainingTriesContainerClass);
+                var $remainingTriesScore = document.querySelector(settings.remainingTriesScoreClass);
+
+                // make remaining tries section red when user has 0 tries left
+                if (score.getCurrentScore($remainingTriesScore) < 1) {
+                    $remainingTriesElement.classList.add(settings.redColorClass);
+                } else {
+                	// remove red coloring when user have more than 0 tries
+                    $remainingTriesElement.classList.remove(settings.redColorClass);
+				}
+            }
+		},
+
+		publicMembers = {
+			handleRemainingTries: function () {
+				var $remainingTriesScore = document.querySelector(settings.remainingTriesScoreClass);
+
+				privateMembers.decreaseScore();
+				privateMembers.animate('invalid');
+				privateMembers.toggleHighlight();
+
+				// end game functionality. needs improvement
+				if (score.getCurrentScore($remainingTriesScore) < 0) {
+					privateMembers.endGame();
+				}
+			},
+
+			removeHighlight: function () {
+				privateMembers.toggleHighlight();
+			},
+
+			increaseScoreAndAnimate: function () {
+				privateMembers.increaseScore();
+                privateMembers.animate();
+            }
+		};
+
+	return publicMembers;
 });
