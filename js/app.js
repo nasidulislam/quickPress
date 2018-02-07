@@ -12,9 +12,7 @@ define(function (require) {
 		resetButtonClass: '.game-buttons__reset',
 
 		// classes
-		gameStart: 'game-start',
-		lightsToggle: 'toggle-lights',
-		vibrateClass: 'vibrate-class'
+		gameStart: 'game-start'
 	};
 
 	// buttons
@@ -60,6 +58,7 @@ define(function (require) {
 	$lightSwitch.addEventListener('click', util.toggleLight);
 	$resetButton.addEventListener('click', util.handleReset);
 	$svgCircle.addEventListener('click', theGame);
+	document.body.addEventListener('quickPress: increase-animate', remainingTries.increaseScoreAndAnimate);
 
 	/* End Event Listeners */
 

@@ -11,7 +11,8 @@ define(function (require) {
 
 			// classes
 			redColorClass: 'color-class-red',
-			vibrateClass: 'vibrate-class'
+			vibrateClassDecrease: 'vibrate-class-decrease',
+			vibrateClassIncrease: 'vibrate-class-increase'
 		},
 
 		privateMembers = {
@@ -22,21 +23,9 @@ define(function (require) {
 				score.setScore($remainingTriesScore, newRemainingTries);
 			},
 
-			highlightAndAnimate: function () {
-				var $remainingTriesElement = document.querySelector(settings.remainingTriesContainerClass);
-				var $remainingTriesScore = document.querySelector(settings.remainingTriesScoreClass);
+			increaseScore: function () {
 
-				// animate
-				$remainingTriesElement.classList.add(settings.vibrateClass);
-				$remainingTriesElement.addEventListener('animationend', function () {
-					$remainingTriesElement.classList.remove(settings.vibrateClass);
-				});
-
-				// make remaining tries section red when user has 0 tries left
-				if (score.getCurrentScore($remainingTriesScore) === 0) {
-					$remainingTriesElement.classList.add(settings.redColorClass);
-				}
-			},
+            },
 
 			endGame: function () {
 				var $remainingTriesScore, $finalScore, $scoreCard, $svgElement;
@@ -50,7 +39,36 @@ define(function (require) {
 				score.setScore($remainingTriesScore, 0);
 				$finalScore.innerHTML = 'Your Final Score: <span class="final-score">' + score.getCurrentScore($scoreCard) + '</span>';
 				$svgElement.pauseAnimations();
-			}
+			},
+
+            animate: function (param) {
+                var $remainingTriesElement = document.querySelector(settings.remainingTriesContainerClass);
+
+                if(param === 'invalid') {
+                    $remainingTriesElement.classList.add(settings.vibrateClassDecrease);
+                    $remainingTriesElement.addEventListener('animationend', function () {
+                        $remainingTriesElement.classList.remove(settings.vibrateClassDecrease);
+                    });
+				} else {
+                    $remainingTriesElement.classList.add(settings.vibrateClassIncrease);
+                    $remainingTriesElement.addEventListener('animationend', function () {
+                        $remainingTriesElement.classList.remove(settings.vibrateClassIncrease);
+                    });
+				}
+            },
+
+			toggleHighlight: function () {
+                var $remainingTriesElement = document.querySelector(settings.remainingTriesContainerClass);
+                var $remainingTriesScore = document.querySelector(settings.remainingTriesScoreClass);
+
+                // make remaining tries section red when user has 0 tries left
+                if (score.getCurrentScore($remainingTriesScore) < 1) {
+                    $remainingTriesElement.classList.add(settings.redColorClass);
+                } else {
+                	// remove red coloring when user have more than 0 tries
+                    $remainingTriesElement.classList.remove(settings.redColorClass);
+				}
+            }
 		},
 
 		publicMembers = {
@@ -58,7 +76,8 @@ define(function (require) {
 				var $remainingTriesScore = document.querySelector(settings.remainingTriesScoreClass);
 
 				privateMembers.decreaseScore();
-				privateMembers.highlightAndAnimate();
+				privateMembers.animate('invalid');
+				privateMembers.toggleHighlight();
 
 				// end game functionality. needs improvement
 				if (score.getCurrentScore($remainingTriesScore) < 0) {
@@ -67,13 +86,12 @@ define(function (require) {
 			},
 
 			removeHighlight: function () {
-				var $remainingTriesElement = document.querySelector(settings.remainingTriesContainerClass);
-				var $remainingTriesScore = document.querySelector(settings.remainingTriesScoreClass);
+				privateMembers.toggleHighlight();
+			},
 
-                if (score.getCurrentScore($remainingTriesScore) > 0) {
-                    $remainingTriesElement.classList.remove(settings.redColorClass);
-                }
-			}
+			increaseScoreAndAnimate: function () {
+				console.log('blah');
+            }
 		};
 
 	return publicMembers;

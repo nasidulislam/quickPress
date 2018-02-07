@@ -270,11 +270,19 @@ input:checked + .game-buttons__lights-slider:before {
 	width: 300px;
 }
 
-.vibrate-class {
+.vibrate-class-decrease {
 	animation-name: vibrate;
 	animation-duration: 1000ms;
 	animation-iteration-count: 1;
 	animation-timing-function: linear;
+}
+
+.vibrate-class-increase {
+	animation-name: vibrate;
+	animation-duration: 1000ms;
+	animation-iteration-count: 1;
+	animation-timing-function: linear;
+	color: green;
 }
 
 .color-class-red {
