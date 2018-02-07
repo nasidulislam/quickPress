@@ -41,9 +41,8 @@ define(function (require) {
 			score.handleScoring();
 			frequency.handlePointFrequency();
 			placement.handlePuntPlacement();
-			remainingTries.remainingTriesController('valid');
 		} else {
-			remainingTries.remainingTriesController('invalid');
+			remainingTries.handleRemainingTries();
 		}
 	}
 
