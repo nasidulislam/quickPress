@@ -12,7 +12,9 @@ define(function () {
 		// others
 		countdownTime: 15
 	},
-		countdownTimer, // global variable has to be used to access clearTimeout
+		// this is the variable that determines how long before game times out
+		// global variable has to be used to access clearTimeout
+		countdownTimer,
 		privateMembers = {
 			closeModal: function ($el) {
 				$el.classList.add(settings.hideClass);
@@ -32,6 +34,10 @@ define(function () {
 
 					if(timeLeft <= 0) {
 						clearInterval(countdownTimer);
+
+						// dispatch event that handles end game functionality
+						var customEvent = new Event('quickPress: end-game');
+						document.body.dispatchEvent(customEvent);
 					}
 				}, 1000);
 			}
@@ -47,7 +53,11 @@ define(function () {
 				var $timeoutModal = document.querySelector(settings.timeoutModalContainer);
 				var timeoutContainer = document.querySelector(settings.timeoutContainer);
 
+				// clear and reset timer
+				clearInterval(countdownTimer);
 				timeoutContainer.textContent = settings.countdownTime;
+
+				// open and start timer
 				privateMembers.openModal($timeoutModal);
 				privateMembers.startTimeout();
 			},
@@ -55,7 +65,6 @@ define(function () {
 			closeTimeoutModal: function () {
 				var $timeoutModal = document.querySelector(settings.timeoutModalContainer);
 				privateMembers.closeModal($timeoutModal);
-				clearTimeout(countdownTimer);
 			}
 	};
 

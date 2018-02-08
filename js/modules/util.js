@@ -21,6 +21,10 @@ define(function (require) {
 			redColorClass: 'color-class-red'
 		},
 
+		// this is the variable that determines how long before timeout modal is diplaed
+		// global variable has to be used to access clearTimeout
+		modalShowTimeout,
+
 		publicMembers = {
 			handleReset: function () {
 				var $svgElement = document.getElementsByTagName('svg')[0];
@@ -83,9 +87,22 @@ define(function (require) {
 			},
 
 			handleUserTimeout: function () {
-				setTimeout(function () {
+				clearTimeout(modalShowTimeout);
+				modalShowTimeout = setTimeout(function () {
 					modals.showTimeoutModal();
-				}, 3000);
+				}, 10000);
+			},
+
+			endGame: function () {
+				var $remainingTriesScore = document.querySelector(settings.remainingTriesScoreClass);
+				var $finalScore = document.querySelector(settings.finalScoreClass);
+				var $scoreCard = document.querySelector(settings.scoreCardClass);
+				var $svgElement = document.getElementsByTagName('svg')[0];
+
+				alert('game over');
+				score.setScore($remainingTriesScore, 0);
+				$finalScore.innerHTML = 'Your Final Score: <span class="final-score">' + score.getCurrentScore($scoreCard) + '</span>';
+				$svgElement.pauseAnimations();
 			}
 		};
 

@@ -67,6 +67,7 @@ define(function (require) {
 	$rulesModalButton.addEventListener('click', modals.closeRulesModal);
 	$timeoutModalButton.addEventListener('click', modals.closeTimeoutModal);
 	document.body.addEventListener('quickPress: increase-animate', remainingTries.increaseScoreAndAnimate);
+	document.body.addEventListener('quickPress: end-game', util.endGame);
 
 	/* End Event Listeners */
 
