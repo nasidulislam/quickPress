@@ -31,18 +31,6 @@ define(function (require) {
                 score.setScore($remainingTriesScore, newRemainingTries);
             },
 
-			endGame: function () {
-				var $remainingTriesScore = document.querySelector(settings.remainingTriesScoreClass);
-				var $finalScore = document.querySelector(settings.finalScoreClass);
-				var $scoreCard = document.querySelector(settings.scoreCardClass);
-				var $svgElement = document.getElementsByTagName('svg')[0];
-
-				alert('game over');
-				score.setScore($remainingTriesScore, 0);
-				$finalScore.innerHTML = 'Your Final Score: <span class="final-score">' + score.getCurrentScore($scoreCard) + '</span>';
-				$svgElement.pauseAnimations();
-			},
-
             animate: function (param) {
                 var $remainingTriesElement = document.querySelector(settings.remainingTriesContainerClass);
 
@@ -81,9 +69,9 @@ define(function (require) {
 				privateMembers.animate('invalid');
 				privateMembers.toggleHighlight();
 
-				// end game functionality. needs improvement
 				if (score.getCurrentScore($remainingTriesScore) < 0) {
-					privateMembers.endGame();
+					var customEvent = new Event('quickPress: end-game');
+					document.body.dispatchEvent(customEvent);
 				}
 			},
 

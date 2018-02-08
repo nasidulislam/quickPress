@@ -1,6 +1,7 @@
 define(function (require) {
 	var settings,
-		$resetButton, $lightSwitch, $gameControls, $svgCircle, $rulesModalButton;
+		$resetButton, $lightSwitch, $gameControls, $svgCircle,
+		$rulesModalButton, $timeoutModalButton, $endgameModalButton;
 
 	settings = {
 		// selectors
@@ -10,7 +11,9 @@ define(function (require) {
 		// buttons
 		resetButton: '.game-buttons__reset',
 		lightsSlider: '.game-buttons__lights-slider',
-		rulesModalButton: '.game-modal__content-button-container .game-modal__button',
+		rulesModalButton: '.rules-modal__content-button-container .rules-modal__button',
+		timeoutModalButton: '.timeout-modal__content-button-container .timeout-modal__button',
+		endgameModalButton: '.endgame-modal__content-button-container .endgame-modal__button',
 
 		// classes
 		gameStart: 'game-start'
@@ -20,6 +23,8 @@ define(function (require) {
 	$lightSwitch = document.querySelector(settings.lightsSlider);
 	$resetButton = document.querySelector(settings.resetButton);
 	$rulesModalButton = document.querySelector(settings.rulesModalButton);
+	$timeoutModalButton = document.querySelector(settings.timeoutModalButton);
+	$endgameModalButton = document.querySelector(settings.endgameModalButton);
 
 	// Elements
 	$gameControls = document.querySelector(settings.gameControlsContainerClass);
@@ -37,6 +42,7 @@ define(function (require) {
 
 	function theGame() {
 		$gameControls.classList.add(settings.gameStart);
+		util.handleUserTimeout();
 
 		if (score.isValidScore()) {
 			score.handleScoring();
@@ -49,7 +55,7 @@ define(function (require) {
 	}
 
 	function handleReload() {
-		util.handleReset();
+		util.reset();
 		util.getCurrentLocation();
 	}
 
@@ -58,11 +64,18 @@ define(function (require) {
 	/* Begin Event Listeners */
 
 	handleReload();
+	// click handlers
 	$lightSwitch.addEventListener('click', util.toggleLight);
-	$resetButton.addEventListener('click', util.handleReset);
+	$resetButton.addEventListener('click', util.reset);
 	$svgCircle.addEventListener('click', theGame);
 	$rulesModalButton.addEventListener('click', modals.closeRulesModal);
+	$timeoutModalButton.addEventListener('click', modals.closeTimeoutModal);
+	$endgameModalButton.addEventListener('click', modals.closeEndgameModal);
+
+	// custom event handlers
 	document.body.addEventListener('quickPress: increase-animate', remainingTries.increaseScoreAndAnimate);
+	document.body.addEventListener('quickPress: end-game', util.endGame);
+	document.body.addEventListener('quickPress: reset', util.reset);
 
 	/* End Event Listeners */
 

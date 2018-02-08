@@ -275,7 +275,7 @@ input:checked + .game-buttons__lights-slider:before {
 /*-----------------------------*/
 /* Modal Styles */
 /*-----------------------------*/
-#game-modal {
+.game-modal {
 	background: rgba(0, 0, 0, 0.8);
 	height: 100%;
 	left: 0;
@@ -300,19 +300,11 @@ input:checked + .game-buttons__lights-slider:before {
 	text-align: center;
 }
 
-.game-modal__rules-list {
-	line-height: 20px;
-	padding-left: 15px;
-}
-
-.rules-list__item {
-	margin-top: 25px;
-}
-
 .game-modal__content-button-container {
 	margin-top: 40px;
 	text-align: center;
 }
+
 .game-modal__button {
 	background-color: #167F92;
 	font-family: 'Josefin Sans', sans-serif;
@@ -324,13 +316,55 @@ input:checked + .game-buttons__lights-slider:before {
 /* End Modal styles */
 
 /*-----------------------------*/
+/* Rules Modal Styles */
+/*-----------------------------*/
+.rules-modal__rules-list {
+	line-height: 20px;
+	padding-left: 15px;
+}
+
+.rules-list__item {
+	margin-top: 25px;
+}
+/* End Rules Modal styles */
+
+/*-----------------------------*/
+/* Timeout Modal Styles */
+/*-----------------------------*/
+.timeout-modal__content-header {
+	color: #c90835;
+	text-align: center;
+}
+
+.timeout-modal__body {
+	margin-top: 35px;
+	text-align: center;
+}
+
+.timeout-modal__body-content {
+	font-size: 25px;
+}
+/* End Timeout Modal styles */
+
+/*-----------------------------*/
+/* Endgame Modal Styles */
+/*-----------------------------*/
+.endgame-modal__body {
+	text-align: center;
+	font-size: 18px;
+}
+/* End Endgame Modal styles */
+
+/*-----------------------------*/
 /* Miscellaneous Styles */
 /*-----------------------------*/
+/* TODO: consolidate vibrate classes */
 .vibrate-class-decrease {
 	animation-name: vibrate;
 	animation-duration: 1000ms;
 	animation-iteration-count: 1;
 	animation-timing-function: linear;
+	color: #c90835;
 }
 
 .vibrate-class-increase {
@@ -339,6 +373,14 @@ input:checked + .game-buttons__lights-slider:before {
 	animation-iteration-count: 1;
 	animation-timing-function: linear;
 	color: green;
+}
+
+.timeout-vibrate {
+	animation-name: vibrate;
+	animation-duration: 800ms;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+	color: #c90835;
 }
 
 .color-class-red {
