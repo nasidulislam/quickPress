@@ -3,6 +3,7 @@ define(function (require) {
 	// modules
 	var frequency = require('modules/frequency');
 	var score = require('modules/score');
+	var modals = require('modules/modals');
 
 	var settings = {
 			// selectors
@@ -82,7 +83,10 @@ define(function (require) {
 			},
 
 			handleUserTimeout: function () {
-
+				setTimeout(function () {
+					modals.showTimeoutModal();
+					modals.startTimeout();
+				}, 3000);
 			}
 		};
 

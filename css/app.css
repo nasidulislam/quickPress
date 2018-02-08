@@ -275,7 +275,7 @@ input:checked + .game-buttons__lights-slider:before {
 /*-----------------------------*/
 /* Modal Styles */
 /*-----------------------------*/
-#rules-modal {
+.game-modal {
 	background: rgba(0, 0, 0, 0.8);
 	height: 100%;
 	left: 0;
@@ -300,19 +300,11 @@ input:checked + .game-buttons__lights-slider:before {
 	text-align: center;
 }
 
-.rules-modal__rules-list {
-	line-height: 20px;
-	padding-left: 15px;
-}
-
-.rules-list__item {
-	margin-top: 25px;
-}
-
-.rules-modal__content-button-container {
+.game-modal__content-button-container {
 	margin-top: 40px;
 	text-align: center;
 }
+
 .game-modal__button {
 	background-color: #167F92;
 	font-family: 'Josefin Sans', sans-serif;
@@ -322,6 +314,33 @@ input:checked + .game-buttons__lights-slider:before {
 	width: 40%;
 }
 /* End Modal styles */
+
+/*-----------------------------*/
+/* Rules Modal Styles */
+/*-----------------------------*/
+.rules-modal__rules-list {
+	line-height: 20px;
+	padding-left: 15px;
+}
+
+.rules-list__item {
+	margin-top: 25px;
+}
+/* End Rules Modal styles */
+
+/*-----------------------------*/
+/* Timeout Modal Styles */
+/*-----------------------------*/
+.timeout-modal__content-header {
+	color: #c90835;
+	text-align: center;
+}
+
+.timeout-modal__body {
+	margin-top: 35px;
+	text-align: center;
+}
+/* End Timeout Modal styles */
 
 /*-----------------------------*/
 /* Miscellaneous Styles */
