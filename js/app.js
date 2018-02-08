@@ -10,7 +10,7 @@ define(function (require) {
 		// buttons
 		resetButton: '.game-buttons__reset',
 		lightsSlider: '.game-buttons__lights-slider',
-		rulesModalButton: '.game-modal__content-button-container .game-modal__button',
+		rulesModalButton: '.rules-modal__content-button-container .rules-modal__button',
 
 		// classes
 		gameStart: 'game-start'
@@ -37,6 +37,7 @@ define(function (require) {
 
 	function theGame() {
 		$gameControls.classList.add(settings.gameStart);
+		util.handleUserTimeout();
 
 		if (score.isValidScore()) {
 			score.handleScoring();

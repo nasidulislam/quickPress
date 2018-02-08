@@ -79,6 +79,10 @@ define(function (require) {
 
 				request.open('Get', 'http://ipinfo.io/json');
 				request.send();
+			},
+
+			handleUserTimeout: function () {
+
 			}
 		};
 
