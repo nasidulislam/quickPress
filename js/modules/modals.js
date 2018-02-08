@@ -1,11 +1,12 @@
 define(function () {
-
 	var settings = {
 		// selectors
 		rulesModalContainer: '.rules-modal',
 		timeoutModalContainer: '.timeout-modal',
+		endgameModalContainer: '.endgame-modal',
 		timeoutSpan: '#timeout-countdown',
 		timeoutContainer: '.timeout-modal__body-content',
+		finalScoreClass: '.endgame-modal__final-score',
 
 		// classes
 		hideClass: 'hide-content',
@@ -54,8 +55,8 @@ define(function () {
 
 		publicMembers = {
 			closeRulesModal: function () {
-				var $gameModal = document.querySelector(settings.rulesModalContainer);
-				privateMembers.closeModal($gameModal);
+				var $rulesModal = document.querySelector(settings.rulesModalContainer);
+				privateMembers.closeModal($rulesModal);
 			},
 
 			showTimeoutModal: function () {
@@ -74,6 +75,23 @@ define(function () {
 			closeTimeoutModal: function () {
 				var $timeoutModal = document.querySelector(settings.timeoutModalContainer);
 				privateMembers.closeModal($timeoutModal);
+			},
+
+			showEndgameModal: function (finalScore) {
+				var $endgameModal = document.querySelector(settings.endgameModalContainer);
+				var $finalScore = document.querySelector(settings.finalScoreClass);
+
+				$finalScore.innerHTML = 'Your Final Score: <span class="final-score">' + finalScore + '</span>';
+				privateMembers.openModal($endgameModal);
+			},
+
+			closeEndgameModal: function () {
+				var $endgameModal = document.querySelector(settings.endgameModalContainer);
+				privateMembers.closeModal($endgameModal);
+
+				// dispatch event that handles end game functionality
+				var customEvent = new Event('quickPress: reset');
+				document.body.dispatchEvent(customEvent);
 			}
 	};
 

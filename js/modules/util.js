@@ -11,7 +11,7 @@ define(function (require) {
 			scoreCardClass: '.game-circle__scorecard',
 			remainingTriesScoreClass: '.game-score__life',
 			gameControlsContainerClass: '.game-controls__container',
-			finalScoreClass: '.game-score__final',
+			finalScoreClass: '.endgame-modal__final-score',
 			remainingTriesContainerClass: '.game-score__remaining-tries',
 			circlePoint: '.point',
 			currentLocation: '.current-location',
@@ -28,7 +28,7 @@ define(function (require) {
 		modalShowTimeout,
 
 		publicMembers = {
-			handleReset: function () {
+			reset: function () {
 				var $svgElement = document.getElementsByTagName('svg')[0];
 				var $scoreCard = document.querySelector(settings.scoreCardClass);
 				var $remainingTriesScore = document.querySelector(settings.remainingTriesScoreClass);
@@ -98,15 +98,10 @@ define(function (require) {
 			},
 
 			endGame: function () {
-				var $remainingTriesScore = document.querySelector(settings.remainingTriesScoreClass);
-				var $finalScore = document.querySelector(settings.finalScoreClass);
-				var $scoreCard = document.querySelector(settings.scoreCardClass);
-				var $svgElement = document.getElementsByTagName('svg')[0];
+				var finalScore = score.getCurrentScore(document.querySelector(settings.scoreCardClass));
 
-				alert('game over');
-				score.setScore($remainingTriesScore, 0);
-				$finalScore.innerHTML = 'Your Final Score: <span class="final-score">' + score.getCurrentScore($scoreCard) + '</span>';
-				$svgElement.pauseAnimations();
+				clearTimeout(modalShowTimeout);
+				modals.showEndgameModal(finalScore);
 			}
 		};
 

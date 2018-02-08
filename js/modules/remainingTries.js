@@ -69,7 +69,6 @@ define(function (require) {
 				privateMembers.animate('invalid');
 				privateMembers.toggleHighlight();
 
-				// end game functionality. needs improvement
 				if (score.getCurrentScore($remainingTriesScore) < 0) {
 					var customEvent = new Event('quickPress: end-game');
 					document.body.dispatchEvent(customEvent);

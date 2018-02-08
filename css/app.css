@@ -347,6 +347,15 @@ input:checked + .game-buttons__lights-slider:before {
 /* End Timeout Modal styles */
 
 /*-----------------------------*/
+/* Endgame Modal Styles */
+/*-----------------------------*/
+.endgame-modal__body {
+	text-align: center;
+	font-size: 18px;
+}
+/* End Endgame Modal styles */
+
+/*-----------------------------*/
 /* Miscellaneous Styles */
 /*-----------------------------*/
 /* TODO: consolidate vibrate classes */
