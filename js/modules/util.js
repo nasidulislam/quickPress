@@ -14,12 +14,10 @@ define(function (require) {
 			remainingTriesContainerClass: '.game-score__remaining-tries',
 			circlePoint: '.point',
 			currentLocation: '.current-location',
-			gameModal: '.game-modal',
 
 			// classes
 			lightsToggle: 'toggle-lights',
-			redColorClass: 'color-class-red',
-			hideClass: 'hide-content'
+			redColorClass: 'color-class-red'
 		},
 
 		publicMembers = {
@@ -81,12 +79,6 @@ define(function (require) {
 
 				request.open('Get', 'http://ipinfo.io/json');
 				request.send();
-			},
-
-			closeRulesModal: function () {
-				var $gameModal = document.querySelector(settings.gameModal);
-
-				$gameModal.classList.add(settings.hideClass);
 			}
 		};
 

@@ -292,7 +292,7 @@ input:checked + .game-buttons__lights-slider:before {
 	padding: 20px;
 	top: 50%;
 	transform: translate(-50%, -50%);
-	width: 50%;
+	width: 80%;
 }
 
 .game-modal__content-header {
@@ -351,6 +351,8 @@ input:checked + .game-buttons__lights-slider:before {
 
 /* End Miscellaneous styles */
 
-@media screen and (min-width: 980px) {
-	/* TODO:  */
+@media screen and (min-width: 480px) {
+	.game-modal__content {
+		width: 30%;
+	}
 }

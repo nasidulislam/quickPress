@@ -31,6 +31,7 @@ define(function (require) {
 	var score = require('modules/score');
 	var util = require('modules/util');
 	var remainingTries = require('modules/remainingTries');
+	var modals = require('modules/modals');
 
 	/* Begin Function Declarations */
 
@@ -60,7 +61,7 @@ define(function (require) {
 	$lightSwitch.addEventListener('click', util.toggleLight);
 	$resetButton.addEventListener('click', util.handleReset);
 	$svgCircle.addEventListener('click', theGame);
-	$rulesModalButton.addEventListener('click', util.closeRulesModal);
+	$rulesModalButton.addEventListener('click', modals.closeRulesModal);
 	document.body.addEventListener('quickPress: increase-animate', remainingTries.increaseScoreAndAnimate);
 
 	/* End Event Listeners */
