@@ -302,6 +302,7 @@ input:checked + .game-buttons__lights-slider:before {
 
 .game-modal__rules-list {
 	line-height: 20px;
+	padding-left: 15px;
 }
 
 .rules-list__item {
@@ -342,6 +343,10 @@ input:checked + .game-buttons__lights-slider:before {
 
 .color-class-red {
 	color: #c90835;
+}
+
+.hide-content {
+	display: none;
 }
 
 /* End Miscellaneous styles */

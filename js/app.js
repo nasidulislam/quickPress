@@ -1,23 +1,25 @@
 define(function (require) {
 	var settings,
-		$resetButton, $lightSwitch, $gameControls, $svgCircle;
+		$resetButton, $lightSwitch, $gameControls, $svgCircle, $rulesModalButton;
 
 	settings = {
 		// selectors
 		gameControlsContainerClass: '.game-controls__container',
-		lightsSliderClass: '.game-buttons__lights-slider',
 		svgCircleClass: '.game-circle',
 
 		// buttons
-		resetButtonClass: '.game-buttons__reset',
+		resetButton: '.game-buttons__reset',
+		lightsSlider: '.game-buttons__lights-slider',
+		rulesModalButton: '.game-modal__content-button-container .game-modal__button',
 
 		// classes
 		gameStart: 'game-start'
 	};
 
 	// buttons
-	$lightSwitch = document.querySelector(settings.lightsSliderClass);
-	$resetButton = document.querySelector(settings.resetButtonClass);
+	$lightSwitch = document.querySelector(settings.lightsSlider);
+	$resetButton = document.querySelector(settings.resetButton);
+	$rulesModalButton = document.querySelector(settings.rulesModalButton);
 
 	// Elements
 	$gameControls = document.querySelector(settings.gameControlsContainerClass);
@@ -58,6 +60,7 @@ define(function (require) {
 	$lightSwitch.addEventListener('click', util.toggleLight);
 	$resetButton.addEventListener('click', util.handleReset);
 	$svgCircle.addEventListener('click', theGame);
+	$rulesModalButton.addEventListener('click', util.closeRulesModal);
 	document.body.addEventListener('quickPress: increase-animate', remainingTries.increaseScoreAndAnimate);
 
 	/* End Event Listeners */
