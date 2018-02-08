@@ -85,7 +85,6 @@ define(function (require) {
 			handleUserTimeout: function () {
 				setTimeout(function () {
 					modals.showTimeoutModal();
-					modals.startTimeout();
 				}, 3000);
 			}
 		};

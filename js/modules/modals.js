@@ -7,25 +7,26 @@ define(function () {
 		timeoutContainer: '#timeout-countdown',
 
 		// classes
-		hideClass: 'hide-content'
-	},
-		publicMembers = {
-			closeRulesModal: function () {
-				var $gameModal = document.querySelector(settings.rulesModalContainer);
+		hideClass: 'hide-content',
 
-				$gameModal.classList.add(settings.hideClass);
+		// others
+		countdownTime: 15
+	},
+		countdownTimer, // global variable has to be used to access clearTimeout
+		privateMembers = {
+			closeModal: function ($el) {
+				$el.classList.add(settings.hideClass);
 			},
 
-			showTimeoutModal: function () {
-				var $timeoutModal = document.querySelector(settings.timeoutModalContainer);
-
-				$timeoutModal.classList.remove(settings.hideClass);
+			openModal: function ($el) {
+				$el.classList.remove(settings.hideClass);
 			},
 
 			startTimeout: function () {
-				var timeLeft = 15;
+				var timeLeft = settings.countdownTime;
 				var timeoutContainer = document.querySelector(settings.timeoutContainer);
-				var countdownTimer = setInterval(function () {
+
+				countdownTimer = setInterval(function () {
 					timeLeft--;
 					timeoutContainer.textContent = timeLeft;
 
@@ -33,10 +34,28 @@ define(function () {
 						clearInterval(countdownTimer);
 					}
 				}, 1000);
+			}
+		},
+
+		publicMembers = {
+			closeRulesModal: function () {
+				var $gameModal = document.querySelector(settings.rulesModalContainer);
+				privateMembers.closeModal($gameModal);
+			},
+
+			showTimeoutModal: function () {
+				var $timeoutModal = document.querySelector(settings.timeoutModalContainer);
+				var timeoutContainer = document.querySelector(settings.timeoutContainer);
+
+				timeoutContainer.textContent = settings.countdownTime;
+				privateMembers.openModal($timeoutModal);
+				privateMembers.startTimeout();
 			},
 
 			closeTimeoutModal: function () {
-				console.log('blah');
+				var $timeoutModal = document.querySelector(settings.timeoutModalContainer);
+				privateMembers.closeModal($timeoutModal);
+				clearTimeout(countdownTimer);
 			}
 	};
 
