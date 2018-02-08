@@ -4,10 +4,12 @@ define(function () {
 		// selectors
 		rulesModalContainer: '.rules-modal',
 		timeoutModalContainer: '.timeout-modal',
-		timeoutContainer: '#timeout-countdown',
+		timeoutSpan: '#timeout-countdown',
+		timeoutContainer: '.timeout-modal__body-content',
 
 		// classes
 		hideClass: 'hide-content',
+		timeoutVibrateClass: 'timeout-vibrate',
 
 		// others
 		countdownTime: 15
@@ -26,12 +28,19 @@ define(function () {
 
 			startTimeout: function () {
 				var timeLeft = settings.countdownTime;
+				var timeoutSpan = document.querySelector(settings.timeoutSpan);
 				var timeoutContainer = document.querySelector(settings.timeoutContainer);
 
 				countdownTimer = setInterval(function () {
 					timeLeft--;
-					timeoutContainer.textContent = timeLeft;
+					timeoutSpan.textContent = timeLeft;
 
+					// make timeout container vibrate when only 5 secs are left
+					if(timeLeft <= 5) {
+						timeoutContainer.classList.add(settings.timeoutVibrateClass);
+					}
+
+					// implement 15 secs countdown
 					if(timeLeft <= 0) {
 						clearInterval(countdownTimer);
 
@@ -51,11 +60,11 @@ define(function () {
 
 			showTimeoutModal: function () {
 				var $timeoutModal = document.querySelector(settings.timeoutModalContainer);
-				var timeoutContainer = document.querySelector(settings.timeoutContainer);
+				var timeoutSpan = document.querySelector(settings.timeoutSpan);
 
 				// clear and reset timer
 				clearInterval(countdownTimer);
-				timeoutContainer.textContent = settings.countdownTime;
+				timeoutSpan.textContent = settings.countdownTime;
 
 				// open and start timer
 				privateMembers.openModal($timeoutModal);

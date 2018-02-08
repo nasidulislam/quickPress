@@ -15,10 +15,12 @@ define(function (require) {
 			remainingTriesContainerClass: '.game-score__remaining-tries',
 			circlePoint: '.point',
 			currentLocation: '.current-location',
+			timeoutContainer: '.timeout-modal__body-content',
 
 			// classes
 			lightsToggle: 'toggle-lights',
-			redColorClass: 'color-class-red'
+			redColorClass: 'color-class-red',
+			timeoutVibrateClass: 'timeout-vibrate'
 		},
 
 		// this is the variable that determines how long before timeout modal is diplaed
@@ -34,6 +36,7 @@ define(function (require) {
 				var $finalScore = document.querySelector(settings.finalScoreClass);
 				var $point = document.querySelector(settings.circlePoint);
 				var $remainingTriesElement = document.querySelector(settings.remainingTriesContainerClass);
+				var timeoutContainer = document.querySelector(settings.timeoutContainer);
 
 				// pause all svg animation on reset and set initial position to 0
 				$svgElement.pauseAnimations();
@@ -48,6 +51,7 @@ define(function (require) {
 				$gameControls.classList.remove(settings.gameStart);
 				$finalScore.textContent = '';
 				$remainingTriesElement.classList.remove(settings.redColorClass);
+				timeoutContainer.classList.remove(settings.timeoutVibrateClass);
 			},
 
 			toggleLight: function () {
