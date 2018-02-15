@@ -42,7 +42,9 @@ define(function (require) {
 
 	function theGame() {
 		$gameControls.classList.add(settings.gameStart);
-		util.handleUserTimeout();
+
+		/* Switching Off user Timeout Issues */
+		// util.handleUserTimeout();
 
 		if (score.isValidScore()) {
 			score.handleScoring();
