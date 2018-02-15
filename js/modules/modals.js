@@ -19,11 +19,13 @@ define(function () {
 		// global variable has to be used to access clearTimeout
 		countdownTimer,
 		privateMembers = {
-			closeModal: function ($el) {
+			closeModal: function (el) {
+				var $el = document.querySelector(el);
 				$el.classList.add(settings.hideClass);
 			},
 
-			openModal: function ($el) {
+			openModal: function (el) {
+				var $el = document.querySelector(el);
 				$el.classList.remove(settings.hideClass);
 			},
 
@@ -55,12 +57,10 @@ define(function () {
 
 		publicMembers = {
 			closeRulesModal: function () {
-				var $rulesModal = document.querySelector(settings.rulesModalContainer);
-				privateMembers.closeModal($rulesModal);
+				privateMembers.closeModal(settings.rulesModalContainer);
 			},
 
 			showTimeoutModal: function () {
-				var $timeoutModal = document.querySelector(settings.timeoutModalContainer);
 				var timeoutSpan = document.querySelector(settings.timeoutSpan);
 
 				// clear and reset timer
@@ -68,26 +68,23 @@ define(function () {
 				timeoutSpan.textContent = settings.countdownTime;
 
 				// open and start timer
-				privateMembers.openModal($timeoutModal);
+				privateMembers.openModal(settings.timeoutModalContainer);
 				privateMembers.startTimeout();
 			},
 
 			closeTimeoutModal: function () {
-				var $timeoutModal = document.querySelector(settings.timeoutModalContainer);
-				privateMembers.closeModal($timeoutModal);
+				privateMembers.closeModal(settings.timeoutModalContainer);
 			},
 
 			showEndgameModal: function (finalScore) {
-				var $endgameModal = document.querySelector(settings.endgameModalContainer);
 				var $finalScore = document.querySelector(settings.finalScoreClass);
 
 				$finalScore.innerHTML = 'Your Final Score: <span class="final-score">' + finalScore + '</span>';
-				privateMembers.openModal($endgameModal);
+				privateMembers.openModal(settings.endgameModalContainer);
 			},
 
 			closeEndgameModal: function () {
-				var $endgameModal = document.querySelector(settings.endgameModalContainer);
-				privateMembers.closeModal($endgameModal);
+				privateMembers.closeModal(settings.endgameModalContainer);
 
 				// dispatch event that handles end game functionality
 				var customEvent = new Event('quickPress: reset');
