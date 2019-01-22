@@ -8,6 +8,7 @@ define(function (require) {
 		gameControlsContainerClass: '.game-controls__container',
 		svgCircleClass: '.game-circle',
 		usernameInputId: '#username',
+		displayUsernameClass: '.header-content .display-username',
 
 		// buttons
 		resetButton: '.game-buttons__reset',
@@ -38,6 +39,7 @@ define(function (require) {
 	var util = require('modules/util');
 	var remainingTries = require('modules/remainingTries');
 	var modals = require('modules/modals');
+	var helpers = require('modules/helpers');
 
 	/* Begin Function Declarations */
 
@@ -64,15 +66,19 @@ define(function (require) {
 
 	function validateUsername(event) {
 		var $username = document.querySelector(settings.usernameInputId);
-		var username = $username.value;
+		var $usernameDisplay = document.querySelector(settings.displayUsernameClass);
+		var username = helpers.titleCase($username.value);
+		var $body = document.querySelector('body');
+
+		// set username values
+		$body.setAttribute('username', username);
+		$usernameDisplay.innerText = username;
 
 		if(username === "" || username === undefined) {
 			$username.classList.add('error');
 		} else {
-			var $body = document.querySelector('body');
 			$username.classList.remove('error');
-			modals.closeRulesModal(username);
-			$body.setAttribute('username', username);
+			modals.closeRulesModal();
 		}
 	}
 
