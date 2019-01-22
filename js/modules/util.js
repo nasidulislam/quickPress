@@ -4,6 +4,7 @@ define(function (require) {
 	var frequency = require('modules/frequency');
 	var score = require('modules/score');
 	var modals = require('modules/modals');
+	var firebase = require('modules/firebase');
 
 	var settings = {
 			// selectors
@@ -102,6 +103,7 @@ define(function (require) {
 
 				clearTimeout(modalShowTimeout);
 				modals.showEndgameModal(finalScore);
+				firebase.saveToDb(finalScore);
 			}
 		};
 
