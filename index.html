@@ -9,7 +9,10 @@
     <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase.js"></script>
 </head>
 <body class='body-class'>
-<h1 class='game-header'>Welcome to QuickPress</h1>
+<div class="header-content">
+    <h1 class='game-header'>Welcome to QuickPress</h1>
+    <span class="display-username"></span>
+</div>
 <div class='primary-content'>
     <div class='game-controls__container'>
 
@@ -110,6 +113,11 @@
             <li class="rules-list__item">You gain a life for each 5 points scored.</li>
             <li class="rules-list__item">You lose the game when you make an unsuccessful hit and you have no lives left.</li>
         </ul>
+
+        <div class="rules-modal__username-container">
+            <span class="username-text">Please enter a username</span>
+            <input type="text" id="username" name="username" />
+        </div>
 
         <div class="game-modal__content-button-container rules-modal__content-button-container">
             <button class="game-modal__button rules-modal__button" id="rules-modal__button">Got it!</button>

@@ -14,11 +14,16 @@
 /*-----------------------------*/
 /* Game Header Styles */
 /*-----------------------------*/
+.header-content {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+}
+
 .game-header {
 	color: #167F92;
 	font-size: 25px;
 	margin-top: 70px;
-	text-align: center;
 }
 
 /* End game header styles */
@@ -313,6 +318,20 @@ input:checked + .game-buttons__lights-slider:before {
 	height: 40px;
 	width: 40%;
 }
+.game-modal__button:focus {
+	outline: none;
+}
+
+.rules-modal__username-container {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	margin-top: 35px;
+}
+
+.rules-modal__username-container .username-text {
+	margin-bottom: 15px;
+}
 /* End Modal styles */
 
 /*-----------------------------*/
@@ -389,6 +408,10 @@ input:checked + .game-buttons__lights-slider:before {
 
 .hide-content {
 	display: none;
+}
+
+.error {
+	border: 2px solid #c90835;
 }
 
 /* End Miscellaneous styles */

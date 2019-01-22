@@ -7,6 +7,7 @@ define(function (require) {
 		// selectors
 		gameControlsContainerClass: '.game-controls__container',
 		svgCircleClass: '.game-circle',
+		usernameInputId: '#username',
 
 		// buttons
 		resetButton: '.game-buttons__reset',
@@ -61,6 +62,20 @@ define(function (require) {
 		util.getCurrentLocation();
 	}
 
+	function validateUsername(event) {
+		var $username = document.querySelector(settings.usernameInputId);
+		var username = $username.value;
+
+		if(username === "" || username === undefined) {
+			$username.classList.add('error');
+		} else {
+			var $body = document.querySelector('body');
+			$username.classList.remove('error');
+			modals.closeRulesModal(username);
+			$body.setAttribute('username', username);
+		}
+	}
+
 	/* End Function Declarations */
 
 	/* Begin Event Listeners */
@@ -70,7 +85,7 @@ define(function (require) {
 	$lightSwitch.addEventListener('click', util.toggleLight);
 	$resetButton.addEventListener('click', util.reset);
 	$svgCircle.addEventListener('click', theGame);
-	$rulesModalButton.addEventListener('click', modals.closeRulesModal);
+	$rulesModalButton.addEventListener('click', validateUsername);
 	$timeoutModalButton.addEventListener('click', modals.closeTimeoutModal);
 	$endgameModalButton.addEventListener('click', modals.closeEndgameModal);
 

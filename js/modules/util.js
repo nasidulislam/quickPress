@@ -100,10 +100,15 @@ define(function (require) {
 
 			endGame: function () {
 				var finalScore = score.getCurrentScore(document.querySelector(settings.scoreCardClass));
+				var username = publicMembers.getUsername();
 
 				clearTimeout(modalShowTimeout);
 				modals.showEndgameModal(finalScore);
-				firebase.saveToDb(finalScore);
+				firebase.saveToDb(username, finalScore);
+			},
+
+			getUsername: function() {
+				return document.querySelector('body').getAttribute('username');
 			}
 		};
 

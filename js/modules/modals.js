@@ -7,6 +7,7 @@ define(function () {
 		timeoutSpan: '#timeout-countdown',
 		timeoutContainer: '.timeout-modal__body-content',
 		finalScoreClass: '.endgame-modal__final-score',
+		displayUsernameClass: '.display-username',
 
 		// classes
 		hideClass: 'hide-content',
@@ -56,7 +57,10 @@ define(function () {
 		},
 
 		publicMembers = {
-			closeRulesModal: function () {
+			closeRulesModal: function (username) {
+				var $usernameDisplay = document.querySelector(settings.displayUsernameClass);
+
+				$usernameDisplay.innerHTML = username;
 				privateMembers.closeModal(settings.rulesModalContainer);
 			},
 
