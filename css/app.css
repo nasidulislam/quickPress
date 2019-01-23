@@ -44,71 +44,6 @@
 /* End primary content styles */
 
 /*-----------------------------*/
-/* Light Switch Styles */
-/*-----------------------------*/
-.game-buttons__lights {
-	position: relative;
-	display: inline-block;
-	margin-right: 15px;
-	width: 60px;
-	height: 34px;
-	top: 12px;
-}
-
-.game-buttons__lights input {
-	display: none;
-}
-
-.game-buttons__lights-slider {
-	position: absolute;
-	cursor: pointer;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: #ccc;
-	-webkit-transition: .4s;
-	transition: .4s;
-}
-
-.game-buttons__lights-slider:before {
-	position: absolute;
-	content: "";
-	height: 26px;
-	width: 26px;
-	left: 4px;
-	bottom: 4px;
-	background-color: white;
-	-webkit-transition: .4s;
-	transition: .4s;
-}
-
-input:checked + .game-buttons__lights-slider {
-	background-color: #86d993;
-}
-
-input:focus + .game-buttons__lights-slider {
-	box-shadow: 0 0 1px #86d993;
-}
-
-input:checked + .game-buttons__lights-slider:before {
-	-webkit-transform: translateX(26px);
-	-ms-transform: translateX(26px);
-	transform: translateX(26px);
-}
-
-/* Rounded game-buttons__lights-sliders */
-.game-buttons__lights-slider.round {
-	border-radius: 34px;
-}
-
-.game-buttons__lights-slider.round:before {
-	border-radius: 50%;
-}
-
-/* End light switch styles */
-
-/*-----------------------------*/
 /* Reset Button Styles */
 /*-----------------------------*/
 .game-buttons__reset {
@@ -122,39 +57,6 @@ input:checked + .game-buttons__lights-slider:before {
 }
 
 /* End reset button styles */
-
-/*-----------------------------*/
-/* Lights Off Styles */
-/*-----------------------------*/
-.body-class.toggle-lights {
-	background-color: #1F2739;
-}
-
-.toggle-lights .game-header {
-	color: #EDCDC2;
-}
-
-.toggle-lights .game-leaderboards {
-	color: #FB667A;
-}
-
-.toggle-lights .game-leaderboards .game-leaderboards__table tr:nth-child(odd) {
-	background-color: #1F2739;
-}
-
-.toggle-lights .game-leaderboards .game-leaderboards__table th {
-	background-color: #2c2c2c;
-}
-
-.toggle-lights .game-leaderboards__header {
-	color: #EDCDC2;
-}
-
-.toggle-lights .game-score {
-	color: #EDCDC2;
-}
-
-/* End lights off styles */
 
 /*-----------------------------*/
 /* Game Score Styles */
