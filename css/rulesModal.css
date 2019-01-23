@@ -1,0 +1,26 @@
+/*-----------------------------*/
+/* Rules Modal Styles */
+/*-----------------------------*/
+.rules-modal__username-container {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	margin-top: 35px;
+}
+
+.rules-modal__username-container .username-text {
+	margin-bottom: 15px;
+}
+/* End Modal styles */
+
+
+.rules-modal__rules-list {
+	line-height: 20px;
+	padding-left: 15px;
+}
+
+.rules-list__item {
+	margin-top: 25px;
+}
+
+/* End Rules Modal styles */
