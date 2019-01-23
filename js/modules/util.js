@@ -117,8 +117,12 @@ define(function (require) {
 				$usernameDisplay.innerText = username;
 
 				// save username appended with randStr in local storage
-				var uniqueUsername = username + '-' + helpers.generateRandomStr();
-				localStorage.setItem('userData', JSON.stringify({username: uniqueUsername}));
+				var randStr = '-' + helpers.generateRandomStr()
+				var uniqueUsername = username + randStr;
+				localStorage.setItem('userData' + randStr, JSON.stringify({
+					username: username,
+					uniqueUsername: uniqueUsername
+				}));
 			},
 
 			getUsername: function() {

@@ -124,13 +124,20 @@
             <li class="rules-list__item">You lose the game when you make an unsuccessful hit and you have no lives left.</li>
         </ul>
 
-        <div class="rules-modal__username-container">
-            <span class="username-text">Please enter a username</span>
-            <input type="text" id="username" name="username" />
-        </div>
+        <form class="rules-modal__login-container">
+            <span class="username-text">Please enter username & password</span>
+            <div class="rules-modal__username-container">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" />
+            </div>
+            <div class="rules-modal__password-container">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" />
+            </div>
+        </form>
 
         <div class="game-modal__content-button-container rules-modal__content-button-container">
-            <button class="game-modal__button rules-modal__button" id="rules-modal__button">Got it!</button>
+            <button class="game-modal__button rules-modal__button" id="rules-modal__button">Lets Play !</button>
         </div>
     </div>
 </div>

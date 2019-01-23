@@ -8,6 +8,7 @@ define(function (require) {
 		gameControlsContainerClass: '.game-controls__container',
 		svgCircleClass: '.game-circle',
 		usernameInputId: '#username',
+		passwordInputId: '#password',
 
 		// buttons
 		resetButton: '.game-buttons__reset',
@@ -65,7 +66,16 @@ define(function (require) {
 
 	function validateUsername() {
 		var $username = document.querySelector(settings.usernameInputId);
+		var $password = document.querySelector(settings.passwordInputId);
 		var username = helpers.toTitleCase($username.value);
+		var password = $password.value;
+		var localStorageArray = Object.keys(localStorage);
+
+		localStorageArray.forEach(function(key) {
+			if(key.indexOf('userData-') !== -1) {
+				console.log(key);
+			}
+		});
 
 		if(username === "" || username === undefined) {
 			$username.classList.add('error');
