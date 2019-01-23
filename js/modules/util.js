@@ -5,6 +5,7 @@ define(function (require) {
 	var score = require('modules/score');
 	var modals = require('modules/modals');
 	var firebase = require('modules/firebase');
+	var helpers = require('modules/helpers');
 
 	var settings = {
 			// selectors
@@ -17,6 +18,7 @@ define(function (require) {
 			circlePoint: '.point',
 			currentLocation: '.current-location',
 			timeoutContainer: '.timeout-modal__body-content',
+			displayUsernameClass: '.header-content .display-username',
 
 			// classes
 			lightsToggle: 'toggle-lights',
@@ -105,6 +107,18 @@ define(function (require) {
 				clearTimeout(modalShowTimeout);
 				modals.showEndgameModal(finalScore);
 				firebase.saveToDb(username, finalScore);
+			},
+
+			setUsername: function(username) {
+				var $usernameDisplay = document.querySelector(settings.displayUsernameClass);
+				var $body = document.querySelector('body');
+
+				$body.setAttribute('username', username);
+				$usernameDisplay.innerText = username;
+
+				// save username appended with randStr in local storage
+				var uniqueUsername = username + '-' + helpers.generateRandomStr();
+				localStorage.setItem('userData', JSON.stringify({username: uniqueUsername}));
 			},
 
 			getUsername: function() {

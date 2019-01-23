@@ -8,7 +8,6 @@ define(function (require) {
 		gameControlsContainerClass: '.game-controls__container',
 		svgCircleClass: '.game-circle',
 		usernameInputId: '#username',
-		displayUsernameClass: '.header-content .display-username',
 
 		// buttons
 		resetButton: '.game-buttons__reset',
@@ -64,19 +63,16 @@ define(function (require) {
 		util.getCurrentLocation();
 	}
 
-	function validateUsername(event) {
+	function validateUsername() {
 		var $username = document.querySelector(settings.usernameInputId);
-		var $usernameDisplay = document.querySelector(settings.displayUsernameClass);
 		var username = helpers.toTitleCase($username.value);
-		var $body = document.querySelector('body');
-
-		// set username values
-		$body.setAttribute('username', username);
-		$usernameDisplay.innerText = username;
 
 		if(username === "" || username === undefined) {
 			$username.classList.add('error');
 		} else {
+			// set username values
+			util.setUsername(username);
+
 			$username.classList.remove('error');
 			modals.closeRulesModal();
 		}
