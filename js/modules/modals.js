@@ -56,7 +56,7 @@ define(function () {
 		},
 
 		publicMembers = {
-			closeRulesModal: function () {
+			closeRulesModal: function (username) {
 				privateMembers.closeModal(settings.rulesModalContainer);
 			},
 

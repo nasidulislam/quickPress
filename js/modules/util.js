@@ -4,6 +4,7 @@ define(function (require) {
 	var frequency = require('modules/frequency');
 	var score = require('modules/score');
 	var modals = require('modules/modals');
+	var firebase = require('modules/firebase');
 
 	var settings = {
 			// selectors
@@ -99,9 +100,15 @@ define(function (require) {
 
 			endGame: function () {
 				var finalScore = score.getCurrentScore(document.querySelector(settings.scoreCardClass));
+				var username = publicMembers.getUsername();
 
 				clearTimeout(modalShowTimeout);
 				modals.showEndgameModal(finalScore);
+				firebase.saveToDb(username, finalScore);
+			},
+
+			getUsername: function() {
+				return document.querySelector('body').getAttribute('username');
 			}
 		};
 

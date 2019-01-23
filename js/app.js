@@ -7,6 +7,8 @@ define(function (require) {
 		// selectors
 		gameControlsContainerClass: '.game-controls__container',
 		svgCircleClass: '.game-circle',
+		usernameInputId: '#username',
+		displayUsernameClass: '.header-content .display-username',
 
 		// buttons
 		resetButton: '.game-buttons__reset',
@@ -37,6 +39,7 @@ define(function (require) {
 	var util = require('modules/util');
 	var remainingTries = require('modules/remainingTries');
 	var modals = require('modules/modals');
+	var helpers = require('modules/helpers');
 
 	/* Begin Function Declarations */
 
@@ -61,6 +64,24 @@ define(function (require) {
 		util.getCurrentLocation();
 	}
 
+	function validateUsername(event) {
+		var $username = document.querySelector(settings.usernameInputId);
+		var $usernameDisplay = document.querySelector(settings.displayUsernameClass);
+		var username = helpers.toTitleCase($username.value);
+		var $body = document.querySelector('body');
+
+		// set username values
+		$body.setAttribute('username', username);
+		$usernameDisplay.innerText = username;
+
+		if(username === "" || username === undefined) {
+			$username.classList.add('error');
+		} else {
+			$username.classList.remove('error');
+			modals.closeRulesModal();
+		}
+	}
+
 	/* End Function Declarations */
 
 	/* Begin Event Listeners */
@@ -70,7 +91,7 @@ define(function (require) {
 	$lightSwitch.addEventListener('click', util.toggleLight);
 	$resetButton.addEventListener('click', util.reset);
 	$svgCircle.addEventListener('click', theGame);
-	$rulesModalButton.addEventListener('click', modals.closeRulesModal);
+	$rulesModalButton.addEventListener('click', validateUsername);
 	$timeoutModalButton.addEventListener('click', modals.closeTimeoutModal);
 	$endgameModalButton.addEventListener('click', modals.closeEndgameModal);
 
