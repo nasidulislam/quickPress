@@ -1,0 +1,43 @@
+/*-----------------------------*/
+/* Game Leaderboards Styles */
+/*-----------------------------*/
+.game-leaderboards {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 100px;
+	width: 60%;
+}
+
+.game-leaderboards__table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.game-leaderboards .game-leaderboards__table tr {
+	height: 55px;
+	text-align: left;
+}
+
+.game-leaderboards .game-leaderboards__table tr:nth-child(odd) {
+	background-color: #EAF3F3;
+}
+
+.game-leaderboards .game-leaderboards__table th,
+.game-leaderboards .game-leaderboards__table td {
+	padding-left: 20px;
+}
+
+.game-leaderboards .game-leaderboards__table th {
+	background-color: #167F92;
+	color: #fff;
+}
+
+.game-leaderboards__header {
+	color: #167F92;
+}
+
+.game-leaderboards__current-location {
+	margin-bottom: 15px;
+}
+
+/* End game leaderboards styles */

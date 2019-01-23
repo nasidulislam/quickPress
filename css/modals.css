@@ -1,0 +1,46 @@
+/*-----------------------------*/
+/* Base Modal Styles */
+/*-----------------------------*/
+.game-modal {
+	background: rgba(0, 0, 0, 0.8);
+	height: 100%;
+	left: 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 99999;
+}
+
+.game-modal__content {
+	background: #fff;
+	position: absolute;
+	left: 50%;
+	padding: 20px;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: 80%;
+}
+
+.game-modal__content-header {
+	color: #167F92;
+	text-align: center;
+}
+
+.game-modal__content-button-container {
+	margin-top: 40px;
+	text-align: center;
+}
+
+.game-modal__button {
+	background-color: #167F92;
+	font-family: 'Josefin Sans', sans-serif;
+	font-size: 17px;
+	color: #fff;
+	height: 40px;
+	width: 40%;
+}
+.game-modal__button:focus {
+	outline: none;
+}
+
+/* End Base Modal styles */
