@@ -1,6 +1,6 @@
 define(function() {
     var publicMembers = {
-        titleCase: function(str) {
+        toTitleCase: function(str) {
             return str.replace(
                 /\w\S*/g,
                 function(txt) {

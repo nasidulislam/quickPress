@@ -67,7 +67,7 @@ define(function (require) {
 	function validateUsername(event) {
 		var $username = document.querySelector(settings.usernameInputId);
 		var $usernameDisplay = document.querySelector(settings.displayUsernameClass);
-		var username = helpers.titleCase($username.value);
+		var username = helpers.toTitleCase($username.value);
 		var $body = document.querySelector('body');
 
 		// set username values
