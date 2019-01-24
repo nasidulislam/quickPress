@@ -88,7 +88,6 @@ define(function (require) {
 
 		// when we have valid creds, run login and close modal
 		login.runLogin(username, password);
-		modals.closeRulesModal();
 	}
 
 	/* End Function Declarations */

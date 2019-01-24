@@ -4,7 +4,7 @@ define(function (require) {
 	var frequency = require('modules/frequency');
 	var score = require('modules/score');
 	var modals = require('modules/modals');
-	var firebase = require('modules/firebase');
+	var db = require('modules/firebase');
 
 	var settings = {
 			// selectors
@@ -101,23 +101,33 @@ define(function (require) {
 
 			endGame: function () {
 				var finalScore = score.getCurrentScore(document.querySelector(settings.scoreCardClass));
-				var username = publicMembers.getUsername();
+				var userId = publicMembers.getUserId();
 
 				clearTimeout(modalShowTimeout);
 				modals.showEndgameModal(finalScore);
-				firebase.saveToDb(username, finalScore);
+				db.saveScoreToDb(userId, finalScore);
 			},
 
-			setUsername: function(username) {
+			setUserData: function(userData) {
 				var $usernameDisplay = document.querySelector(settings.displayUsernameClass);
 				var $body = document.querySelector('body');
 
-				$body.setAttribute('username', username);
-				$usernameDisplay.innerText = username;
+				$body.setAttribute('username', userData.username);
+				$body.setAttribute('userId', userData.userId);
+				$usernameDisplay.innerText = userData.username;
 			},
 
-			getUsername: function() {
-				return document.querySelector('body').getAttribute('username');
+			getUserId: function() {
+				return document.querySelector('body').getAttribute('userid');
+			},
+
+			init: function(userData) {
+				publicMembers.setUserData(userData);
+				//TODO: get high score and display
+			},
+
+			getState: function(userId) {
+				return JSON.parse(localStorage.getItem(userId))
 			}
 		};
 
