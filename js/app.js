@@ -40,6 +40,7 @@ define(function (require) {
 	var remainingTries = require('modules/remainingTries');
 	var modals = require('modules/modals');
 	var helpers = require('modules/helpers');
+	var login = require('modules/login');
 
 	/* Begin Function Declarations */
 
@@ -64,28 +65,30 @@ define(function (require) {
 		util.getCurrentLocation();
 	}
 
-	function validateUsername() {
+	function validateCreds() {
 		var $username = document.querySelector(settings.usernameInputId);
 		var $password = document.querySelector(settings.passwordInputId);
 		var username = helpers.toTitleCase($username.value);
 		var password = $password.value;
-		var localStorageArray = Object.keys(localStorage);
 
-		localStorageArray.forEach(function(key) {
-			if(key.indexOf('userData-') !== -1) {
-				console.log(key);
-			}
-		});
-
-		if(username === "" || username === undefined) {
+		// if either username and/or password is not provided, throw error and return
+		if((username === "") && (password === "")) {
 			$username.classList.add('error');
-		} else {
-			// set username values
-			util.setUsername(username);
-
+			$password.classList.add('error');
+			return
+		} else if(password === "") {
+			$password.classList.add('error');
 			$username.classList.remove('error');
-			modals.closeRulesModal();
+			return;
+		} else if(username === "") {
+			$username.classList.add('error');
+			$password.classList.remove('error');
+			return;
 		}
+
+		// when we have valid creds, run login and close modal
+		login.runLogin(username, password);
+		modals.closeRulesModal();
 	}
 
 	/* End Function Declarations */
@@ -97,7 +100,7 @@ define(function (require) {
 	$lightSwitch.addEventListener('click', util.toggleLight);
 	$resetButton.addEventListener('click', util.reset);
 	$svgCircle.addEventListener('click', theGame);
-	$rulesModalButton.addEventListener('click', validateUsername);
+	$rulesModalButton.addEventListener('click', validateCreds);
 	$timeoutModalButton.addEventListener('click', modals.closeTimeoutModal);
 	$endgameModalButton.addEventListener('click', modals.closeEndgameModal);
 

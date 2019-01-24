@@ -5,7 +5,6 @@ define(function (require) {
 	var score = require('modules/score');
 	var modals = require('modules/modals');
 	var firebase = require('modules/firebase');
-	var helpers = require('modules/helpers');
 
 	var settings = {
 			// selectors
@@ -115,14 +114,6 @@ define(function (require) {
 
 				$body.setAttribute('username', username);
 				$usernameDisplay.innerText = username;
-
-				// save username appended with randStr in local storage
-				var randStr = '-' + helpers.generateRandomStr()
-				var uniqueUsername = username + randStr;
-				localStorage.setItem('userData' + randStr, JSON.stringify({
-					username: username,
-					uniqueUsername: uniqueUsername
-				}));
 			},
 
 			getUsername: function() {
