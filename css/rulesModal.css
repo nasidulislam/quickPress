@@ -1,18 +1,19 @@
 /*-----------------------------*/
 /* Rules Modal Styles */
 /*-----------------------------*/
-.rules-modal__username-container {
-	align-items: center;
+.rules-modal__login-container {
 	display: flex;
 	flex-direction: column;
 	margin-top: 35px;
 }
 
-.rules-modal__username-container .username-text {
+.rules-modal__login-container .username-text {
 	margin-bottom: 15px;
 }
-/* End Modal styles */
 
+.rules-modal__password-container {
+	margin-top: 15px;
+}
 
 .rules-modal__rules-list {
 	line-height: 20px;

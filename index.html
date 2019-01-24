@@ -14,6 +14,17 @@
     <link rel="stylesheet" href="css/endGameModal.css">
     <link rel="stylesheet" href="css/score.css">
     <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase.js"></script>
+    <script>
+        window.addEventListener('load', function() {
+            var config = {
+              apiKey: "AIzaSyAL0uZwywaiae1IYS-jtMU_Qrvbvkol0o4",
+              authDomain: "quickpress-73517.firebaseapp.com",
+              databaseURL: "https://quickpress-73517.firebaseio.com",
+              projectId: "quickpress-73517"
+            };
+            firebase.initializeApp(config);
+    	})
+    </script>
 </head>
 <body class='body-class'>
 <div class="header-content">
@@ -124,13 +135,20 @@
             <li class="rules-list__item">You lose the game when you make an unsuccessful hit and you have no lives left.</li>
         </ul>
 
-        <div class="rules-modal__username-container">
-            <span class="username-text">Please enter a username</span>
-            <input type="text" id="username" name="username" />
-        </div>
+        <form class="rules-modal__login-container">
+            <span class="username-text">Please enter username & password</span>
+            <div class="rules-modal__username-container">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" />
+            </div>
+            <div class="rules-modal__password-container">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" />
+            </div>
+        </form>
 
         <div class="game-modal__content-button-container rules-modal__content-button-container">
-            <button class="game-modal__button rules-modal__button" id="rules-modal__button">Got it!</button>
+            <button class="game-modal__button rules-modal__button" id="rules-modal__button">Lets Play !</button>
         </div>
     </div>
 </div>

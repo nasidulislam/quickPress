@@ -8,7 +8,7 @@ define(function (require) {
 		gameControlsContainerClass: '.game-controls__container',
 		svgCircleClass: '.game-circle',
 		usernameInputId: '#username',
-		displayUsernameClass: '.header-content .display-username',
+		passwordInputId: '#password',
 
 		// buttons
 		resetButton: '.game-buttons__reset',
@@ -40,6 +40,7 @@ define(function (require) {
 	var remainingTries = require('modules/remainingTries');
 	var modals = require('modules/modals');
 	var helpers = require('modules/helpers');
+	var login = require('modules/login');
 
 	/* Begin Function Declarations */
 
@@ -64,22 +65,29 @@ define(function (require) {
 		util.getCurrentLocation();
 	}
 
-	function validateUsername(event) {
+	function validateCreds() {
 		var $username = document.querySelector(settings.usernameInputId);
-		var $usernameDisplay = document.querySelector(settings.displayUsernameClass);
+		var $password = document.querySelector(settings.passwordInputId);
 		var username = helpers.toTitleCase($username.value);
-		var $body = document.querySelector('body');
+		var password = $password.value;
 
-		// set username values
-		$body.setAttribute('username', username);
-		$usernameDisplay.innerText = username;
-
-		if(username === "" || username === undefined) {
+		// if either username and/or password is not provided, throw error and return
+		if((username === "") && (password === "")) {
 			$username.classList.add('error');
-		} else {
+			$password.classList.add('error');
+			return
+		} else if(password === "") {
+			$password.classList.add('error');
 			$username.classList.remove('error');
-			modals.closeRulesModal();
+			return;
+		} else if(username === "") {
+			$username.classList.add('error');
+			$password.classList.remove('error');
+			return;
 		}
+
+		// when we have valid creds, run login and close modal
+		login.runLogin(username, password);
 	}
 
 	/* End Function Declarations */
@@ -91,7 +99,7 @@ define(function (require) {
 	$lightSwitch.addEventListener('click', util.toggleLight);
 	$resetButton.addEventListener('click', util.reset);
 	$svgCircle.addEventListener('click', theGame);
-	$rulesModalButton.addEventListener('click', validateUsername);
+	$rulesModalButton.addEventListener('click', validateCreds);
 	$timeoutModalButton.addEventListener('click', modals.closeTimeoutModal);
 	$endgameModalButton.addEventListener('click', modals.closeEndgameModal);
 
