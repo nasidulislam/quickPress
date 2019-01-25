@@ -3,8 +3,9 @@ define(function (require) {
 		// selectors
 		gameControlsContainerClass: '.game-controls__container',
 		svgCircleClass: '.game-circle',
-		usernameInputId: '#username',
-		passwordInputId: '#password',
+		form: '.form',
+		username: '.username',
+		password: '.password',
 
 		// buttons
 		resetButton: '.game-buttons__reset',
@@ -21,14 +22,13 @@ define(function (require) {
 	// buttons
 	var $lightSwitch = document.querySelector(settings.lightsSlider);
 	var $resetButton = document.querySelector(settings.resetButton);
-	var $loginButton = document.querySelector(settings.loginButton);
-	var $signupButton = document.querySelector(settings.signupButton);
 	var $timeoutModalButton = document.querySelector(settings.timeoutModalButton);
 	var $endgameModalButton = document.querySelector(settings.endgameModalButton);
 
 	// Elements
 	$gameControls = document.querySelector(settings.gameControlsContainerClass);
 	$svgCircle = document.querySelector(settings.svgCircleClass);
+	$forms = document.querySelectorAll(settings.form);
 
 	// modules
 	var placement = require('modules/placement');
@@ -63,41 +63,18 @@ define(function (require) {
 		util.getCurrentLocation();
 	}
 
-	function validateCreds() {
-		var $username = document.querySelector(settings.usernameInputId);
-		var $password = document.querySelector(settings.passwordInputId);
+	function handleFormSubmit(event) {
+		event.preventDefault();
+
+		var form = event.target;
+		var $username = form.querySelector(settings.username);
+		var $password = form.querySelector(settings.password);
+
 		var username = helpers.toTitleCase($username.value);
 		var password = $password.value;
 
-		// if either username and/or password is not provided, throw error and return
-		if((username === "") && (password === "")) {
-			$username.classList.add('error');
-			$password.classList.add('error');
-			return
-		} else if(password === "") {
-			$password.classList.add('error');
-			$username.classList.remove('error');
-			return;
-		} else if(username === "") {
-			$username.classList.add('error');
-			$password.classList.remove('error');
-			return;
-		}
-
-		// when we have valid creds, run login and close modal
-		login.runLogin(username, password);
-	}
-
-	function doLogin(event) {
-		event.preventDefault();
-
-		console.log('login');
-	}
-
-	function doSignup(event) {
-		event.preventDefault();
-
-		console.log('sign up');
+		helpers.validateCreds(form, $username, username, $password, password);
+		console.log('here');
 	}
 
 	/* End Function Declarations */
@@ -109,15 +86,19 @@ define(function (require) {
 	$lightSwitch.addEventListener('click', util.toggleLight);
 	$resetButton.addEventListener('click', util.reset);
 	$svgCircle.addEventListener('click', theGame);
-	$loginButton.addEventListener('click', doLogin);
-	$signupButton.addEventListener('click', doSignup);
 	$timeoutModalButton.addEventListener('click', modals.closeTimeoutModal);
 	$endgameModalButton.addEventListener('click', modals.closeEndgameModal);
+
 
 	// custom event handlers
 	document.body.addEventListener('quickPress: increase-animate', remainingTries.increaseScoreAndAnimate);
 	document.body.addEventListener('quickPress: end-game', util.endGame);
 	document.body.addEventListener('quickPress: reset', util.reset);
+
+	// other handlers
+	$forms.forEach(function(form) {
+		form.addEventListener('submit', handleFormSubmit);
+	});
 
 	/* End Event Listeners */
 
