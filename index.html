@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="css/rulesModal.css">
     <link rel="stylesheet" href="css/endGameModal.css">
     <link rel="stylesheet" href="css/score.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/buttons.css">
     <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase.js"></script>
     <script>
         window.addEventListener('load', function() {
@@ -135,20 +137,28 @@
             <li class="rules-list__item">You lose the game when you make an unsuccessful hit and you have no lives left.</li>
         </ul>
 
-        <form class="rules-modal__login-container">
-            <span class="username-text">Please enter username & password</span>
-            <div class="rules-modal__username-container">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" />
-            </div>
-            <div class="rules-modal__password-container">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" />
-            </div>
-        </form>
+        <div class="rules-modal__credentials-container">
+            <form class="form forms-vertical rules-modal__login-container">
+                <span class="form-label">Login</span>
+                <input class="form-control username" type="text" id="login-username" placeholder="Username" />
+                <input class="form-control password" type="password" id="login-password" placeholder="Password" />
+                <span class="error-message login-error-message">
+                    Please correct highlighted fields
+                </span>
 
-        <div class="game-modal__content-button-container rules-modal__content-button-container">
-            <button class="game-modal__button rules-modal__button" id="rules-modal__button">Lets Play !</button>
+                <button class="button primary-button forms-vertical-button login-button js-button">Login</button>
+            </form>
+
+            <form class="form forms-vertical rules-modal__signup-container">
+                <span class="form-label">Sign Up</span>
+                <input class="form-control username" type="text" id="signup-username" name="username" placeholder="Username" />
+                <input class="form-control password" type="password" id="signup-password" name="password" placeholder="Password" />
+                <span class="error-message signup-error-message">
+                    Please correct highlighted fields
+                </span>
+
+                <button class="button primary-button forms-vertical-button signup-button js-button" type="submit">Sign Up</button>
+            </form>
         </div>
     </div>
 </div>

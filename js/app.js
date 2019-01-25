@@ -1,19 +1,17 @@
 define(function (require) {
-	var settings,
-		$resetButton, $lightSwitch, $gameControls, $svgCircle,
-		$rulesModalButton, $timeoutModalButton, $endgameModalButton;
-
-	settings = {
+	var settings = {
 		// selectors
 		gameControlsContainerClass: '.game-controls__container',
 		svgCircleClass: '.game-circle',
-		usernameInputId: '#username',
-		passwordInputId: '#password',
+		form: '.form',
+		username: '.username',
+		password: '.password',
 
 		// buttons
 		resetButton: '.game-buttons__reset',
 		lightsSlider: '.game-buttons__lights-slider',
-		rulesModalButton: '.rules-modal__content-button-container .rules-modal__button',
+		loginButton: '.rules-modal__login-container .login-button.js-button',
+		signupButton: '.rules-modal__signup-container .signup-button.js-button',
 		timeoutModalButton: '.timeout-modal__content-button-container .timeout-modal__button',
 		endgameModalButton: '.endgame-modal__content-button-container .endgame-modal__button',
 
@@ -22,15 +20,15 @@ define(function (require) {
 	};
 
 	// buttons
-	$lightSwitch = document.querySelector(settings.lightsSlider);
-	$resetButton = document.querySelector(settings.resetButton);
-	$rulesModalButton = document.querySelector(settings.rulesModalButton);
-	$timeoutModalButton = document.querySelector(settings.timeoutModalButton);
-	$endgameModalButton = document.querySelector(settings.endgameModalButton);
+	var $lightSwitch = document.querySelector(settings.lightsSlider);
+	var $resetButton = document.querySelector(settings.resetButton);
+	var $timeoutModalButton = document.querySelector(settings.timeoutModalButton);
+	var $endgameModalButton = document.querySelector(settings.endgameModalButton);
 
 	// Elements
 	$gameControls = document.querySelector(settings.gameControlsContainerClass);
 	$svgCircle = document.querySelector(settings.svgCircleClass);
+	$forms = document.querySelectorAll(settings.form);
 
 	// modules
 	var placement = require('modules/placement');
@@ -65,29 +63,19 @@ define(function (require) {
 		util.getCurrentLocation();
 	}
 
-	function validateCreds() {
-		var $username = document.querySelector(settings.usernameInputId);
-		var $password = document.querySelector(settings.passwordInputId);
+	function handleFormSubmit(event) {
+		event.preventDefault();
+
+		var form = event.target;
+		var $username = form.querySelector(settings.username);
+		var $password = form.querySelector(settings.password);
+
 		var username = helpers.toTitleCase($username.value);
 		var password = $password.value;
 
-		// if either username and/or password is not provided, throw error and return
-		if((username === "") && (password === "")) {
-			$username.classList.add('error');
-			$password.classList.add('error');
-			return
-		} else if(password === "") {
-			$password.classList.add('error');
-			$username.classList.remove('error');
-			return;
-		} else if(username === "") {
-			$username.classList.add('error');
-			$password.classList.remove('error');
-			return;
+		if(helpers.validateCreds(form, $username, username, $password, password)) {
+			console.log('here');
 		}
-
-		// when we have valid creds, run login and close modal
-		login.runLogin(username, password);
 	}
 
 	/* End Function Declarations */
@@ -99,14 +87,19 @@ define(function (require) {
 	$lightSwitch.addEventListener('click', util.toggleLight);
 	$resetButton.addEventListener('click', util.reset);
 	$svgCircle.addEventListener('click', theGame);
-	$rulesModalButton.addEventListener('click', validateCreds);
 	$timeoutModalButton.addEventListener('click', modals.closeTimeoutModal);
 	$endgameModalButton.addEventListener('click', modals.closeEndgameModal);
+
 
 	// custom event handlers
 	document.body.addEventListener('quickPress: increase-animate', remainingTries.increaseScoreAndAnimate);
 	document.body.addEventListener('quickPress: end-game', util.endGame);
 	document.body.addEventListener('quickPress: reset', util.reset);
+
+	// other handlers
+	$forms.forEach(function(form) {
+		form.addEventListener('submit', handleFormSubmit);
+	});
 
 	/* End Event Listeners */
 
