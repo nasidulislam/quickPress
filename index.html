@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/rulesModal.css">
     <link rel="stylesheet" href="css/endGameModal.css">
     <link rel="stylesheet" href="css/score.css">
+    <link rel="stylesheet" href="css/forms.css">
     <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase.js"></script>
     <script>
         window.addEventListener('load', function() {
@@ -136,16 +137,22 @@
         </ul>
 
         <div class="rules-modal__credentials-container">
-            <form class="rules-modal__login-container">
+            <form class="forms rules-modal__login-container">
                 <span class="form-label">Login</span>
                 <input class="form-control" type="text" id="login-username" placeholder="Username" />
                 <input class="form-control" type="password" id="login-password" placeholder="Password" />
+                <span class="error-message login-error-message hide-content">
+                    Please correct highlighted fields
+                </span>
             </form>
 
-            <form class="rules-modal__signup-container">
+            <form class="forms rules-modal__signup-container">
                 <span class="form-label">Sign Up</span>
                 <input class="form-control" type="signup-text" id="signup-username" name="username" placeholder="Username" />
                 <input class="form-control" type="signup-password" id="signup-password" name="password" placeholder="Password" />
+                <span class="error-message signup-error-message hide-content">
+                    Please correct highlighted fields
+                </span>
             </form>
         </div>
 
