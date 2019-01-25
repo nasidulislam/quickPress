@@ -4,6 +4,14 @@ define(function(require) {
     var util = require('modules/util');
     var modals = require('modules/modals');
 
+    var settings = {
+        formTypeAttr: 'data-form-type',
+        loginFormType: 'login',
+        signupFormType: 'signup',
+        passwordErrorFormClass: 'incorrect-password-error',
+        dbCheckErrorClass: 'user-db-error',
+    };
+
     var privateMembers = {
         signUp: function(username, password) {
             var randStr = '-' + helpers.generateRandomStr();
@@ -30,14 +38,14 @@ define(function(require) {
                 modals.closeRulesModal();
             } else {
                 // username is right but password is not, throw error and return
-                form.classList.add('incorrect-password-error');
+                form.classList.add(settings.passwordErrorFormClass);
             }
         }
     };
 
     var publicMembers = {
         handleAuth: function(form, username, password) {
-            var formType = form.getAttribute('data-form-type');
+            var formType = form.getAttribute(settings.formTypeAttr);
 
             // check if user exists in database
             firebase.database()
@@ -48,21 +56,21 @@ define(function(require) {
 
                     // if user exists in db
                     if(userData !== null) {
-                        if(formType === 'signup') {
+                        if(formType === settings.signupFormType) {
                             // and we're on sign up, show "user already exists" error
-                            form.classList.add('user-db-error');
-                        } else if(formType === 'login') {
+                            form.classList.add(settings.dbCheckErrorClass);
+                        } else if(formType === settings.loginFormType) {
                             // but if we're on login form, then log user in
                             privateMembers.login(username, password, userData, form);
                         }
                     } else {
                         // if user doesn't exist in db
-                        if(formType === 'signup') {
+                        if(formType === settings.signupFormType) {
                             // and we're on signup form, then sign user up
                             privateMembers.signUp(username, password);
-                        } else if(formType === 'login') {
+                        } else if(formType === settings.loginFormType) {
                             // but if we're on login form, show "user doesn't exist" error
-                            form.classList.add('user-db-error');
+                            form.classList.add(settings.dbCheckErrorClass);
                         }
                     }
                 }, function(error) {
