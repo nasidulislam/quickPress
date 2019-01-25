@@ -18,6 +18,7 @@ define(function (require) {
 			currentLocation: '.current-location',
 			timeoutContainer: '.timeout-modal__body-content',
 			displayUsernameClass: '.header-content .display-username',
+			displayHighscoreClass: '.header-content .display-highscore',
 
 			// classes
 			lightsToggle: 'toggle-lights',
@@ -101,33 +102,39 @@ define(function (require) {
 
 			endGame: function () {
 				var finalScore = score.getCurrentScore(document.querySelector(settings.scoreCardClass));
-				var username = publicMembers.getUsername();
+				var username = publicMembers.getLocalValue('username');
+				var highScore = publicMembers.getLocalValue('highscore');
 
-				clearTimeout(modalShowTimeout);
-				modals.showEndgameModal(finalScore);
+				highScore === null ? highScore = 0 : highScore = highScore;
+
+				modals.showEndgameModal(finalScore, highScore);
+				if(finalScore > highScore) {
+					// this is user's high score
+					db.saveHighScoreToDb(username, finalScore);
+				}
+
 				db.saveScoreToDb(username, finalScore);
 			},
 
-			setUserData: function(userData) {
-				var $usernameDisplay = document.querySelector(settings.displayUsernameClass);
-				var $body = document.querySelector('body');
-
-				$body.setAttribute('username', userData.username);
-				$body.setAttribute('userId', userData.userId);
-				$usernameDisplay.innerText = userData.username;
-			},
-
-			getUserId: function() {
-				return document.querySelector('body').getAttribute('userid');
-			},
-
-			getUsername: function() {
-				return document.querySelector('body').getAttribute('username');
+			getLocalValue: function(param) {
+				return document.querySelector('body').getAttribute(param);
 			},
 
 			init: function(userData) {
-				publicMembers.setUserData(userData);
-				//TODO: get high score and display
+				var $usernameDisplay = document.querySelector(settings.displayUsernameClass);
+				var $body = document.querySelector('body');
+				var highScore = userData.highScore;
+
+				$body.setAttribute('username', userData.username);
+				$body.setAttribute('userId', userData.userId);
+				$usernameDisplay.innerText = 'Hello ' + userData.username;
+
+				if(highScore) {
+					var $highScoreDisplay = document.querySelector(settings.displayHighscoreClass);
+					var str = 'Your high score is ' + highScore + '. Lets beat that !'
+					$highScoreDisplay.innerText = str;
+					$body.setAttribute('highscore', highScore);
+				}
 			},
 
 			getState: function(userId) {

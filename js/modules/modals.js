@@ -7,6 +7,7 @@ define(function () {
 		timeoutSpan: '#timeout-countdown',
 		timeoutContainer: '.timeout-modal__body-content',
 		finalScoreClass: '.endgame-modal__final-score',
+		highScoreClass: '.endgame-modal__high-score',
 
 		// classes
 		hideClass: 'hide-content',
@@ -76,10 +77,15 @@ define(function () {
 				privateMembers.closeModal(settings.timeoutModalContainer);
 			},
 
-			showEndgameModal: function (finalScore) {
+			showEndgameModal: function (finalScore, highScore) {
 				var $finalScore = document.querySelector(settings.finalScoreClass);
 
-				$finalScore.innerHTML = 'Your Final Score: <span class="final-score">' + finalScore + '</span>';
+				$finalScore.innerText = 'Your final score is ' + finalScore;
+				if(highScore) {
+					var $highScore = document.querySelector(settings.highScoreClass);
+					$highScore.innerText = 'Congratulations !! This is also your High Score';
+				}
+
 				privateMembers.openModal(settings.endgameModalContainer);
 			},
 
