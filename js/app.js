@@ -73,8 +73,9 @@ define(function (require) {
 		var username = helpers.toTitleCase($username.value);
 		var password = $password.value;
 
-		helpers.validateCreds(form, $username, username, $password, password);
-		console.log('here');
+		if(helpers.validateCreds(form, $username, username, $password, password)) {
+			console.log('here');
+		}
 	}
 
 	/* End Function Declarations */
