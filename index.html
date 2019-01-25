@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="css/endGameModal.css">
     <link rel="stylesheet" href="css/score.css">
     <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/buttons.css">
     <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase.js"></script>
     <script>
         window.addEventListener('load', function() {
@@ -144,6 +145,8 @@
                 <span class="error-message login-error-message">
                     Please correct highlighted fields
                 </span>
+
+                <button class="button primary-button forms-vertical-button login-button js-button">Login</button>
             </form>
 
             <form class="forms-vertical rules-modal__signup-container">
@@ -153,11 +156,9 @@
                 <span class="error-message signup-error-message">
                     Please correct highlighted fields
                 </span>
-            </form>
-        </div>
 
-        <div class="game-modal__content-button-container rules-modal__content-button-container">
-            <button class="game-modal__button rules-modal__button" id="rules-modal__button">Lets Play !</button>
+                <button class="button primary-button forms-vertical-button signup-button js-button">Sign Up</button>
+            </form>
         </div>
     </div>
 </div>

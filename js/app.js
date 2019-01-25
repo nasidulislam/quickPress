@@ -1,9 +1,5 @@
 define(function (require) {
-	var settings,
-		$resetButton, $lightSwitch, $gameControls, $svgCircle,
-		$rulesModalButton, $timeoutModalButton, $endgameModalButton;
-
-	settings = {
+	var settings = {
 		// selectors
 		gameControlsContainerClass: '.game-controls__container',
 		svgCircleClass: '.game-circle',
@@ -13,7 +9,8 @@ define(function (require) {
 		// buttons
 		resetButton: '.game-buttons__reset',
 		lightsSlider: '.game-buttons__lights-slider',
-		rulesModalButton: '.rules-modal__content-button-container .rules-modal__button',
+		loginButton: '.rules-modal__login-container .login-button.js-button',
+		signupButton: '.rules-modal__signup-container .signup-button.js-button',
 		timeoutModalButton: '.timeout-modal__content-button-container .timeout-modal__button',
 		endgameModalButton: '.endgame-modal__content-button-container .endgame-modal__button',
 
@@ -22,11 +19,12 @@ define(function (require) {
 	};
 
 	// buttons
-	$lightSwitch = document.querySelector(settings.lightsSlider);
-	$resetButton = document.querySelector(settings.resetButton);
-	$rulesModalButton = document.querySelector(settings.rulesModalButton);
-	$timeoutModalButton = document.querySelector(settings.timeoutModalButton);
-	$endgameModalButton = document.querySelector(settings.endgameModalButton);
+	var $lightSwitch = document.querySelector(settings.lightsSlider);
+	var $resetButton = document.querySelector(settings.resetButton);
+	var $loginButton = document.querySelector(settings.loginButton);
+	var $signupButton = document.querySelector(settings.signupButton);
+	var $timeoutModalButton = document.querySelector(settings.timeoutModalButton);
+	var $endgameModalButton = document.querySelector(settings.endgameModalButton);
 
 	// Elements
 	$gameControls = document.querySelector(settings.gameControlsContainerClass);
@@ -90,6 +88,18 @@ define(function (require) {
 		login.runLogin(username, password);
 	}
 
+	function doLogin(event) {
+		event.preventDefault();
+
+		console.log('login');
+	}
+
+	function doSignup(event) {
+		event.preventDefault();
+
+		console.log('sign up');
+	}
+
 	/* End Function Declarations */
 
 	/* Begin Event Listeners */
@@ -99,7 +109,8 @@ define(function (require) {
 	$lightSwitch.addEventListener('click', util.toggleLight);
 	$resetButton.addEventListener('click', util.reset);
 	$svgCircle.addEventListener('click', theGame);
-	$rulesModalButton.addEventListener('click', validateCreds);
+	$loginButton.addEventListener('click', doLogin);
+	$signupButton.addEventListener('click', doSignup);
 	$timeoutModalButton.addEventListener('click', modals.closeTimeoutModal);
 	$endgameModalButton.addEventListener('click', modals.closeEndgameModal);
 

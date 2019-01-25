@@ -31,16 +31,4 @@
 	text-align: center;
 }
 
-.game-modal__button {
-	background-color: #167F92;
-	font-family: 'Josefin Sans', sans-serif;
-	font-size: 17px;
-	color: #fff;
-	height: 40px;
-	width: 40%;
-}
-.game-modal__button:focus {
-	outline: none;
-}
-
 /* End Base Modal styles */
