@@ -38,7 +38,7 @@ define(function (require) {
 	var remainingTries = require('modules/remainingTries');
 	var modals = require('modules/modals');
 	var helpers = require('modules/helpers');
-	var login = require('modules/login');
+	var auth = require('modules/authentication');
 
 	/* Begin Function Declarations */
 
@@ -74,7 +74,7 @@ define(function (require) {
 		var password = $password.value;
 
 		if(helpers.validateCreds(form, $username, username, $password, password)) {
-			console.log('here');
+			auth.handleAuth(form, username, password);
 		}
 	}
 

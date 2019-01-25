@@ -25,22 +25,26 @@ define(function() {
             if((username === "") && (password === "")) {
                 $username.classList.add('error');
                 $password.classList.add('error');
-                form.classList.add('form-error');
+                form.classList.remove('user-db-error');
+                form.classList.add('missing-fields-error');
                 return false;
             } else if(password === "") {
                 $password.classList.add('error');
                 $username.classList.remove('error');
-                form.classList.add('form-error');
+                form.classList.remove('user-db-error');
+                form.classList.add('missing-fields-error');
                 return false;
             } else if(username === "") {
                 $username.classList.add('error');
                 $password.classList.remove('error');
-                form.classList.add('form-error');
+                form.classList.remove('user-db-error');
+                form.classList.add('missing-fields-error');
                 return false;
             } else {
                 $username.classList.remove('error');
                 $password.classList.remove('error');
-                form.classList.remove('form-error');
+                form.classList.remove('user-db-error');
+                form.classList.remove('missing-fields-error');
                 return true;
             }
         }

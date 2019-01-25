@@ -36,6 +36,36 @@ define(function(require) {
                 }, function(error) {
                 console.log(error);
             });
+        },
+
+        handleAuth: function(form, username, password) {
+            var formType = form.getAttribute('data-form-type');
+
+            // check if user exists in database
+            firebase.database()
+                .ref('users/' + username + '/')
+                .once('value')
+                .then(function(snapshot) {
+                    var userData = snapshot.val();
+
+                    // if user exists in db
+                    if(userData !== null) {
+                        if(formType === 'signup') {
+                            form.classList.add('user-db-error');
+                        } else if(formType === 'login') {
+                            //TODO run login
+                        }
+                    } else {
+                        // if user doesn't exist in db
+                        if(formType === 'signup') {
+                            //TODO run signup
+                        } else if(formType === 'login') {
+                            form.classList.add('user-db-error');
+                        }
+                    }
+                }, function(error) {
+                    console.log('error');
+            });
         }
     }
 
