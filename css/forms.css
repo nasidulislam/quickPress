@@ -1,6 +1,10 @@
 /*-----------------------------*/
 /* Form Styles */
 /*-----------------------------*/
+.forms-vertical {
+    display: flex;
+    flex-direction: column;
+}
 .form-control {
     border: 1px solid #ccc;
 	border-radius: 4px;
@@ -21,6 +25,20 @@
 	font-size: 1.2rem;
 	font-weight: bold;
 	margin-bottom: 15px
+}
+
+.error-message {
+    color: #c90835;
+    display: none;
+    font-size: 10px;
+}
+
+.form-error .error-message {
+    display: block;
+}
+
+.error {
+	border: 1px solid #c90835;
 }
 
 /* End Forms styles */
