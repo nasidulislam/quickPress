@@ -13,8 +13,9 @@
 
 .game-modal__content {
 	background: #fff;
-	position: absolute;
 	left: 50%;
+	max-width: 332px;
+	position: absolute;
 	padding: 20px;
 	top: 50%;
 	transform: translate(-50%, -50%);

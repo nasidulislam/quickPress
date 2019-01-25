@@ -101,11 +101,11 @@ define(function (require) {
 
 			endGame: function () {
 				var finalScore = score.getCurrentScore(document.querySelector(settings.scoreCardClass));
-				var userId = publicMembers.getUserId();
+				var username = publicMembers.getUsername();
 
 				clearTimeout(modalShowTimeout);
 				modals.showEndgameModal(finalScore);
-				db.saveScoreToDb(userId, finalScore);
+				db.saveScoreToDb(username, finalScore);
 			},
 
 			setUserData: function(userData) {
@@ -119,6 +119,10 @@ define(function (require) {
 
 			getUserId: function() {
 				return document.querySelector('body').getAttribute('userid');
+			},
+
+			getUsername: function() {
+				return document.querySelector('body').getAttribute('username');
 			},
 
 			init: function(userData) {

@@ -4,6 +4,7 @@
 .forms-vertical {
     display: flex;
     flex-direction: column;
+    max-width: 143px;
 }
 
 .form-control {
@@ -30,13 +31,15 @@
 
 .error-message {
     color: #c90835;
-    visibility: hidden;
+    display: none;
     font-size: 10px;
+    margin-bottom: 10px;
 }
 
-.form-error .error-message {
-    margin-bottom: 10px;
-    visibility: unset;
+.missing-fields-error .missing-fields-error-message,
+.user-db-error .user-db-error-message,
+.incorrect-password-error .incorrect-password-error-message {
+    display: block;
 }
 
 .error {
