@@ -36,11 +36,9 @@
     margin-bottom: 10px;
 }
 
-.missing-fields-error .missing-fields-error-message {
-    display: block;
-}
-
-.user-db-error .user-db-error-message {
+.missing-fields-error .missing-fields-error-message,
+.user-db-error .user-db-error-message,
+.incorrect-password-error .incorrect-password-error-message {
     display: block;
 }
 

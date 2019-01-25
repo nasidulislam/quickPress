@@ -4,40 +4,38 @@ define(function(require) {
     var util = require('modules/util');
     var modals = require('modules/modals');
 
-    var publicMembers = {
-        runLogin: function(username, password) {
-    		var userId = username + '-' + password;
+    var privateMembers = {
+        signUp: function(username, password) {
+            var randStr = '-' + helpers.generateRandomStr();
+            var userId = username + randStr;
+            var userData = {
+                username: username,
+                password: password,
+                userId: userId
+            }
 
             firebase.database()
-                .ref('users/' + userId + '/')
-                .once('value')
-                .then(function(snapshot) {
-                    // if user data exists, then retrieve data and init app
-                    var userData = snapshot.val();
-                    if(userData !== null) {
-                        util.init(userData);
-                    } else {
-                        // if it doesn't, then create data object for current user
-                        // and save it in database
-                        var randStr = '-' + helpers.generateRandomStr()
-                        var uniqueUsername = username + randStr;
-                        var userData = {
-                            username: username,
-                            password: password,
-                            userId: userId,
-                            uniqueUsername: uniqueUsername
-                        }
+                .ref('users/' + username + '/')
+                .set(userData);
 
-                        firebase.database().ref('users/' + userId + '/').set(userData);
-                        util.init(userData);
-                    }
+            util.init(userData);
 
-                    modals.closeRulesModal();
-                }, function(error) {
-                console.log(error);
-            });
+            modals.closeRulesModal();
         },
 
+        login: function(username, password, userData, form) {
+            // check if provided password matches whats in db
+            if(password === userData.password) {
+                util.init(userData);
+                modals.closeRulesModal();
+            } else {
+                // username is right but password is not, throw error and return
+                form.classList.add('incorrect-password-error');
+            }
+        }
+    };
+
+    var publicMembers = {
         handleAuth: function(form, username, password) {
             var formType = form.getAttribute('data-form-type');
 
@@ -51,15 +49,19 @@ define(function(require) {
                     // if user exists in db
                     if(userData !== null) {
                         if(formType === 'signup') {
+                            // and we're on sign up, show "user already exists" error
                             form.classList.add('user-db-error');
                         } else if(formType === 'login') {
-                            //TODO run login
+                            // but if we're on login form, then log user in
+                            privateMembers.login(username, password, userData, form);
                         }
                     } else {
                         // if user doesn't exist in db
                         if(formType === 'signup') {
-                            //TODO run signup
+                            // and we're on signup form, then sign user up
+                            privateMembers.signUp(username, password);
                         } else if(formType === 'login') {
+                            // but if we're on login form, show "user doesn't exist" error
                             form.classList.add('user-db-error');
                         }
                     }
