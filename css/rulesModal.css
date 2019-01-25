@@ -1,20 +1,6 @@
 /*-----------------------------*/
 /* Rules Modal Styles */
 /*-----------------------------*/
-.rules-modal__login-container {
-	display: flex;
-	flex-direction: column;
-	margin-top: 35px;
-}
-
-.rules-modal__login-container .username-text {
-	margin-bottom: 15px;
-}
-
-.rules-modal__password-container {
-	margin-top: 15px;
-}
-
 .rules-modal__rules-list {
 	line-height: 20px;
 	padding-left: 15px;
@@ -22,6 +8,34 @@
 
 .rules-list__item {
 	margin-top: 25px;
+}
+
+.rules-modal__credentials-container {
+	display: flex;
+	justify-content: space-around;
+	margin-top: 35px;
+}
+
+.rules-modal__credentials-container .form-control {
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	display: block;
+	height: 25px;
+	margin-bottom: 15px;
+	padding-left: 15px;
+}
+
+.rules-modal__credentials-container .form-control:focus {
+	border-color: #66afe9;
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+	outline: 0;
+}
+
+.rules-modal__credentials-container .form-label {
+	display: block;
+	font-size: 1.2rem;
+	font-weight: bold;
+	margin-bottom: 15px
 }
 
 /* End Rules Modal styles */
