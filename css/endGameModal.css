@@ -5,4 +5,14 @@
 	text-align: center;
 	font-size: 18px;
 }
+
+.endgame-modal__high-score {
+	display: none;
+	margin-top: 20px;
+}
+
+.endgame-modal.show-congratulations .endgame-modal__high-score {
+	display: block;
+}
+
 /* End Endgame Modal styles */

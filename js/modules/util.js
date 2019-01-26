@@ -19,6 +19,8 @@ define(function (require) {
 			timeoutContainer: '.timeout-modal__body-content',
 			displayUsernameClass: '.header-content .display-username',
 			displayHighscoreClass: '.header-content .display-highscore',
+			endGameModalClass: '.endgame-modal',
+
 
 			// classes
 			lightsToggle: 'toggle-lights',
@@ -103,14 +105,15 @@ define(function (require) {
 			endGame: function () {
 				var finalScore = score.getCurrentScore(document.querySelector(settings.scoreCardClass));
 				var username = publicMembers.getLocalValue('username');
-				var highScore = publicMembers.getLocalValue('highscore');
-
-				highScore === null ? highScore = 0 : highScore = highScore;
+				var highScore = parseInt(publicMembers.getLocalValue('highscore'));
 
 				modals.showEndgameModal(finalScore, highScore);
+
 				if(finalScore > highScore) {
 					// this is user's high score
 					db.saveHighScoreToDb(username, finalScore);
+					publicMembers.setLocalValue('highscore', finalScore);
+					document.querySelector(settings.endGameModalClass).classList.add('show-congratulations');
 				}
 
 				db.saveScoreToDb(username, finalScore);
@@ -120,20 +123,23 @@ define(function (require) {
 				return document.querySelector('body').getAttribute(param);
 			},
 
+			setLocalValue: function(attr, value) {
+				document.querySelector('body').setAttribute(attr, value)
+			},
+
 			init: function(userData) {
 				var $usernameDisplay = document.querySelector(settings.displayUsernameClass);
-				var $body = document.querySelector('body');
 				var highScore = userData.highScore;
 
-				$body.setAttribute('username', userData.username);
-				$body.setAttribute('userId', userData.userId);
+				publicMembers.setLocalValue('username', userData.username);
+				publicMembers.setLocalValue('userId', userData.userId);
 				$usernameDisplay.innerText = 'Hello ' + userData.username;
 
 				if(highScore) {
 					var $highScoreDisplay = document.querySelector(settings.displayHighscoreClass);
 					var str = 'Your high score is ' + highScore + '. Lets beat that !'
 					$highScoreDisplay.innerText = str;
-					$body.setAttribute('highscore', highScore);
+					publicMembers.setLocalValue('highscore', highScore);
 				}
 			},
 

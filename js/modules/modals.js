@@ -81,11 +81,6 @@ define(function () {
 				var $finalScore = document.querySelector(settings.finalScoreClass);
 
 				$finalScore.innerText = 'Your final score is ' + finalScore;
-				if(highScore) {
-					var $highScore = document.querySelector(settings.highScoreClass);
-					$highScore.innerText = 'Congratulations !! This is also your High Score';
-				}
-
 				privateMembers.openModal(settings.endgameModalContainer);
 			},
 

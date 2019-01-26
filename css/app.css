@@ -36,6 +36,10 @@
 	margin-top: 60px;
 }
 
+.greetings-container {
+	margin-bottom: 10px;
+}
+
 .game-controls__container {
 	margin: 0 auto;
 	text-align: center;
