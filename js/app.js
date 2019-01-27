@@ -8,7 +8,7 @@ define(function (require) {
 		password: '.password',
 
 		// buttons
-		resetButton: '.game-buttons__reset',
+		resetButton: '.reset-button.js-button',
 		lightsSlider: '.game-buttons__lights-slider',
 		loginButton: '.rules-modal__login-container .login-button.js-button',
 		signupButton: '.rules-modal__signup-container .signup-button.js-button',

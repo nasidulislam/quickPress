@@ -2,6 +2,7 @@
 /* Button Styles */
 /*-----------------------------*/
 .button {
+    border-radius: 20px;
     font-family: 'Josefin Sans', sans-serif;
     font-size: 17px;
     height: 40px;
@@ -14,6 +15,11 @@
 
 .primary-button {
     background-color: #167F92;
+    color: #fff;
+}
+
+.negative-button {
+    background: #c90835;
     color: #fff;
 }
 
