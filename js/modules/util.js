@@ -25,7 +25,8 @@ define(function (require) {
 			// classes
 			lightsToggle: 'toggle-lights',
 			redColorClass: 'color-class-red',
-			timeoutVibrateClass: 'timeout-vibrate'
+			timeoutVibrateClass: 'timeout-vibrate',
+			congratulationsMsgClass: 'show-congratulations'
 		},
 
 		// this is the variable that determines how long before timeout modal is diplaed
@@ -42,6 +43,7 @@ define(function (require) {
 				var $point = document.querySelector(settings.circlePoint);
 				var $remainingTriesElement = document.querySelector(settings.remainingTriesContainerClass);
 				var timeoutContainer = document.querySelector(settings.timeoutContainer);
+				var $endGameModalContainer = document.querySelector(settings.endGameModalClass);
 
 				// pause all svg animation on reset and set initial position to 0
 				$svgElement.pauseAnimations();
@@ -57,6 +59,7 @@ define(function (require) {
 				$finalScore.textContent = '';
 				$remainingTriesElement.classList.remove(settings.redColorClass);
 				timeoutContainer.classList.remove(settings.timeoutVibrateClass);
+				$endGameModalContainer.classList.remove(settings.congratulationsMsgClass);
 			},
 
 			toggleLight: function () {
@@ -114,7 +117,7 @@ define(function (require) {
 					highScore = finalScore;
 					db.saveHighScoreToDb(username, highScore);
 					publicMembers.setAndDisplayLocalHighScore(highScore);
-					document.querySelector(settings.endGameModalClass).classList.add('show-congratulations');
+					document.querySelector(settings.endGameModalClass).classList.add(settings.congratulationsMsgClass);
 				}
 
 				db.saveScoreToDb(username, finalScore);
@@ -145,10 +148,6 @@ define(function (require) {
 				$usernameDisplay.innerText = 'Hello ' + userData.username;
 
 				if(highScore) {publicMembers.setAndDisplayLocalHighScore(highScore)}
-			},
-
-			getState: function(userId) {
-				return JSON.parse(localStorage.getItem(userId));
 			}
 		};
 
