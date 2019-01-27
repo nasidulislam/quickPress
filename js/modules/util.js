@@ -18,6 +18,9 @@ define(function (require) {
 			currentLocation: '.current-location',
 			timeoutContainer: '.timeout-modal__body-content',
 			displayUsernameClass: '.header-content .display-username',
+			displayHighscoreClass: '.header-content .display-highscore',
+			endGameModalClass: '.endgame-modal',
+
 
 			// classes
 			lightsToggle: 'toggle-lights',
@@ -101,33 +104,51 @@ define(function (require) {
 
 			endGame: function () {
 				var finalScore = score.getCurrentScore(document.querySelector(settings.scoreCardClass));
-				var userId = publicMembers.getUserId();
+				var username = publicMembers.getLocalValue('username');
+				var highScore = parseInt(publicMembers.getLocalValue('highscore'));
 
-				clearTimeout(modalShowTimeout);
-				modals.showEndgameModal(finalScore);
-				db.saveScoreToDb(userId, finalScore);
+				modals.showEndgameModal(finalScore, highScore);
+
+				if(finalScore > highScore) {
+					// this is user's high score
+					highScore = finalScore;
+					db.saveHighScoreToDb(username, highScore);
+					publicMembers.setAndDisplayLocalHighScore(highScore);
+					document.querySelector(settings.endGameModalClass).classList.add('show-congratulations');
+				}
+
+				db.saveScoreToDb(username, finalScore);
 			},
 
-			setUserData: function(userData) {
-				var $usernameDisplay = document.querySelector(settings.displayUsernameClass);
-				var $body = document.querySelector('body');
-
-				$body.setAttribute('username', userData.username);
-				$body.setAttribute('userId', userData.userId);
-				$usernameDisplay.innerText = userData.username;
+			getLocalValue: function(param) {
+				return document.querySelector('body').getAttribute(param);
 			},
 
-			getUserId: function() {
-				return document.querySelector('body').getAttribute('userid');
+			setLocalValue: function(attr, value) {
+				document.querySelector('body').setAttribute(attr, value);
+			},
+
+			setAndDisplayLocalHighScore: function(highScore) {
+				var $highScoreDisplay = document.querySelector(settings.displayHighscoreClass);
+				var str = 'Your high score is ' + highScore + '. Lets beat that !';
+
+				$highScoreDisplay.innerText = str;
+				publicMembers.setLocalValue('highscore', highScore);
 			},
 
 			init: function(userData) {
-				publicMembers.setUserData(userData);
-				//TODO: get high score and display
+				var $usernameDisplay = document.querySelector(settings.displayUsernameClass);
+				var highScore = userData.highScore;
+
+				publicMembers.setLocalValue('username', userData.username);
+				publicMembers.setLocalValue('userId', userData.userId);
+				$usernameDisplay.innerText = 'Hello ' + userData.username;
+
+				if(highScore) {publicMembers.setAndDisplayLocalHighScore(highScore)}
 			},
 
 			getState: function(userId) {
-				return JSON.parse(localStorage.getItem(userId))
+				return JSON.parse(localStorage.getItem(userId));
 			}
 		};
 

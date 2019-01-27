@@ -1,8 +1,14 @@
 define(function() {
     var publicMembers = {
-        saveScoreToDb: function(userId, score) {
-            firebase.database().ref('users/' + userId + '/').update({
+        saveScoreToDb: function(username, score) {
+            firebase.database().ref('users/' + username + '/').update({
                 score: score
+            });
+        },
+
+        saveHighScoreToDb: function(username, highScore) {
+            firebase.database().ref('users/' + username + '/').update({
+                highScore: highScore
             });
         },
 

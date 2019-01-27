@@ -1,20 +1,6 @@
 /*-----------------------------*/
 /* Rules Modal Styles */
 /*-----------------------------*/
-.rules-modal__login-container {
-	display: flex;
-	flex-direction: column;
-	margin-top: 35px;
-}
-
-.rules-modal__login-container .username-text {
-	margin-bottom: 15px;
-}
-
-.rules-modal__password-container {
-	margin-top: 15px;
-}
-
 .rules-modal__rules-list {
 	line-height: 20px;
 	padding-left: 15px;
@@ -22,6 +8,12 @@
 
 .rules-list__item {
 	margin-top: 25px;
+}
+
+.rules-modal__credentials-container {
+	display: flex;
+	justify-content: space-around;
+	margin-top: 35px;
 }
 
 /* End Rules Modal styles */

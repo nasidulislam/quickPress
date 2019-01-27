@@ -1,0 +1,53 @@
+/*-----------------------------*/
+/* Form Styles */
+/*-----------------------------*/
+.forms-vertical {
+    display: flex;
+    flex-direction: column;
+    max-width: 143px;
+}
+
+.form-control {
+    border: 1px solid #ccc;
+	border-radius: 4px;
+	display: block;
+	height: 25px;
+	margin-bottom: 15px;
+	padding-left: 15px;
+}
+
+.form-control:focus {
+    border-color: #66afe9;
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+	outline: 0;
+}
+
+.form-label {
+    display: block;
+	font-size: 1.2rem;
+	font-weight: bold;
+	margin-bottom: 15px
+}
+
+.error-message {
+    color: #c90835;
+    display: none;
+    font-size: 10px;
+    margin-bottom: 10px;
+}
+
+.missing-fields-error .missing-fields-error-message,
+.user-db-error .user-db-error-message,
+.incorrect-password-error .incorrect-password-error-message {
+    display: block;
+}
+
+.error {
+	border: 1px solid #c90835;
+}
+
+.forms-vertical .forms-vertical-button {
+    width: 100%;
+}
+
+/* End Forms styles */

@@ -13,8 +13,9 @@
 
 .game-modal__content {
 	background: #fff;
-	position: absolute;
 	left: 50%;
+	max-width: 332px;
+	position: absolute;
 	padding: 20px;
 	top: 50%;
 	transform: translate(-50%, -50%);
@@ -29,18 +30,6 @@
 .game-modal__content-button-container {
 	margin-top: 40px;
 	text-align: center;
-}
-
-.game-modal__button {
-	background-color: #167F92;
-	font-family: 'Josefin Sans', sans-serif;
-	font-size: 17px;
-	color: #fff;
-	height: 40px;
-	width: 40%;
-}
-.game-modal__button:focus {
-	outline: none;
 }
 
 /* End Base Modal styles */
