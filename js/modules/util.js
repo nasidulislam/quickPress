@@ -111,8 +111,9 @@ define(function (require) {
 
 				if(finalScore > highScore) {
 					// this is user's high score
-					db.saveHighScoreToDb(username, finalScore);
-					publicMembers.setLocalValue('highscore', finalScore);
+					highScore = finalScore;
+					db.saveHighScoreToDb(username, highScore);
+					publicMembers.setAndDisplayLocalHighScore(highScore);
 					document.querySelector(settings.endGameModalClass).classList.add('show-congratulations');
 				}
 
@@ -124,7 +125,15 @@ define(function (require) {
 			},
 
 			setLocalValue: function(attr, value) {
-				document.querySelector('body').setAttribute(attr, value)
+				document.querySelector('body').setAttribute(attr, value);
+			},
+
+			setAndDisplayLocalHighScore: function(highScore) {
+				var $highScoreDisplay = document.querySelector(settings.displayHighscoreClass);
+				var str = 'Your high score is ' + highScore + '. Lets beat that !';
+
+				$highScoreDisplay.innerText = str;
+				publicMembers.setLocalValue('highscore', highScore);
 			},
 
 			init: function(userData) {
@@ -135,16 +144,11 @@ define(function (require) {
 				publicMembers.setLocalValue('userId', userData.userId);
 				$usernameDisplay.innerText = 'Hello ' + userData.username;
 
-				if(highScore) {
-					var $highScoreDisplay = document.querySelector(settings.displayHighscoreClass);
-					var str = 'Your high score is ' + highScore + '. Lets beat that !'
-					$highScoreDisplay.innerText = str;
-					publicMembers.setLocalValue('highscore', highScore);
-				}
+				if(highScore) {publicMembers.setAndDisplayLocalHighScore(highScore)}
 			},
 
 			getState: function(userId) {
-				return JSON.parse(localStorage.getItem(userId))
+				return JSON.parse(localStorage.getItem(userId));
 			}
 		};
 
