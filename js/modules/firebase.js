@@ -6,6 +6,12 @@ define(function() {
             });
         },
 
+        saveHighScoreToDb: function(username, highScore) {
+            firebase.database().ref('users/' + username + '/').update({
+                highScore: highScore
+            });
+        },
+
         getAllUserData: function() {
             firebase.database()
                 .ref('users/')

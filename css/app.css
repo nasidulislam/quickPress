@@ -36,27 +36,26 @@
 	margin-top: 60px;
 }
 
+.greetings-container {
+	margin-bottom: 10px;
+	margin-top: 15px;
+}
+
+.highscore-container {
+	color: #9400D3;
+}
+
 .game-controls__container {
 	margin: 0 auto;
 	text-align: center;
 }
 
-/* End primary content styles */
-
-/*-----------------------------*/
-/* Reset Button Styles */
-/*-----------------------------*/
-.game-buttons__reset {
-	background: #c90835;
-	border-radius: 28px;
-	color: #ffffff;
-	font-size: 15px;
-	margin-left: 15px;
-	padding: 7px 15px 7px 15px;
-	text-decoration: none;
+.reset-button {
+	margin-left: 20px;
+	width: 20%;
 }
 
-/* End reset button styles */
+/* End primary content styles */
 
 /*-----------------------------*/
 /* Timeout Modal Styles */

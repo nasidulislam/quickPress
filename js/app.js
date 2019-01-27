@@ -8,12 +8,12 @@ define(function (require) {
 		password: '.password',
 
 		// buttons
-		resetButton: '.game-buttons__reset',
+		resetButton: '.reset-button.js-button',
 		lightsSlider: '.game-buttons__lights-slider',
 		loginButton: '.rules-modal__login-container .login-button.js-button',
 		signupButton: '.rules-modal__signup-container .signup-button.js-button',
 		timeoutModalButton: '.timeout-modal__content-button-container .timeout-modal__button',
-		endgameModalButton: '.endgame-modal__content-button-container .endgame-modal__button',
+		endgameModalButton: '.endgame-modal__content-button-container .endgame-modal__button.js-button',
 
 		// classes
 		gameStart: 'game-start'
