@@ -36,6 +36,7 @@ define(function (require) {
 				var row;
 				var elements = [];
 
+				$table.innerText = '';
 				var $container = document.createElement('div');
 				$container.className = 'container';
 
@@ -56,6 +57,12 @@ define(function (require) {
 
 				elements.forEach(function(el) {
 					$container.appendChild(el);
+				});
+
+				$container.childNodes.forEach(function(el, idx) {
+					if(idx > 5) {
+						$container.removeChild(el);
+					}
 				});
 
 				$table.insertAdjacentHTML('beforeend', $container.innerHTML);
@@ -87,6 +94,8 @@ define(function (require) {
 				$finalScore.textContent = '';
 				$remainingTriesElement.classList.remove(settings.redColorClass);
 				$endGameModalContainer.classList.remove(settings.congratulationsMsgClass);
+
+				db.getAllUserDataAndDo(privateMembers.buildLeaderboards);
 			},
 
 			toggleLight: function () {
@@ -149,8 +158,6 @@ define(function (require) {
 				$usernameDisplay.innerText = 'Hello ' + userData.username;
 
 				if(highScore) {publicMembers.setAndDisplayLocalHighScore(highScore)}
-
-				db.getAllUserDataAndDo(privateMembers.buildLeaderboards);
 			}
 		};
 
