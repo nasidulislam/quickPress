@@ -110,25 +110,6 @@ define(function (require) {
 				}
 			},
 
-			getCurrentLocation: function () {
-				var request = new XMLHttpRequest();
-				var $currentLocation = document.querySelector(settings.currentLocation);
-
-				request.onreadystatechange = function () {
-					if (request.readyState === 4) {
-						if (request.status === 200) {
-							var response = JSON.parse(request.responseText);
-							$currentLocation.innerHTML = response.city + ' ' + response.region + ', ' + response.country;
-						} else {
-							$currentLocation.innerHTML = 'Unable to determine current location';
-						}
-					}
-				};
-
-				request.open('Get', 'http://ipinfo.io/json');
-				request.send();
-			},
-
 			handleUserTimeout: function () {
 				clearTimeout(modalShowTimeout);
 				modalShowTimeout = setTimeout(function () {

@@ -58,11 +58,6 @@ define(function (require) {
 		}
 	}
 
-	function handleReload() {
-		util.reset();
-		util.getCurrentLocation();
-	}
-
 	function handleFormSubmit(event) {
 		event.preventDefault();
 
@@ -80,9 +75,9 @@ define(function (require) {
 
 	/* End Function Declarations */
 
+	util.reset();
 	/* Begin Event Listeners */
 
-	handleReload();
 	// click handlers
 	$lightSwitch.addEventListener('click', util.toggleLight);
 	$resetButton.addEventListener('click', util.reset);
