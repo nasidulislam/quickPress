@@ -13,18 +13,19 @@
 	width: 100%;
 }
 
-.game-leaderboards .game-leaderboards__table tr {
+.game-leaderboards .game-leaderboards__table .row {
+	display: flex;
 	height: 55px;
-	text-align: left;
+	justify-content: space-around;
 }
 
-.game-leaderboards .game-leaderboards__table tr:nth-child(odd) {
+.game-leaderboards .game-leaderboards__table .row .name,
+.game-leaderboards .game-leaderboards__table .row .score {
+	margin: auto 0;
+}
+
+.game-leaderboards .game-leaderboards__table .row:nth-child(odd) {
 	background-color: #EAF3F3;
-}
-
-.game-leaderboards .game-leaderboards__table th,
-.game-leaderboards .game-leaderboards__table td {
-	padding-left: 20px;
 }
 
 .game-leaderboards .game-leaderboards__table th {

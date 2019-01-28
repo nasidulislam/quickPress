@@ -12,13 +12,11 @@ define(function() {
             });
         },
 
-        getAllUserData: function() {
+        getAllUserDataAndDo: function(successCallback) {
             firebase.database()
                 .ref('users/')
                 .once('value')
-                .then(function(snapshot) {
-                    console.log(snapshot.val());
-            });
+                .then(successCallback);
         }
     }
 

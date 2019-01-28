@@ -20,6 +20,7 @@ define(function (require) {
 			displayUsernameClass: '.header-content .display-username',
 			displayHighscoreClass: '.header-content .display-highscore',
 			endGameModalClass: '.endgame-modal',
+			leaderboardsTable: '.game-leaderboards__table',
 
 
 			// classes
@@ -27,6 +28,36 @@ define(function (require) {
 			redColorClass: 'color-class-red',
 			timeoutVibrateClass: 'timeout-vibrate',
 			congratulationsMsgClass: 'show-congratulations'
+		},
+
+		privateMembers = {
+			buildLeaderboards: function(data) {
+				var $table = document.querySelector(settings.leaderboardsTable);
+				var users = data.val();
+				var usersArray = Object.keys(users);
+				var row;
+				var elements = [];
+
+				usersArray.forEach(function(key) {
+					if(users[key].highScore) {
+						row = "<div class='row'><div class='name'>" + users[key].username + "</div><div class='score'>" + users[key].highScore + "</div></div>";
+						$table.insertAdjacentHTML('beforeend', row);
+					}
+				});
+
+				$table.querySelectorAll('.row').forEach(function(el) {
+					elements.push(el);
+				});
+
+				$table.innerHTML = '';
+				elements.sort(function(a, b) {
+					return b.querySelector('.score').textContent - a.querySelector('.score').textContent;
+				});
+
+				elements.forEach(function(el) {
+					$table.appendChild(el);
+				});
+			}
 		},
 
 		// this is the variable that determines how long before timeout modal is diplaed
@@ -148,6 +179,8 @@ define(function (require) {
 				$usernameDisplay.innerText = 'Hello ' + userData.username;
 
 				if(highScore) {publicMembers.setAndDisplayLocalHighScore(highScore)}
+
+				db.getAllUserDataAndDo(privateMembers.buildLeaderboards);
 			}
 		};
 
