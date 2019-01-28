@@ -16,7 +16,6 @@ define(function (require) {
 			remainingTriesContainerClass: '.game-score__remaining-tries',
 			circlePoint: '.point',
 			currentLocation: '.current-location',
-			timeoutContainer: '.timeout-modal__body-content',
 			displayUsernameClass: '.header-content .display-username',
 			displayHighscoreClass: '.header-content .display-highscore',
 			endGameModalClass: '.endgame-modal',
@@ -26,11 +25,10 @@ define(function (require) {
 			// classes
 			lightsToggle: 'toggle-lights',
 			redColorClass: 'color-class-red',
-			timeoutVibrateClass: 'timeout-vibrate',
 			congratulationsMsgClass: 'show-congratulations'
-		},
+		};
 
-		privateMembers = {
+	var privateMembers = {
 			buildLeaderboards: function(data) {
 				var $table = document.querySelector(settings.leaderboardsTable);
 				var users = data.val();
@@ -58,13 +56,9 @@ define(function (require) {
 					$table.appendChild(el);
 				});
 			}
-		},
+		};
 
-		// this is the variable that determines how long before timeout modal is diplaed
-		// global variable has to be used to access clearTimeout
-		modalShowTimeout,
-
-		publicMembers = {
+	var publicMembers = {
 			reset: function () {
 				var $svgElement = document.getElementsByTagName('svg')[0];
 				var $scoreCard = document.querySelector(settings.scoreCardClass);
@@ -73,7 +67,6 @@ define(function (require) {
 				var $finalScore = document.querySelector(settings.finalScoreClass);
 				var $point = document.querySelector(settings.circlePoint);
 				var $remainingTriesElement = document.querySelector(settings.remainingTriesContainerClass);
-				var timeoutContainer = document.querySelector(settings.timeoutContainer);
 				var $endGameModalContainer = document.querySelector(settings.endGameModalClass);
 
 				// pause all svg animation on reset and set initial position to 0
@@ -89,7 +82,6 @@ define(function (require) {
 				$gameControls.classList.remove(settings.gameStart);
 				$finalScore.textContent = '';
 				$remainingTriesElement.classList.remove(settings.redColorClass);
-				timeoutContainer.classList.remove(settings.timeoutVibrateClass);
 				$endGameModalContainer.classList.remove(settings.congratulationsMsgClass);
 			},
 
@@ -108,13 +100,6 @@ define(function (require) {
 						$scoreCard.attributes.fill.value = 'white';
 						break;
 				}
-			},
-
-			handleUserTimeout: function () {
-				clearTimeout(modalShowTimeout);
-				modalShowTimeout = setTimeout(function () {
-					modals.showTimeoutModal();
-				}, 10000);
 			},
 
 			endGame: function () {
