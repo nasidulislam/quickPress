@@ -36,25 +36,29 @@ define(function (require) {
 				var row;
 				var elements = [];
 
+				var $container = document.createElement('div');
+				$container.className = 'container';
+
 				usersArray.forEach(function(key) {
 					if(users[key].highScore) {
 						row = "<div class='row'><div class='name'>" + users[key].username + "</div><div class='score'>" + users[key].highScore + "</div></div>";
-						$table.insertAdjacentHTML('beforeend', row);
+						$container.insertAdjacentHTML('beforeend', row);
 					}
 				});
 
-				$table.querySelectorAll('.row').forEach(function(el) {
+				$container.querySelectorAll('.row').forEach(function(el) {
 					elements.push(el);
 				});
 
-				$table.innerHTML = '';
 				elements.sort(function(a, b) {
 					return b.querySelector('.score').textContent - a.querySelector('.score').textContent;
 				});
 
 				elements.forEach(function(el) {
-					$table.appendChild(el);
+					$container.appendChild(el);
 				});
+
+				$table.insertAdjacentHTML('beforeend', $container.innerHTML);
 			}
 		};
 

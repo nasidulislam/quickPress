@@ -71,6 +71,7 @@ define(function (require) {
 	/* End Function Declarations */
 
 	util.reset();
+
 	/* Begin Event Listeners */
 
 	// click handlers
