@@ -5,18 +5,13 @@
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 100px;
-	width: 60%;
+	width: 80%;
 }
 
 .game-leaderboards .game-leaderboards__table .row,
 .game-leaderboards__table-header {
 	display: flex;
 	height: 55px;
-	justify-content: space-around;
-}
-
-.game-leaderboards__table-header {
-	display: flex;
 	justify-content: space-around;
 }
 
@@ -37,6 +32,16 @@
 
 .game-leaderboards__header-container .game-leaderboards__info-text {
 	margin-top: 1.2em;
+}
+
+.game-leaderboards__header {
+	color: #167F92;
+}
+
+.game-leaderboards__table-header {
+	background-color: #167F92;
+	color: #fff;
+	font-size: 20px;
 }
 
 /* End game leaderboards styles */
