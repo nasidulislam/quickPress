@@ -28,17 +28,8 @@
 	background-color: #EAF3F3;
 }
 
-.game-leaderboards .game-leaderboards__table th {
-	background-color: #167F92;
-	color: #fff;
-}
-
 .game-leaderboards__header {
 	color: #167F92;
-}
-
-.game-leaderboards__current-location {
-	margin-bottom: 15px;
 }
 
 /* End game leaderboards styles */
