@@ -52,7 +52,8 @@
 
 .game-buttons .reset-button {
 	margin-left: 20px;
-	width: 20%;
+	max-width: 150px;
+	width: 30%;
 }
 
 /* End primary content styles */
