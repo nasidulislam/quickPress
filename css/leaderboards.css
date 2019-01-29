@@ -8,19 +8,21 @@
 	width: 60%;
 }
 
-.game-leaderboards__table {
-	border-collapse: collapse;
-	width: 100%;
-}
-
-.game-leaderboards .game-leaderboards__table .row {
+.game-leaderboards .game-leaderboards__table .row,
+.game-leaderboards__table-header {
 	display: flex;
 	height: 55px;
 	justify-content: space-around;
 }
 
+.game-leaderboards__table-header {
+	display: flex;
+	justify-content: space-around;
+}
+
 .game-leaderboards .game-leaderboards__table .row .name,
-.game-leaderboards .game-leaderboards__table .row .score {
+.game-leaderboards .game-leaderboards__table .row .score,
+.game-leaderboards__header-row {
 	margin: auto 0;
 }
 
@@ -28,8 +30,13 @@
 	background-color: #EAF3F3;
 }
 
-.game-leaderboards__header {
-	color: #167F92;
+.game-leaderboards__header-container {
+	display: flex;
+	justify-content: space-between;
+}
+
+.game-leaderboards__header-container .game-leaderboards__info-text {
+	margin-top: 1.2em;
 }
 
 /* End game leaderboards styles */
