@@ -50,30 +50,12 @@
 	text-align: center;
 }
 
-.reset-button {
+.game-buttons .reset-button {
 	margin-left: 20px;
 	width: 20%;
 }
 
 /* End primary content styles */
-
-/*-----------------------------*/
-/* Timeout Modal Styles */
-/*-----------------------------*/
-.timeout-modal__content-header {
-	color: #c90835;
-	text-align: center;
-}
-
-.timeout-modal__body {
-	margin-top: 35px;
-	text-align: center;
-}
-
-.timeout-modal__body-content {
-	font-size: 25px;
-}
-/* End Timeout Modal styles */
 
 /*-----------------------------*/
 /* Miscellaneous Styles */
@@ -93,14 +75,6 @@
 	animation-iteration-count: 1;
 	animation-timing-function: linear;
 	color: green;
-}
-
-.timeout-vibrate {
-	animation-name: vibrate;
-	animation-duration: 800ms;
-	animation-iteration-count: infinite;
-	animation-timing-function: linear;
-	color: #c90835;
 }
 
 .color-class-red {

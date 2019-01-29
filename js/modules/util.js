@@ -16,23 +16,60 @@ define(function (require) {
 			remainingTriesContainerClass: '.game-score__remaining-tries',
 			circlePoint: '.point',
 			currentLocation: '.current-location',
-			timeoutContainer: '.timeout-modal__body-content',
 			displayUsernameClass: '.header-content .display-username',
 			displayHighscoreClass: '.header-content .display-highscore',
 			endGameModalClass: '.endgame-modal',
+			leaderboardsTable: '.game-leaderboards__table',
 
 
 			// classes
 			lightsToggle: 'toggle-lights',
 			redColorClass: 'color-class-red',
-			timeoutVibrateClass: 'timeout-vibrate'
-		},
+			congratulationsMsgClass: 'show-congratulations'
+		};
 
-		// this is the variable that determines how long before timeout modal is diplaed
-		// global variable has to be used to access clearTimeout
-		modalShowTimeout,
+	var privateMembers = {
+			buildLeaderboards: function(data) {
+				var $table = document.querySelector(settings.leaderboardsTable);
+				var users = data.val();
+				var usersArray = Object.keys(users);
+				var row;
+				var elements = [];
 
-		publicMembers = {
+				$table.innerText = '';
+				var $container = document.createElement('div');
+				$container.className = 'container';
+
+				usersArray.forEach(function(key) {
+					if(users[key].highScore) {
+						row = "<div class='row'><div class='name'>" + users[key].username + "</div><div class='score'>" + users[key].highScore + "</div></div>";
+						$container.insertAdjacentHTML('beforeend', row);
+					}
+				});
+
+				$container.querySelectorAll('.row').forEach(function(el) {
+					elements.push(el);
+				});
+
+				elements.sort(function(a, b) {
+					return b.querySelector('.score').textContent - a.querySelector('.score').textContent;
+				});
+
+				elements.forEach(function(el) {
+					$container.appendChild(el);
+				});
+
+				$container.childNodes.forEach(function(el, idx) {
+					if(idx > 5) {
+						$container.removeChild(el);
+					}
+				});
+
+				$table.insertAdjacentHTML('beforeend', $container.innerHTML);
+			}
+		};
+
+	var publicMembers = {
 			reset: function () {
 				var $svgElement = document.getElementsByTagName('svg')[0];
 				var $scoreCard = document.querySelector(settings.scoreCardClass);
@@ -41,7 +78,7 @@ define(function (require) {
 				var $finalScore = document.querySelector(settings.finalScoreClass);
 				var $point = document.querySelector(settings.circlePoint);
 				var $remainingTriesElement = document.querySelector(settings.remainingTriesContainerClass);
-				var timeoutContainer = document.querySelector(settings.timeoutContainer);
+				var $endGameModalContainer = document.querySelector(settings.endGameModalClass);
 
 				// pause all svg animation on reset and set initial position to 0
 				$svgElement.pauseAnimations();
@@ -56,7 +93,9 @@ define(function (require) {
 				$gameControls.classList.remove(settings.gameStart);
 				$finalScore.textContent = '';
 				$remainingTriesElement.classList.remove(settings.redColorClass);
-				timeoutContainer.classList.remove(settings.timeoutVibrateClass);
+				$endGameModalContainer.classList.remove(settings.congratulationsMsgClass);
+
+				db.getAllUserDataAndDo(privateMembers.buildLeaderboards);
 			},
 
 			toggleLight: function () {
@@ -76,32 +115,6 @@ define(function (require) {
 				}
 			},
 
-			getCurrentLocation: function () {
-				var request = new XMLHttpRequest();
-				var $currentLocation = document.querySelector(settings.currentLocation);
-
-				request.onreadystatechange = function () {
-					if (request.readyState === 4) {
-						if (request.status === 200) {
-							var response = JSON.parse(request.responseText);
-							$currentLocation.innerHTML = response.city + ' ' + response.region + ', ' + response.country;
-						} else {
-							$currentLocation.innerHTML = 'Unable to determine current location';
-						}
-					}
-				};
-
-				request.open('Get', 'http://ipinfo.io/json');
-				request.send();
-			},
-
-			handleUserTimeout: function () {
-				clearTimeout(modalShowTimeout);
-				modalShowTimeout = setTimeout(function () {
-					modals.showTimeoutModal();
-				}, 10000);
-			},
-
 			endGame: function () {
 				var finalScore = score.getCurrentScore(document.querySelector(settings.scoreCardClass));
 				var username = publicMembers.getLocalValue('username');
@@ -114,7 +127,7 @@ define(function (require) {
 					highScore = finalScore;
 					db.saveHighScoreToDb(username, highScore);
 					publicMembers.setAndDisplayLocalHighScore(highScore);
-					document.querySelector(settings.endGameModalClass).classList.add('show-congratulations');
+					document.querySelector(settings.endGameModalClass).classList.add(settings.congratulationsMsgClass);
 				}
 
 				db.saveScoreToDb(username, finalScore);
@@ -145,10 +158,6 @@ define(function (require) {
 				$usernameDisplay.innerText = 'Hello ' + userData.username;
 
 				if(highScore) {publicMembers.setAndDisplayLocalHighScore(highScore)}
-			},
-
-			getState: function(userId) {
-				return JSON.parse(localStorage.getItem(userId));
 			}
 		};
 
