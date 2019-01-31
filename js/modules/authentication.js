@@ -20,7 +20,7 @@ define(function(require) {
                 username: username,
                 password: password,
                 userId: userId
-            }
+            };
 
             firebase.database()
                 .ref('users/' + username + '/')
@@ -73,11 +73,11 @@ define(function(require) {
                             form.classList.add(settings.dbCheckErrorClass);
                         }
                     }
-                }, function(error) {
+                }, function() {
                     console.log('error');
             });
         }
-    }
+    };
 
     return publicMembers;
 });

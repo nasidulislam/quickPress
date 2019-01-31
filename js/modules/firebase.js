@@ -18,7 +18,7 @@ define(function() {
                 .once('value')
                 .then(successCallback);
         }
-    }
+    };
 
     return publicMembers;
 });

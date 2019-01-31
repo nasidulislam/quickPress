@@ -26,7 +26,7 @@ define(function () {
 	};
 
 	var publicMembers = {
-		closeRulesModal: function (username) {
+		closeRulesModal: function () {
 			privateMembers.closeModal(settings.rulesModalContainer);
 		},
 
